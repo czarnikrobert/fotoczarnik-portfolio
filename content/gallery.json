@@ -1,0 +1,15 @@
+{
+  "categories": ["Krajobraz", "Ulica", "Portret", "Kultura"],
+  "photos": [
+    { "id": "g01", "category": "Krajobraz", "src": "https://picsum.photos/seed/wl-g01/900/1200", "alt": "Górski krajobraz o wschodzie słońca", "caption": "Islandia — Vestrahorn, 2026", "featured": true },
+    { "id": "g02", "category": "Ulica", "src": "https://picsum.photos/seed/wl-g02/900/1200", "alt": "Uliczna scena w azjatyckim mieście", "caption": "Hanoi, Wietnam — 2026", "featured": true },
+    { "id": "g03", "category": "Portret", "src": "https://picsum.photos/seed/wl-g03/900/1200", "alt": "Portret w naturalnym świetle", "caption": "Marrakesz, Maroko — 2025", "featured": true },
+    { "id": "g04", "category": "Kultura", "src": "https://picsum.photos/seed/wl-g04/900/1200", "alt": "Lokalny targ i architektura", "caption": "Kioto, Japonia — 2025", "featured": true },
+    { "id": "g05", "category": "Krajobraz", "src": "https://picsum.photos/seed/wl-g05/900/1200", "alt": "Mgła nad doliną", "caption": "Dolomity, Włochy — 2025", "featured": true },
+    { "id": "g06", "category": "Ulica", "src": "https://picsum.photos/seed/wl-g06/900/1200", "alt": "Nocna ulica z neonami", "caption": "Osaka, Japonia — 2025", "featured": true },
+    { "id": "g07", "category": "Portret", "src": "https://picsum.photos/seed/wl-g07/900/1200", "alt": "Portret rzemieślnika przy pracy", "caption": "Fez, Maroko — 2025", "featured": false },
+    { "id": "g08", "category": "Krajobraz", "src": "https://picsum.photos/seed/wl-g08/900/1200", "alt": "Wybrzeże o zachodzie słońca", "caption": "Algarve, Portugalia — 2024", "featured": false },
+    { "id": "g09", "category": "Kultura", "src": "https://picsum.photos/seed/wl-g09/900/1200", "alt": "Świątynia w porannej mgle", "caption": "Chiang Mai, Tajlandia — 2024", "featured": false },
+    { "id": "g10", "category": "Ulica", "src": "https://picsum.photos/seed/wl-g10/900/1200", "alt": "Rynek miejski o poranku", "caption": "Kraków, Polska — 2024", "featured": false }
+  ]
+}

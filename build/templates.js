@@ -1,0 +1,120 @@
+// templates.js — pure string-template functions used by build.js
+
+const NAV_ITEMS = [
+  { href: '/index.html', label: 'Start', key: 'home' },
+  { href: '/portfolio.html', label: 'Portfolio', key: 'portfolio' },
+  { href: '/blog.html', label: 'Blog', key: 'blog' },
+  { href: '/about.html', label: 'O mnie', key: 'about' },
+  { href: '/contact.html', label: 'Kontakt', key: 'contact' },
+];
+
+export function nav(active, site) {
+  const links = NAV_ITEMS.map(
+    (item) =>
+      `<li><a href="${item.href}"${item.key === active ? ' class="active"' : ''}>${item.label}</a></li>`
+  ).join('\n      ');
+
+  return `
+  <nav class="nav" id="nav">
+    <a href="/index.html" class="nav__logo">${site.name}<span>.</span></a>
+    <ul class="nav__links" id="navLinks">
+      ${links}
+    </ul>
+    <button class="nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>`;
+}
+
+export function footer(site) {
+  return `
+  <footer class="footer">
+    <span>© ${new Date().getFullYear()} ${site.name} — ${site.author}</span>
+    <div class="footer__social">
+      ${site.social.instagram ? `<a href="${site.social.instagram}" target="_blank" rel="noopener">Instagram</a>` : ''}
+      ${site.social.youtube ? `<a href="${site.social.youtube}" target="_blank" rel="noopener">YouTube</a>` : ''}
+    </div>
+  </footer>`;
+}
+
+export function layout({ title, description, active, site, bodyHtml, bodyClass = '' }) {
+  return `<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title} — ${site.name}</title>
+<meta name="description" content="${description || site.description}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/animations.css">
+</head>
+<body class="${bodyClass}">
+${nav(active, site)}
+${bodyHtml}
+${footer(site)}
+<script src="/assets/js/core.js" defer></script>
+<script src="/assets/js/animations.js" defer></script>
+<script src="/assets/js/gallery.js" defer></script>
+</body>
+</html>`;
+}
+
+export function postCard(post) {
+  const date = new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+  return `
+      <a class="post-card" href="/blog/${post.slug}.html" data-reveal>
+        <div class="post-card__media">
+          <img src="${post.cover}" alt="${post.title}" loading="lazy">
+        </div>
+        <span class="post-card__date">${date}</span>
+        <h3 class="post-card__title">${post.title}</h3>
+        <p class="post-card__excerpt">${post.excerpt}</p>
+      </a>`;
+}
+
+export function galleryItem(photo) {
+  return `
+      <div class="gallery-item" data-reveal data-category="${photo.category}" data-full="${photo.src}" data-caption="${photo.caption}" data-alt="${photo.alt}">
+        <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+        <div class="gallery-item__caption">${photo.caption}</div>
+      </div>`;
+}
+
+export function lightboxMarkup() {
+  return `
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__prev" id="lightboxPrev" aria-label="Poprzednie zdjęcie">‹</button>
+    <figure class="lightbox__figure">
+      <img id="lightboxImage" src="" alt="">
+      <figcaption class="lightbox__caption" id="lightboxCaption"></figcaption>
+    </figure>
+    <button class="lightbox__next" id="lightboxNext" aria-label="Następne zdjęcie">›</button>
+    <button class="lightbox__close" id="lightboxClose" aria-label="Zamknij">✕</button>
+  </div>`;
+}
+
+export function contactForm(site) {
+  return `
+      <form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks.html">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="form__honeypot">
+          <label>Nie wypełniaj tego pola: <input name="company" tabindex="-1" autocomplete="off"></label>
+        </p>
+        <div class="form__field">
+          <label for="name">Imię</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form__field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form__field">
+          <label for="message">Wiadomość</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary">Wyślij wiadomość</button>
+      </form>`;
+}
