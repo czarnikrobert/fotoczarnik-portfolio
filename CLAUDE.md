@@ -85,17 +85,13 @@ Tak przeniesiono placeholdery „Krajobraz" na realne zdjęcia (18 plików z `Pi
 4. Poproś o lokalizacje per numer zdjęcia w czacie, zaktualizuj `alt`/`caption` w `gallery.json`.
 5. Usuń plik podglądowy z `public/` (i tak zniknie przy kolejnym `npm run build`, bo `build()` czyści cały katalog).
 
-## Połączenie z GitHub i Netlify (jednorazowo, ręcznie)
+## GitHub i Netlify — połączone i działające
 
-1. Załóż puste repozytorium na GitHub (bez README/licencji, żeby uniknąć konfliktów).
-2. Podepnij lokalne repo i wypchnij:
-   ```bash
-   git remote add origin <adres-twojego-repo-na-githubie>
-   git push -u origin main
-   ```
-3. Wejdź na [netlify.com](https://netlify.com), zaloguj się, wybierz „Add new site → Import an existing project" i wskaż to repozytorium GitHub.
-4. Netlify sam wykryje ustawienia z `netlify.toml` (`npm run build`, katalog `public`) — potwierdź i wdróż.
-5. Od tego momentu każdy `git push` na branch główny automatycznie aktualizuje żywą stronę.
+- **Repo:** https://github.com/czarnikrobert/fotoczarnik-portfolio (konto `czarnikrobert`, `gh` CLI zainstalowane i zalogowane lokalnie via keyring)
+- **Live URL:** https://fotoczarnik-portfolio.netlify.app (Netlify project `fotoczarnik-portfolio`, site_id `84f0fdfe-72d6-475a-8521-2b86c37745e4`, team `6964dd999fde5a84d68b0e8a`)
+- Netlify jest podłączony do repo GitHub (ciągłe wdrażanie) — **każdy `git push` na branch `main` automatycznie buduje (`npm run build`) i publikuje nową wersję**.
+- Workflow po każdej zmianie treści/kodu: `npm run build` (lokalny podgląd) → `git add -A && git commit -m "..."` → `git push` → Netlify sam wdroży w ~1 minutę.
+- Do sprawdzania stanu wdrożenia z poziomu Claude Code dostępne jest MCP Netlify (`mcp__903416a6-...__netlify-project-services-reader`, operacja `get-project` z powyższym `siteId`) — `currentDeploy.state: "ready"` oznacza sukces.
 
 ## Formularz kontaktowy
 
