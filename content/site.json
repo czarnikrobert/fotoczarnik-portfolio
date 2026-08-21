@@ -1,11 +1,11 @@
 {
-  "name": "Wanderlens",
+  "name": "FotoCzarnik",
   "tagline": "Fotografia i podróże",
-  "author": "Twoje Imię i Nazwisko",
+  "author": "Robert Czarnik",
   "email": "kontakt@twoja-domena.pl",
   "social": {
-    "instagram": "https://instagram.com/",
-    "youtube": "https://youtube.com/"
+    "instagram": "https://www.instagram.com/leicamobile/",
+    "facebook": "https://www.facebook.com/czarnikrobert"
   },
   "description": "Portfolio fotografii podróżniczej — zdjęcia, historie i notatki z drogi."
 }

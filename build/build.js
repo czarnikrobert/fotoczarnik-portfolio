@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { layout, postCard, galleryItem, lightboxMarkup, contactForm } from './templates.js';
+import { layout, postCard, lightboxMarkup, contactForm, timeline, carousel } from './templates.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -38,6 +38,10 @@ function loadGallery() {
   return fs.readJsonSync(path.join(CONTENT, 'gallery.json'));
 }
 
+function loadGearTimeline() {
+  return fs.readJsonSync(path.join(CONTENT, 'gear-timeline.json'));
+}
+
 function write(relPath, html) {
   const outPath = path.join(PUBLIC, relPath);
   fs.ensureDirSync(path.dirname(outPath));
@@ -68,13 +72,16 @@ function build() {
 
   <section class="container">
     <div class="grid-2">
-      <div data-reveal>
-        <img src="${home.introImage}" alt="Portret autora" style="border-radius: var(--radius-lg);" loading="lazy">
+      <div class="parallax-media" data-reveal>
+        <img data-parallax src="${home.introImage}" alt="Portret autora" loading="eager">
       </div>
       <div data-reveal>
         <span class="eyebrow">${home.introEyebrow}</span>
         <h2>${home.introTitle}</h2>
-        <p>${home.introText}</p>
+        ${home.introText
+          .split(/\n\s*\n/)
+          .map((p) => `<p>${p.trim()}</p>`)
+          .join('\n        ')}
         <a href="/about.html" class="btn" style="margin-top: 1rem;">Poznaj mnie bliżej</a>
       </div>
     </div>
@@ -85,8 +92,8 @@ function build() {
       <span class="eyebrow">Portfolio</span>
       <h2>Wybrane kadry</h2>
     </div>
-    <div class="gallery-grid" data-reveal-group style="margin-top: 2.5rem;">
-      ${featuredPhotos.map(galleryItem).join('\n')}
+    <div style="margin-top: 2.5rem;">
+      ${carousel({ id: 'homeGalleryCarousel', items: featuredPhotos, extraAttrs: 'data-reveal-group' })}
     </div>
     <a href="/portfolio.html" class="btn" style="margin-top: 2.5rem;">Zobacz całe portfolio</a>
   </section>
@@ -104,25 +111,34 @@ function build() {
 
   write(
     'index.html',
-    layout({ title: home.title, description: site.description, active: 'home', site, bodyHtml: homeBody })
+    layout({ title: 'Start', description: site.description, active: 'home', site, bodyHtml: homeBody })
   );
 
   // ---------- About ----------
   const about = loadPage('about');
+  const gearTimeline = loadGearTimeline();
   const aboutBody = `
   <section class="page-header container">
     <span class="eyebrow">${about.data.eyebrow}</span>
     <h1>${about.data.title}</h1>
   </section>
   <section class="container">
-    <div class="grid-2">
-      <div data-reveal>
-        <img src="${about.data.portrait}" alt="Portret" style="border-radius: var(--radius-lg);" loading="lazy">
+    <div class="grid-2 grid-2--top">
+      <div class="parallax-media" data-reveal>
+        <img data-parallax src="${about.data.portrait}" alt="Portret" loading="eager">
       </div>
-      <div class="post-body" data-reveal>
+      <div class="post-body about-copy" data-reveal>
         ${marked.parse(about.content)}
       </div>
     </div>
+  </section>
+  <section class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Od 1978 do dziś</span>
+      <h2>Historia sprzętu</h2>
+      <p>Chronologiczny przegląd aparatów, które towarzyszyły mi po drodze — od pierwszej sowieckiej „Smieny” po obecnego Canona.</p>
+    </div>
+    ${timeline(gearTimeline)}
   </section>`;
 
   write(
@@ -146,9 +162,7 @@ function build() {
         )
         .join('\n      ')}
     </div>
-    <div class="gallery-grid" id="galleryGrid" data-reveal-group>
-      ${gallery.photos.map(galleryItem).join('\n')}
-    </div>
+    ${carousel({ id: 'galleryGrid', items: gallery.photos, extraAttrs: 'data-reveal-group' })}
   </section>
   ${lightboxMarkup()}`;
 
@@ -161,7 +175,7 @@ function build() {
   const blogBody = `
   <section class="page-header container">
     <span class="eyebrow">Blog</span>
-    <h1>Historie z drogi</h1>
+    <h1>BLOG</h1>
   </section>
   <section class="container">
     <div class="post-grid">
@@ -179,14 +193,15 @@ function build() {
       year: 'numeric',
     });
     const postBody = `
+  <div class="reading-progress" id="readingProgress"></div>
   <article>
     <header class="page-header post-header container">
       <span class="eyebrow">${date}</span>
       <h1>${post.title}</h1>
     </header>
     <div class="container">
-      <div class="post-cover">
-        <img src="${post.cover}" alt="${post.title}" loading="eager">
+      <div class="post-cover parallax-media">
+        <img data-parallax src="${post.cover}" alt="${post.title}" loading="eager">
       </div>
       <div class="post-body" data-reveal>
         ${post.bodyHtml}

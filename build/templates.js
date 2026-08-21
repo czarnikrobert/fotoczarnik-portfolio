@@ -16,7 +16,10 @@ export function nav(active, site) {
 
   return `
   <nav class="nav" id="nav">
-    <a href="/index.html" class="nav__logo">${site.name}<span>.</span></a>
+    <a href="/index.html" class="nav__logo">
+      <img src="/assets/images/brand/logo.png" alt="" class="nav__logo-mark">
+      <span class="nav__logo-text">${site.name}</span>
+    </a>
     <ul class="nav__links" id="navLinks">
       ${links}
     </ul>
@@ -32,7 +35,7 @@ export function footer(site) {
     <span>© ${new Date().getFullYear()} ${site.name} — ${site.author}</span>
     <div class="footer__social">
       ${site.social.instagram ? `<a href="${site.social.instagram}" target="_blank" rel="noopener">Instagram</a>` : ''}
-      ${site.social.youtube ? `<a href="${site.social.youtube}" target="_blank" rel="noopener">YouTube</a>` : ''}
+      ${site.social.facebook ? `<a href="${site.social.facebook}" target="_blank" rel="noopener">Facebook</a>` : ''}
     </div>
   </footer>`;
 }
@@ -45,6 +48,7 @@ export function layout({ title, description, active, site, bodyHtml, bodyClass =
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${title} — ${site.name}</title>
 <meta name="description" content="${description || site.description}">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/assets/css/main.css">
@@ -58,8 +62,46 @@ ${footer(site)}
 <script src="/assets/js/core.js" defer></script>
 <script src="/assets/js/animations.js" defer></script>
 <script src="/assets/js/gallery.js" defer></script>
+<script src="/assets/js/timeline.js" defer></script>
 </body>
 </html>`;
+}
+
+export function timeline(items) {
+  return `
+      <div class="timeline">
+        <div class="timeline__line" aria-hidden="true"></div>
+        ${items.map(timelineItem).join('\n')}
+      </div>`;
+}
+
+function timelineItem(entry) {
+  const hasMore = Boolean(entry.quote) || (entry.fullDescription && entry.fullDescription.length > 0);
+  return `
+        <div class="timeline__item" data-reveal>
+          <span class="timeline__dot" aria-hidden="true"></span>
+          <span class="timeline__year">${entry.year}</span>
+          <div class="timeline__content">
+            <button type="button" class="timeline__toggle" aria-expanded="false" ${hasMore ? '' : 'disabled'}>
+              <span class="timeline__toggle-text">
+                <span class="timeline__category">${entry.category}</span>
+                <h3 class="timeline__name">${entry.name}</h3>
+              </span>
+              ${hasMore ? '<span class="timeline__chevron" aria-hidden="true"></span>' : ''}
+            </button>
+            <p class="timeline__desc">${entry.description}</p>
+            ${
+              hasMore
+                ? `<div class="timeline__full">
+              <div class="timeline__full-inner">
+                ${entry.quote ? `<p class="timeline__quote">„${entry.quote}”</p>` : ''}
+                ${(entry.fullDescription || []).map((p) => `<p>${p}</p>`).join('\n                ')}
+              </div>
+            </div>`
+                : ''
+            }
+          </div>
+        </div>`;
 }
 
 export function postCard(post) {
@@ -73,6 +115,17 @@ export function postCard(post) {
         <h3 class="post-card__title">${post.title}</h3>
         <p class="post-card__excerpt">${post.excerpt}</p>
       </a>`;
+}
+
+export function carousel({ id, items, extraClass = '', extraAttrs = '' }) {
+  return `
+    <div class="carousel">
+      <button class="carousel__arrow carousel__arrow--prev" data-carousel-prev aria-label="Poprzednie zdjęcia">‹</button>
+      <div class="gallery-grid ${extraClass}" id="${id}" ${extraAttrs}>
+        ${items.map(galleryItem).join('\n')}
+      </div>
+      <button class="carousel__arrow carousel__arrow--next" data-carousel-next aria-label="Następne zdjęcia">›</button>
+    </div>`;
 }
 
 export function galleryItem(photo) {

@@ -1,4 +1,4 @@
-# Wanderlens — portfolio fotografii i podróży
+# FotoCzarnik — portfolio fotografii i podróży
 
 Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
 

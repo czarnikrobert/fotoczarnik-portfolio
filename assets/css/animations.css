@@ -1,5 +1,5 @@
 /* ==========================================================================
-   animations.css — keyframes, scroll-reveal, page transitions
+   animations.css — keyframes, scroll-reveal, page transitions, parallax
    ========================================================================== */
 
 /* ---------- Scroll-hint ---------- */
@@ -10,29 +10,44 @@
   100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
 }
 
-/* ---------- Base reveal state (JS adds .is-visible via IntersectionObserver) ---------- */
+/* ---------- Base reveal state ----------
+   Safe-by-default: content is fully visible unless the early inline script
+   in <head> (document.documentElement.classList.add('js')) has already run
+   AND confirmed by adding the `js` class to <html>. This means a blocked,
+   slow, or failed script can never leave real content permanently hidden —
+   the hidden/animated state is strictly opt-in, not opt-out. */
 [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+html.js [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+  transform: translateY(28px) scale(0.97);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
   will-change: transform, opacity;
 }
 
-[data-reveal].is-visible {
+html.js [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 /* staggered children */
 [data-reveal-group] > * {
+  opacity: 1;
+  transform: none;
+}
+
+html.js [data-reveal-group] > * {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(24px) scale(0.97);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
-[data-reveal-group].is-visible > * {
+html.js [data-reveal-group].is-visible > * {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 [data-reveal-group].is-visible > *:nth-child(1) { transition-delay: 0.02s; }
@@ -43,25 +58,80 @@
 [data-reveal-group].is-visible > *:nth-child(6) { transition-delay: 0.37s; }
 [data-reveal-group].is-visible > *:nth-child(n+7) { transition-delay: 0.42s; }
 
+/* ---------- Parallax media (about portrait, intro image, post cover) ---------- */
+.parallax-media {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.parallax-media img {
+  transform: scale(1.15);
+  will-change: transform;
+}
+
+/* ---------- Gallery tilt-on-hover (JS sets --tilt-x / --tilt-y) ---------- */
+.gallery-grid {
+  perspective: 1200px;
+}
+
+.gallery-item {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  transform-style: preserve-3d;
+}
+
+.gallery-item:hover {
+  box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Nav entrance ---------- */
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav {
+  animation: nav-in 0.8s var(--ease-out) both;
+}
+
+/* ---------- Reading progress (blog posts) ---------- */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--color-accent);
+  z-index: 150;
+  transition: width 0.1s linear;
+}
+
 /* ---------- Native cross-document View Transitions (progressive enhancement) ---------- */
 @view-transition {
   navigation: auto;
 }
 
 ::view-transition-old(root) {
-  animation: page-out 0.35s var(--ease-out) forwards;
+  animation: page-out 0.4s var(--ease-out) forwards;
 }
 
 ::view-transition-new(root) {
-  animation: page-in 0.45s var(--ease-out) backwards;
+  animation: page-in 0.5s var(--ease-out) backwards;
 }
 
 @keyframes page-out {
-  to { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 0; transform: translateY(-18px) scale(0.99); }
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(18px) scale(0.99); }
+}
+
+/* ---------- Lightbox image cross-fade (see gallery.js) ---------- */
+#lightboxImage {
+  transition: opacity 0.25s var(--ease-out);
 }
 
 /* ---------- Reduced motion ---------- */
@@ -76,6 +146,14 @@
   [data-reveal],
   [data-reveal-group] > * {
     opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .parallax-media img {
+    transform: none !important;
+  }
+
+  .gallery-item {
     transform: none !important;
   }
 }
