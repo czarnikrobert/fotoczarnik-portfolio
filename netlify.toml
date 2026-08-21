@@ -8,4 +8,7 @@
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    # Short, revalidate-friendly cache — filenames here don't change when
+    # content does, so a long/immutable cache would hide future edits from
+    # returning visitors (including us, testing changes) for up to a year.
+    Cache-Control = "public, max-age=600, must-revalidate"
