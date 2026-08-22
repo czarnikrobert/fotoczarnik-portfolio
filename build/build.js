@@ -192,6 +192,8 @@ function build() {
       month: 'long',
       year: 'numeric',
     });
+    const postUrl = `${site.url}/blog/${post.slug}`;
+    const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
     const postBody = `
   <div class="reading-progress" id="readingProgress"></div>
   <article>
@@ -205,14 +207,25 @@ function build() {
       </div>
       <div class="post-body" data-reveal>
         ${post.bodyHtml}
-        <p style="margin-top: 3rem;"><a href="/blog.html" class="btn">← Wróć do bloga</a></p>
+        <div class="post-footer" style="margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="/blog.html" class="btn">← Wróć do bloga</a>
+          <a href="${fbShareUrl}" class="btn btn--share" target="_blank" rel="noopener" onclick="window.open(this.href,'fbshare','width=600,height=500');return false;">Udostępnij na Facebooku</a>
+        </div>
       </div>
     </div>
   </article>`;
 
     write(
       `blog/${post.slug}.html`,
-      layout({ title: post.title, description: post.excerpt, active: 'blog', site, bodyHtml: postBody })
+      layout({
+        title: post.title,
+        description: post.excerpt,
+        active: 'blog',
+        site,
+        bodyHtml: postBody,
+        image: post.cover,
+        url: postUrl,
+      })
     );
   });
 
