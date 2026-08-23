@@ -2,7 +2,7 @@
    main.css — reset, design tokens, base typography
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Noto+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
   /* Colors — dark & moody */
@@ -18,9 +18,8 @@
   --color-accent-dim:  #8a6636;
 
   /* Typography */
-  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-display: 'Noto Sans', 'Tahoma', 'Segoe UI', sans-serif;
   --font-sans:    'Outfit', system-ui, -apple-system, sans-serif;
-  --font-post-heading: 'Noto Sans', 'Tahoma', 'Segoe UI', sans-serif;
 
   /* Spacing / layout */
   --space-section: clamp(5rem, 12vw, 9rem);
