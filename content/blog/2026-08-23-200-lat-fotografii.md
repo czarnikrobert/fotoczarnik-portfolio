@@ -6,6 +6,8 @@ cover: "/assets/images/blog/200-lat-fotografii-niepce.jpg"
 ---
 Fotografia nie powstała w jednej chwili. Przez dwa stulecia przechodziła od chemicznego eksperymentu i wielogodzinnego naświetlania do natychmiastowej, cyfrowej rozmowy z całym światem. Ta historia jest opowieścią o technologii, ale przede wszystkim o zmianie naszego sposobu patrzenia.
 
+Światowy Dzień Fotografii, obchodzony 19 sierpnia, jest dobrą okazją, by spojrzeć na medium, które dziś wydaje się tak oczywiste jak oddech. Wystarczy jednak cofnąć się o kilka pokoleń, aby zobaczyć, że każde naciśnięcie migawki nosi w sobie ślad chemii, optyki, przemysłu i ludzkiej potrzeby zachowania chwili.
+
 ## Zanim pojawiła się fotografia: obraz w camera obscura
 
 Początek tej historii leży nie w aparacie, lecz w ciemnym pomieszczeniu. Zasada camera obscura — odwrócony obraz wpadający przez mały otwór do zaciemnionego wnętrza — była znana od stuleci i pomagała artystom obserwować perspektywę. Brakowało jednak sposobu, aby światło nie tylko narysowało obraz, ale także pozostawiło go na trwałe. To właśnie połączenie optyki z materiałem światłoczułym stało się prawdziwym przełomem.
