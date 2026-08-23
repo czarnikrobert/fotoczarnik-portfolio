@@ -10,13 +10,13 @@ Fotografia nie powstała w jednej chwili. Przez dwa stulecia przechodziła od ch
 
 ## Zanim pojawiła się fotografia: obraz w camera obscura
 
-Początek tej historii leży nie w aparacie, lecz w ciemnym pomieszczeniu. Zasada camera obscura — odwrócony obraz wpadający przez mały otwór do zaciemnionego wnętrza — była znana od stuleci i pomagała artystom obserwować perspektywę. Brakowało jednak sposobu, aby światło nie tylko narysowało obraz, ale także pozostawiło go na trwałe. To właśnie połączenie optyki z materiałem światłoczułym stało się prawdziwym przełomem.
+Początek tej historii leży nie w aparacie, lecz w ciemnym pomieszczeniu. Zasada działania camera obscura — odwrócony obraz wpadający przez mały otwór do zaciemnionego wnętrza — była znana od stuleci i pomagała artystom obserwować perspektywę. Brakowało jednak sposobu, aby światło nie tylko narysowało obraz, ale także pozostawiło go na trwałe. To właśnie połączenie optyki z materiałem światłoczułym stało się prawdziwym przełomem.
 
 W latach 20. XIX wieku Joseph Nicéphore Niépce eksperymentował z bitumem na metalowej płytce. Efektem był widok z okna jego domu w Le Gras: surowy, trudny do odczytania, lecz przełomowy. Długie naświetlanie oznaczało, że fotografia nie umiała jeszcze zatrzymać gestu ani twarzy. Potrafiła za to po raz pierwszy przekonać świat, że promienie słońca mogą samodzielnie wykonać obraz.
 
 ## 1839: kiedy fotografia została ogłoszona światu
 
-Dwie daty z 1839 roku wyznaczyły start nowego medium. Louis Daguerre, wcześniej współpracujący z Niépce'em, doprowadził do upublicznienia dagerotypii. Obraz powstawał na posrebrzanej płytce miedzianej, był niezwykle szczegółowy, ale istniał tylko w jednym egzemplarzu. Równolegle William Henry Fox Talbot rozwijał drogę, która z czasem okazała się równie ważna: negatyw na papierze i możliwość wykonania wielu odbitek.
+Louis Daguerre, wcześniej współpracujący z Niépce'em, doprowadził do upublicznienia dagerotypii. Obraz powstawał na posrebrzanej płytce miedzianej, był niezwykle szczegółowy, ale istniał tylko w jednym egzemplarzu. Równolegle William Henry Fox Talbot rozwijał drogę, która z czasem okazała się równie ważna: negatyw na papierze i możliwość wykonania wielu odbitek.
 
 To rozgałęzienie — unikatowy obraz albo powielalny zapis — zapowiadało dylemat obecny do dziś. Czy fotografia jest przedmiotem, dokumentem, dziełem sztuki, a może komunikatem? Dagerotyp zachwycał detalem, lecz wymagał cierpliwości i kosztownego warsztatu. Kalotyp Talbota nie był tak ostry, ale otworzył drogę do systemu negatyw-pozytyw, z którego przez ponad sto lat korzystały laboratoria na całym świecie.
 
