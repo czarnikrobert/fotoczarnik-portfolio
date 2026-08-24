@@ -157,8 +157,8 @@ function build() {
     <div class="gallery-filters" id="galleryFilters">
       ${categories
         .map(
-          (c, i) =>
-            `<button data-filter="${c === 'Wszystkie' ? 'all' : c}" class="${i === 0 ? 'active' : ''}">${c}</button>`
+          (c) =>
+            `<button data-filter="${c === 'Wszystkie' ? 'all' : c}" class="${c === 'Krajobraz' ? 'active' : ''}">${c}</button>`
         )
         .join('\n      ')}
     </div>

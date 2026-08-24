@@ -84,6 +84,13 @@
   });
 
   // Category filters (portfolio page only)
+  function applyFilter(filter) {
+    getItems().forEach((item) => {
+      const match = filter === 'all' || item.dataset.category === filter;
+      item.style.display = match ? '' : 'none';
+    });
+  }
+
   if (filters) {
     filters.addEventListener('click', (e) => {
       const btn = e.target.closest('button[data-filter]');
@@ -92,15 +99,13 @@
       filters.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
 
-      const filter = btn.dataset.filter;
-      getItems().forEach((item) => {
-        const match = filter === 'all' || item.dataset.category === filter;
-        item.style.display = match ? '' : 'none';
-      });
-
+      applyFilter(btn.dataset.filter);
       grid.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
       updateArrows();
     });
+
+    const defaultBtn = filters.querySelector('button.active');
+    if (defaultBtn) applyFilter(defaultBtn.dataset.filter);
   }
 
   // Carousel: manual scroll via arrow buttons + disable at the ends
