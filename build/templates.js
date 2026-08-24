@@ -136,6 +136,13 @@ export function carousel({ id, items, extraClass = '', extraAttrs = '' }) {
     </div>`;
 }
 
+export function masonryGrid({ id, items, extraAttrs = '' }) {
+  return `
+    <div class="gallery-grid gallery-grid--masonry" id="${id}" ${extraAttrs}>
+      ${items.map(galleryItem).join('\n')}
+    </div>`;
+}
+
 export function galleryItem(photo) {
   return `
       <div class="gallery-item" data-reveal data-category="${photo.category}" data-full="${photo.src}" data-caption="${photo.caption}" data-alt="${photo.alt}">

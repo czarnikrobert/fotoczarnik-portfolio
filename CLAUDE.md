@@ -26,9 +26,14 @@ build/
 public/                ← WYGENEROWANE — nie edytuj ręcznie, nie jest w repo (.gitignore)
 ```
 
-## Ważne: portfolio to karuzela, nie siatka
+## Ważne: dwa różne układy galerii — Portfolio to Masonry, „Wybrane kadry” to karuzela
 
-`.gallery-grid` (strona Portfolio + sekcja „Wybrane kadry” na stronie głównej) to **pozioma, ręcznie przewijana karuzela** (`display:flex`, `overflow-x:auto`, `scroll-snap-type`), nie CSS Grid — użytkownik świadomie o to poprosił. Renderowana jest przez `carousel()` w `templates.js`, który owija `galleryItem()` w `.carousel` z przyciskami strzałek (`[data-carousel-prev/next]`). Logika przewijania i wyłączania strzałek na krańcach jest w `gallery.js`. Filtry kategorii nadal działają — pokazują/ukrywają elementy przez `display:none` i resetują scroll do zera.
+Strona Portfolio (`/portfolio.html`) i sekcja „Wybrane kadry” na stronie głównej **celowo używają różnych układów** — to nie przeoczenie, tylko świadoma decyzja z 2026-08-23.
+
+- **Portfolio** — `.gallery-grid--masonry`, renderowana przez `masonryGrid()` w `templates.js`. Pionowa siatka wielokolumnowa (CSS `column-count`, 1→4 kolumn w zależności od szerokości ekranu), zdjęcia w naturalnych proporcjach (`aspect-ratio: auto`), bez strzałek/przewijania w bok.
+- **„Wybrane kadry” (strona główna)** — `.gallery-grid` bez modyfikatora, wciąż **pozioma, ręcznie przewijana karuzela** (`display:flex`, `overflow-x:auto`, `scroll-snap-type`), renderowana przez `carousel()`, który owija `galleryItem()` w `.carousel` z przyciskami strzałek (`[data-carousel-prev/next]`). Logika przewijania i wyłączania strzałek na krańcach jest w `gallery.js`.
+
+Obie używają tego samego `galleryItem()` i tych samych danych z `gallery.json` — różni je tylko wrapper i klasa CSS. Filtry kategorii na Portfolio nadal działają tak samo (pokazują/ukrywają elementy przez `display:none`); reset przewijania (`grid.scrollTo`) i `updateArrows()` w `gallery.js` uruchamiają się tylko, gdy element jest częścią karuzeli (`grid.closest('.carousel')`), więc na Portfolio są pomijane.
 
 ## Codzienna praca (przez Claude Code)
 

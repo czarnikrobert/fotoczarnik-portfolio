@@ -100,8 +100,10 @@
       btn.classList.add('active');
 
       applyFilter(btn.dataset.filter);
-      grid.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-      updateArrows();
+      if (carouselWrap) {
+        grid.scrollTo({ left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        updateArrows();
+      }
     });
 
     const defaultBtn = filters.querySelector('button.active');

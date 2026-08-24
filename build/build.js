@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { layout, postCard, lightboxMarkup, contactForm, timeline, carousel } from './templates.js';
+import { layout, postCard, lightboxMarkup, contactForm, timeline, carousel, masonryGrid } from './templates.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -162,7 +162,7 @@ function build() {
         )
         .join('\n      ')}
     </div>
-    ${carousel({ id: 'galleryGrid', items: gallery.photos, extraAttrs: 'data-reveal-group' })}
+    ${masonryGrid({ id: 'galleryGrid', items: gallery.photos, extraAttrs: 'data-reveal-group' })}
   </section>
   ${lightboxMarkup()}`;
 
