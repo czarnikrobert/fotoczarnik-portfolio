@@ -111,7 +111,7 @@ function build() {
 
   write(
     'index.html',
-    layout({ title: 'Start', description: site.description, active: 'home', site, bodyHtml: homeBody })
+    layout({ title: site.name, description: site.description, active: 'home', site, bodyHtml: homeBody })
   );
 
   // ---------- About ----------

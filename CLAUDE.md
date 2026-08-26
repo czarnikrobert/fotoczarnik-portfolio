@@ -1,4 +1,4 @@
-# FotoCzarnik — portfolio fotografii i podróży
+# PhotoCzarnik — portfolio fotografii i podróży
 
 Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
 
@@ -15,7 +15,7 @@ assets/
   css/                 ← main.css (tokeny/reset), components.css (komponenty), animations.css (animacje)
   js/                  ← core.js (nav), animations.js (reveal/parallax), gallery.js (lightbox/tilt/filtry/karuzela), timeline.js (rozwijanie osi czasu)
   images/
-    brand/logo.png     ← logo w nawigacji
+    brand/logo.png     ← logo w nawigacji (też źródło faviconu — favicon-32.png, favicon-16.png, apple-touch-icon.png w tym samym katalogu, wygenerowane z logo.png przez `sips`, podpięte w `layout()` w templates.js)
     hero/               ← zdjęcie hero na stronie głównej
     portrait/           ← portret autora (strona główna + „O mnie”)
     blog/                ← okładki wpisów blogowych
