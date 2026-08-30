@@ -84,19 +84,18 @@ Jeśli użytkownik zgłosi „zmiana wyglądu nie jest widoczna mimo odświeżen
 
 ## Do zrobienia przed publikacją
 
-- **`content/gallery.json`** — kategoria „Dron" (5 zdjęć) to nadal placeholdery z `picsum.photos`. Do podmiany, gdy użytkownik dostarczy zdjęcia z drona (ten sam proces co „Krajobraz" — patrz niżej).
 - **`content/site.json`** — pole `email` to nadal placeholder (`kontakt@twoja-domena.pl`) — podmienić na realny adres.
-- Reszta (autor, social media, logo, hero, portret, 5 wpisów blogowych, oś czasu sprzętu, 18 zdjęć kategorii „Krajobraz") jest już uzupełniona realną treścią.
+- Reszta (autor, social media, logo, favicon, hero, portret, wpisy blogowe, oś czasu sprzętu, 18 zdjęć „Krajobraz", 8 zdjęć „Dron") jest już uzupełniona realną treścią.
 
 ## Wzorzec: dodawanie realnych zdjęć do galerii z podpisami lokalizacji
 
-Tak przeniesiono placeholdery „Krajobraz" na realne zdjęcia (18 plików z `Pictures/poprawione zdjecia/landscape/`) — ten sam proces zadziała dla „Dron":
+Tak przeniesiono placeholdery „Krajobraz" (18 plików z `Pictures/poprawione zdjecia/landscape/`) i „Dron" (8 plików z `Do strony/dron/`) na realne zdjęcia:
 
-1. Skopiuj pliki do `assets/images/gallery/<kategoria>/` z czystymi nazwami (`krajobraz-01.jpg` itd.).
-2. Sprawdź datę wykonania przez `mdls -name kMDItemContentCreationDate -name kMDItemLatitude -name kMDItemLongitude plik.jpg` — czasem jest GPS, co pomaga zgadnąć lokalizację.
-3. Użytkownik nie zna zdjęć po samych nazwach plików — zbuduj tymczasową stronę podglądową (siatka `<img>` + numer + data) i skopiuj ją do `public/` (np. `public/podglad-<kategoria>.html`, ścieżki obrazków jako `/assets/images/...`), żeby otworzył ją pod `http://localhost:4173/...` i sczytał numery.
-4. Poproś o lokalizacje per numer zdjęcia w czacie, zaktualizuj `alt`/`caption` w `gallery.json`.
-5. Usuń plik podglądowy z `public/` (i tak zniknie przy kolejnym `npm run build`, bo `build()` czyści cały katalog).
+1. Skopiuj pliki do `assets/images/gallery/<kategoria>/` z czystymi nazwami (`krajobraz-01.jpg`, `dron-01.jpg` itd.).
+2. Sprawdź datę wykonania przez `mdls -name kMDItemContentCreationDate -name kMDItemLatitude -name kMDItemLongitude plik.jpg` — czasem jest GPS, co pomaga zgadnąć lokalizację. Może nie być nic (data zapisu zamiast wykonania, brak GPS) — wtedy poleganie na nazwach plików lub pytaniu użytkownika.
+3. Jeśli nazwy plików źródłowych już opisują lokalizację (tak było przy „Dron" — `Kazimierz Dolny.jpg`, `Zamek Tenczyn w Rudnie.jpg` itd.), można pominąć krok z podglądem i od razu zapytać tylko o brakujące detale (np. rok, jeśli użytkownik chce go w podpisie — nie zawsze chce, jak przy „Dron"). Jeśli nazwy plików nic nie mówią (tak było przy „Krajobraz"), zbuduj tymczasową stronę podglądową (siatka `<img>` + numer + data) i skopiuj ją do `public/` (np. `public/podglad-<kategoria>.html`), żeby użytkownik otworzył ją pod `http://localhost:4173/...` i sczytał numery.
+4. Poproś o brakujące informacje w czacie, zaktualizuj `alt`/`caption` w `gallery.json`.
+5. Jeśli powstał plik podglądowy w `public/`, usuń go (i tak zniknie przy kolejnym `npm run build`, bo `build()` czyści cały katalog).
 
 ## GitHub i Netlify — połączone i działające
 

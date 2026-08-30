@@ -19,10 +19,13 @@
     { "id": "k16", "category": "Krajobraz", "src": "/assets/images/gallery/krajobraz/krajobraz-16.jpg", "alt": "Miasto Skalne", "caption": "Miasto Skalne, Czechy — 2023", "featured": true },
     { "id": "k17", "category": "Krajobraz", "src": "/assets/images/gallery/krajobraz/krajobraz-17.jpg", "alt": "Miasto Skalne", "caption": "Miasto Skalne, Czechy — 2023", "featured": false },
     { "id": "k18", "category": "Krajobraz", "src": "/assets/images/gallery/krajobraz/krajobraz-18.jpg", "alt": "Panorama z Babiej Góry", "caption": "Babia Góra, Polska — 2024", "featured": false },
-    { "id": "g02", "category": "Dron", "src": "https://picsum.photos/seed/wl-g02/900/1200", "alt": "Widok z lotu ptaka na starówkę o świcie", "caption": "Hanoi, Wietnam — 2026", "featured": true },
-    { "id": "g04", "category": "Dron", "src": "https://picsum.photos/seed/wl-g04/900/1200", "alt": "Widok z drona na kompleks świątynny", "caption": "Kioto, Japonia — 2025", "featured": true },
-    { "id": "g06", "category": "Dron", "src": "https://picsum.photos/seed/wl-g06/900/1200", "alt": "Nocne miasto z lotu ptaka", "caption": "Osaka, Japonia — 2025", "featured": true },
-    { "id": "g09", "category": "Dron", "src": "https://picsum.photos/seed/wl-g09/900/1200", "alt": "Świątynia w porannej mgle z lotu ptaka", "caption": "Chiang Mai, Tajlandia — 2024", "featured": false },
-    { "id": "g10", "category": "Dron", "src": "https://picsum.photos/seed/wl-g10/900/1200", "alt": "Rynek miejski widziany z drona", "caption": "Kraków, Polska — 2024", "featured": false }
+    { "id": "d01", "category": "Dron", "src": "/assets/images/gallery/dron/dron-01.jpg", "alt": "Wioska Bogdanówka w porannej mgle, widok z drona", "caption": "Bogdanówka o poranku", "featured": true },
+    { "id": "d02", "category": "Dron", "src": "/assets/images/gallery/dron/dron-02.jpg", "alt": "Panorama doliny w Bogdanówce latem", "caption": "Bogdanówka, panorama", "featured": false },
+    { "id": "d03", "category": "Dron", "src": "/assets/images/gallery/dron/dron-03.jpg", "alt": "Bogdanówka zimą, ośnieżona dolina z lotu ptaka", "caption": "Bogdanówka zimą", "featured": false },
+    { "id": "d04", "category": "Dron", "src": "/assets/images/gallery/dron/dron-04.jpg", "alt": "Rynek w Kazimierzu Dolnym nad Wisłą, widok z drona", "caption": "Kazimierz Dolny", "featured": false },
+    { "id": "d05", "category": "Dron", "src": "/assets/images/gallery/dron/dron-05.jpg", "alt": "Plaża i wybrzeże w Kołobrzegu z lotu ptaka", "caption": "Kołobrzeg", "featured": false },
+    { "id": "d06", "category": "Dron", "src": "/assets/images/gallery/dron/dron-06.jpg", "alt": "Wybrzeże w Kołobrzegu, widok z drona", "caption": "Kołobrzeg", "featured": false },
+    { "id": "d07", "category": "Dron", "src": "/assets/images/gallery/dron/dron-07.jpg", "alt": "Kraków wieczorem, ACE Arena z lotu ptaka", "caption": "Kraków, Ace Arena", "featured": false },
+    { "id": "d08", "category": "Dron", "src": "/assets/images/gallery/dron/dron-08.jpg", "alt": "Ruiny zamku Tenczyn w Rudnie z lotu ptaka", "caption": "Zamek Tenczyn w Rudnie", "featured": true }
   ]
 }
