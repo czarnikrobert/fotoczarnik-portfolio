@@ -1,5 +1,5 @@
 ---
-title: "Co to jest głębia ostrości i jak ją uzyskać?"
+title: "Co to jest głębia ostrości|i jak ją uzyskać?"
 date: "2023-03-28"
 excerpt: "Micro poradnik dla początkujących: jak działa głębia ostrości, od czego zależy i jak ją kontrolować, by uzyskać ostre i piękne zdjęcia."
 cover: "/assets/images/blog/glebia-ostrosci.jpg"

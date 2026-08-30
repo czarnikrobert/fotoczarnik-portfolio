@@ -1,5 +1,5 @@
 ---
-title: "Bielsko-Biała Street Photography Festival 2026 — program, goście i najważniejsze informacje"
+title: "Bielsko-Biała Street Photography|Festival 2026 —|program, goście|i najważniejsze informacje"
 date: "2026-08-22"
 excerpt: "Bielsko-Biała Street Photography Festival 2026 odbędzie się 18–20 września. Sprawdź program, wystawy, gości, warsztaty, konkurs BBSPF x LEICA i wydarzenia towarzyszące."
 cover: "/assets/images/blog/bielsko-biala-street-photography-festival-2026.jpg"

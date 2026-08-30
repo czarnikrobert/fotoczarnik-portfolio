@@ -1,5 +1,5 @@
 ---
-title: "Co to jest balans bieli w fotografii i jak go ustawiać?"
+title: "Co to jest balans bieli w fotografii|i jak go ustawiać?"
 date: "2023-04-03"
 excerpt: "Balans bieli to sposób regulacji kolorów w zdjęciach tak, aby odzwierciedlały rzeczywisty kolor przedmiotu lub scenerii. Krótki poradnik: ustawienia automatyczne, ręczne i karta szara."
 cover: "/assets/images/blog/balans-bieli-2023.webp"

@@ -1,5 +1,5 @@
 ---
-title: "Balans bieli w fotografii – poznaj podstawy"
+title: "Balans bieli w fotografii –|poznaj podstawy"
 date: "2025-01-10"
 excerpt: "Balans bieli to kluczowy element w fotografii cyfrowej, wpływający na naturalne odwzorowanie kolorów. Poznaj temperatury barwowe, ustawienia automatyczne i ręczne oraz zalety fotografowania w RAW."
 cover: "/assets/images/blog/balans-bieli-2025.jpg"

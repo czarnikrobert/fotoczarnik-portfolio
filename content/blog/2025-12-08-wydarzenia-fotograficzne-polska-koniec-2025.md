@@ -1,5 +1,5 @@
 ---
-title: "Wydarzenia fotograficzne w Polsce końcem 2025 roku – przegląd najważniejszych imprez i festiwali"
+title: "Wydarzenia fotograficzne w Polsce|końcem 2025 roku – przegląd|najważniejszych imprez i festiwali"
 date: "2025-12-08"
 excerpt: "Od wernisażu Jindřicha Štreita, przez przegląd „Ponidzie” i festiwal Fotoforma, po targi EXPOzycja — końcówka 2025 roku zapowiada się niezwykle bogato pod względem wydarzeń fotograficznych w Polsce."
 cover: "/assets/images/blog/wydarzenia-2025.png"
