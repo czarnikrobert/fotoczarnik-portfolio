@@ -116,15 +116,22 @@ function timelineItem(entry) {
         </div>`;
 }
 
+// Post titles may contain "|" to mark intended line breaks in the large post-page <h1>.
+// Everywhere else (meta tags, card titles, alt text) that marker is just a space.
+export function plainTitle(title) {
+  return title.replace(/\|/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 export function postCard(post) {
   const date = new Date(post.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+  const title = plainTitle(post.title);
   return `
       <a class="post-card" href="/blog/${post.slug}.html" data-reveal>
         <div class="post-card__media">
-          <img src="${post.cover}" alt="${post.title}" loading="lazy">
+          <img src="${post.cover}" alt="${title}" loading="lazy">
         </div>
         <span class="post-card__date">${date}</span>
-        <h3 class="post-card__title">${post.title}</h3>
+        <h3 class="post-card__title">${title}</h3>
         <p class="post-card__excerpt">${post.excerpt}</p>
       </a>`;
 }

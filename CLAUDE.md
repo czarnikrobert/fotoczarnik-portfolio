@@ -49,6 +49,8 @@ cover: "/assets/images/blog/moje-zdjecie.jpg"
 Treść wpisu w Markdown...
 ```
 
+**Wymuszenie konkretnego podziału linii w długim tytule wpisu** (np. gdy naturalne zawijanie tekstu w dużym `<h1>` na stronie wpisu wygląda źle): użyj `|` w polu `title` frontmattera, np. `title: "Pierwsza linia|Druga linia|Trzecia linia"`. `plainTitle()` w `templates.js` zamienia `|` na spację wszędzie indziej (`<title>`, `og:title`, karta na liście bloga, `alt` okładki) — tylko `<h1>` na stronie wpisu (w `build.js`) renderuje `|` jako `<br>`. Działa tylko na desktopie/tablecie w sposób w pełni przewidywalny — na wąskich telefonach najdłuższa z linii może się dodatkowo zawinąć, to akceptowalny kompromis (nie warto zmniejszać czcionki tak bardzo, żeby to wyeliminować).
+
 Nowe zdjęcia do portfolio dodaje się jako wpis w `content/gallery.json`. Nowy sprzęt na osi czasu — jako wpis w `content/gear-timeline.json` (pola `year`, `name`, `category`, `description` — zawsze widoczny teaser, `quote` i `fullDescription` — opcjonalne, pokazują się po kliknięciu).
 
 Po każdej zmianie treści:

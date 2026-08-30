@@ -1,5 +1,5 @@
 ---
-title: "200 lat fotografii: od światła zamkniętego w pudełku do obrazu w kieszeni"
+title: "200 lat fotografii:|od światła zamkniętego w pudełku|do obrazu w kieszeni"
 date: "2026-08-23"
 excerpt: "Historia fotografii w 200 lat: od heliografii Niépce'a i dagerotypii po film, cyfrę oraz smartfony. Poznaj najważniejsze przełomy i ich znaczenie."
 cover: "/assets/images/blog/200-lat-fotografii-niepce.jpg"

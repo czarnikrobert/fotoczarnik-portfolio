@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { layout, postCard, lightboxMarkup, contactForm, timeline, carousel, masonryGrid } from './templates.js';
+import { layout, postCard, plainTitle, lightboxMarkup, contactForm, timeline, carousel, masonryGrid } from './templates.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -194,16 +194,21 @@ function build() {
     });
     const postUrl = `${site.url}/blog/${post.slug}`;
     const fbShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(postUrl)}`;
+    const title = plainTitle(post.title);
+    const titleHtml = post.title
+      .split('|')
+      .map((line) => line.trim())
+      .join('<br>');
     const postBody = `
   <div class="reading-progress" id="readingProgress"></div>
   <article>
     <header class="page-header post-header container">
       <span class="eyebrow">${date}</span>
-      <h1>${post.title}</h1>
+      <h1>${titleHtml}</h1>
     </header>
     <div class="container">
       <div class="post-cover parallax-media">
-        <img data-parallax src="${post.cover}" alt="${post.title}" loading="eager">
+        <img data-parallax src="${post.cover}" alt="${title}" loading="eager">
       </div>
       <div class="post-body" data-reveal>
         ${post.bodyHtml}
@@ -218,7 +223,7 @@ function build() {
     write(
       `blog/${post.slug}.html`,
       layout({
-        title: post.title,
+        title,
         description: post.excerpt,
         active: 'blog',
         site,
