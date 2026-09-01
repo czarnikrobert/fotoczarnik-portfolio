@@ -70,6 +70,15 @@ function build() {
     <div class="hero__scroll">Przewiń</div>
   </section>
 
+  <div class="scroll-banner" id="scrollBanner">
+    <div class="scroll-banner__sticky">
+      <canvas class="scroll-banner__canvas" id="scrollBannerCanvas"></canvas>
+      <div class="scroll-banner__loader" id="scrollBannerLoader">
+        <div class="scroll-banner__loader-bar"><div class="scroll-banner__loader-fill" id="scrollBannerLoaderFill"></div></div>
+      </div>
+    </div>
+  </div>
+
   <section class="container">
     <div class="grid-2">
       <div class="parallax-media" data-reveal>

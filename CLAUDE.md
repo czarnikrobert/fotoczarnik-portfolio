@@ -13,13 +13,15 @@ content/
   gear-timeline.json   ← oś czasu sprzętu na stronie „O mnie” (rok, kategoria, opis, cytat, pełny opis)
 assets/
   css/                 ← main.css (tokeny/reset), components.css (komponenty), animations.css (animacje)
-  js/                  ← core.js (nav), animations.js (reveal/parallax), gallery.js (lightbox/tilt/filtry/karuzela), timeline.js (rozwijanie osi czasu)
+  js/                  ← core.js (nav), animations.js (reveal/parallax), gallery.js (lightbox/tilt/filtry/karuzela), timeline.js (rozwijanie osi czasu), banner.js (scroll-scrubbing baner na stronie głównej)
   images/
     brand/logo.png     ← logo w nawigacji (też źródło faviconu — favicon-32.png, favicon-16.png, apple-touch-icon.png w tym samym katalogu, wygenerowane z logo.png przez `sips`, podpięte w `layout()` w templates.js)
     hero/               ← zdjęcie hero na stronie głównej
     portrait/           ← portret autora (strona główna + „O mnie”)
     blog/                ← okładki wpisów blogowych
     gallery/krajobraz/  ← 18 realnych zdjęć krajobrazowych (Chorwacja, Czechy, Polska)
+    gallery/dron/       ← 8 realnych zdjęć z drona (Bogdanówka, Kazimierz Dolny, Kołobrzeg, Kraków, Zamek Tenczyn)
+    banner/             ← 140 klatek WebP (frame-0001.webp…frame-0140.webp, 1280×720) do scroll-scrubbing banera na stronie głównej
 build/
   build.js             ← generator: content/ + assets/ → public/
   templates.js          ← szablony HTML (nawigacja, karty, lightbox, formularz, oś czasu, `carousel()`)
@@ -34,6 +36,17 @@ Strona Portfolio (`/portfolio.html`) i sekcja „Wybrane kadry” na stronie gł
 - **„Wybrane kadry” (strona główna)** — `.gallery-grid` bez modyfikatora, wciąż **pozioma, ręcznie przewijana karuzela** (`display:flex`, `overflow-x:auto`, `scroll-snap-type`), renderowana przez `carousel()`, który owija `galleryItem()` w `.carousel` z przyciskami strzałek (`[data-carousel-prev/next]`). Logika przewijania i wyłączania strzałek na krańcach jest w `gallery.js`.
 
 Obie używają tego samego `galleryItem()` i tych samych danych z `gallery.json` — różni je tylko wrapper i klasa CSS. Filtry kategorii na Portfolio nadal działają tak samo (pokazują/ukrywają elementy przez `display:none`); reset przewijania (`grid.scrollTo`) i `updateArrows()` w `gallery.js` uruchamiają się tylko, gdy element jest częścią karuzeli (`grid.closest('.carousel')`), więc na Portfolio są pomijane.
+
+## Scroll-scrubbing baner na stronie głównej (pod hero)
+
+Sekcja `.hero` (zdjęcie tła + tytuł + cytat Ansela Adamsa + „Przewiń”) zostaje **bez zmian** — tak chciał użytkownik. Zaraz pod nią (jeszcze przed sekcją „Cześć, na imię mam Robert”) jest `.scroll-banner`: technika w stylu Apple, gdzie przewijanie strony steruje odtwarzaniem „wideo” złożonego z klatek WebP rysowanych na `<canvas>`.
+
+- Klatki: `assets/images/banner/frame-0001.webp` … `frame-0140.webp` (140 klatek, 1280×720, ok. 3,6MB łącznie).
+- Logika: `assets/js/banner.js` — samodzielna IIFE z guard clause (`if (!track || !canvas) return`), więc bezpiecznie ładuje się na każdej stronie, ale działa tylko tam gdzie są elementy `#scrollBanner`/`#scrollBannerCanvas` (czyli tylko strona główna).
+- `.scroll-banner` ma wysokość `300vh` (3 ekrany scrolla na całą sekwencję klatek), `.scroll-banner__sticky` jest `position: sticky; top: 0; height: 100dvh` — standardowy wzorzec scroll-scrub. Numer klatki liczony jako `round(progress * (FRAME_COUNT - 1))`, gdzie `progress` to znormalizowana pozycja scrolla w obrębie tracku.
+- Wszystkie klatki są preloadowane przed startem (progress bar w `.scroll-banner__loader`, znika po załadowaniu) — to świadomy wybór z pierwowzoru użytkownika (`Do strony/baner/` — gotowy prototyp HTML/CSS/JS, z którego przeniesiono i dostosowano tę logikę: poprawiono `FRAME_COUNT` z błędnych 168 na faktyczne 140, ścieżki na `/assets/images/banner/...`, usunięto zdublowaną logikę „nav solid on scroll” bo `core.js` już to robi przez `.nav--scrolled`).
+- `prefers-reduced-motion: reduce` — sekcja kurczy się do `100dvh` (CSS) i JS nie podpina scrolla ani nie liczy klatek, tylko od razu rysuje ostatnią klatkę statycznie. Nie testuj tej ścieżki próbą wyłączenia animacji w DevTools na tej samej karcie, którą testujesz normalnie — trzeba osobnej sesji z ustawionym `prefers-reduced-motion`.
+- Jeśli w przyszłości trzeba podmienić sekwencję klatek: nowe pliki muszą mieć identyczny wzorzec nazw (`frame-NNNN.webp`, zero-padded do 4 cyfr) i **musisz ręcznie zaktualizować `FRAME_COUNT` w `banner.js`**, jeśli liczba klatek się zmieni — build nie liczy plików automatycznie.
 
 ## Codzienna praca (przez Claude Code)
 

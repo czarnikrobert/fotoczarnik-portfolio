@@ -75,6 +75,7 @@ ${footer(site)}
 <script src="/assets/js/animations.js" defer></script>
 <script src="/assets/js/gallery.js" defer></script>
 <script src="/assets/js/timeline.js" defer></script>
+<script src="/assets/js/banner.js" defer></script>
 </body>
 </html>`;
 }
