@@ -10,6 +10,8 @@
   const ctx = canvas.getContext('2d');
   const loader = document.getElementById('scrollBannerLoader');
   const loaderFill = document.getElementById('scrollBannerLoaderFill');
+  const fadeEl = document.getElementById('scrollBannerFade');
+  const cueEl = document.getElementById('scrollBannerCue');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const images = new Array(FRAME_COUNT);
@@ -64,6 +66,10 @@
     const trackHeight = track.offsetHeight - window.innerHeight;
     const progress = trackHeight > 0 ? Math.min(1, Math.max(0, -track.getBoundingClientRect().top / trackHeight)) : 0;
     drawFrame(Math.round(progress * (FRAME_COUNT - 1)));
+
+    // Fade the overlaid hero text out early, well before the scrub finishes, so the video takes over.
+    if (fadeEl) fadeEl.style.opacity = String(1 - Math.min(1, progress / 0.15));
+    if (cueEl) cueEl.style.opacity = String(1 - Math.min(1, progress / 0.05));
   }
 
   let ticking = false;

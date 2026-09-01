@@ -60,24 +60,20 @@ function build() {
   // ---------- Home ----------
   const home = loadPage('home').data;
   const homeBody = `
-  <section class="hero">
-    <div class="hero__bg"><img src="${home.heroImage}" alt="" loading="eager"></div>
-    <div class="hero__content" data-reveal>
-      <span class="eyebrow">${site.tagline}</span>
-      <h1>${home.title}</h1>
-      <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${home.subtitle}</p>
-    </div>
-    <div class="hero__scroll">Przewiń</div>
-  </section>
-
-  <div class="scroll-banner" id="scrollBanner">
-    <div class="scroll-banner__sticky">
+  <section class="hero scroll-banner" id="scrollBanner">
+    <div class="hero__sticky scroll-banner__sticky">
       <canvas class="scroll-banner__canvas" id="scrollBannerCanvas"></canvas>
+      <div class="hero__content" data-reveal id="scrollBannerFade">
+        <span class="eyebrow">${site.tagline}</span>
+        <h1>${home.title}</h1>
+        <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${home.subtitle}</p>
+      </div>
+      <div class="hero__scroll" id="scrollBannerCue">Przewiń</div>
       <div class="scroll-banner__loader" id="scrollBannerLoader">
-        <div class="scroll-banner__loader-bar"><div class="scroll-banner__loader-fill" id="scrollBannerLoaderFill"></div></div>
+        <div class="scroll-banner__loader-fill" id="scrollBannerLoaderFill"></div>
       </div>
     </div>
-  </div>
+  </section>
 
   <section class="container">
     <div class="grid-2">
