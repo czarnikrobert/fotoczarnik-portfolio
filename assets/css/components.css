@@ -713,7 +713,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 var(--gutter);
+  padding: 0 var(--gutter) 12vh;
 }
 
 .scroll-banner__sticky::after {
