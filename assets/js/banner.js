@@ -1,13 +1,17 @@
 // banner.js — scroll-scrubbing video-frame banner (canvas draws one of N webp frames based on scroll progress)
 //
-// Two phases within the scroll track:
-//  1. Scrub phase (0 -> SCRUB_END of track progress): plays through the frame sequence, text/scrim hidden.
-//  2. Reveal phase (SCRUB_END -> 1): frame stays on the last one, hero text slides in to center and the
-//     dark scrim fades in over the frozen final frame.
+// Three phases within the scroll track:
+//  1. Scrub phase (0 -> SCRUB_END): plays through the frame sequence, text/scrim hidden.
+//  2. Reveal phase (SCRUB_END -> REVEAL_END): frame stays on the last one, hero text slides in to
+//     center and the dark scrim fades in over the frozen final frame.
+//  3. Hold phase (REVEAL_END -> 1): everything stays exactly as the reveal phase left it — this is
+//     just extra scroll distance so the fully-revealed text has time to actually be read before the
+//     section unpins and the next one scrolls up.
 (() => {
   const FRAME_COUNT = 130;
   const FRAME_PATH = (i) => `/assets/images/banner/frame-${String(i).padStart(3, '0')}.webp`;
-  const SCRUB_END = 0.85; // fraction of track scroll spent playing frames; the rest is the reveal phase
+  const SCRUB_END = 0.65; // fraction of track scroll spent playing frames
+  const REVEAL_END = 0.8; // fraction where text/scrim finish revealing; REVEAL_END..1 is the hold/reading phase
 
   const track = document.getElementById('scrollBanner');
   const canvas = document.getElementById('scrollBannerCanvas');
@@ -84,7 +88,7 @@
     const videoProgress = Math.min(1, progress / SCRUB_END);
     drawFrame(Math.round(videoProgress * (FRAME_COUNT - 1)));
 
-    const revealProgress = Math.max(0, Math.min(1, (progress - SCRUB_END) / (1 - SCRUB_END)));
+    const revealProgress = Math.max(0, Math.min(1, (progress - SCRUB_END) / (REVEAL_END - SCRUB_END)));
     setRevealState(revealProgress);
 
     // The "scroll to continue" cue only makes sense before the user has started scrolling.

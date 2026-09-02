@@ -706,7 +706,7 @@ html.js .scroll-banner .hero__content {
 /* ---------- Scroll-scrubbing video banner (doubles as the hero) ---------- */
 .scroll-banner {
   position: relative;
-  height: 300vh;
+  height: 400vh; /* scrub + reveal + a hold stretch at the end so the revealed text has time to be read */
 }
 
 .scroll-banner__sticky {
