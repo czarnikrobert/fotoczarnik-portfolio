@@ -63,7 +63,8 @@ function build() {
   <section class="hero scroll-banner" id="scrollBanner">
     <div class="hero__sticky scroll-banner__sticky">
       <canvas class="scroll-banner__canvas" id="scrollBannerCanvas"></canvas>
-      <div class="hero__content" data-reveal id="scrollBannerFade">
+      <div class="scroll-banner__scrim" id="scrollBannerScrim"></div>
+      <div class="hero__content" id="scrollBannerFade">
         <span class="eyebrow">${site.tagline}</span>
         <h1>${home.title}</h1>
         <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${home.subtitle}</p>

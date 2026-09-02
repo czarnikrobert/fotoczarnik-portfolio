@@ -1,7 +1,13 @@
 // banner.js — scroll-scrubbing video-frame banner (canvas draws one of N webp frames based on scroll progress)
+//
+// Two phases within the scroll track:
+//  1. Scrub phase (0 -> SCRUB_END of track progress): plays through the frame sequence, text/scrim hidden.
+//  2. Reveal phase (SCRUB_END -> 1): frame stays on the last one, hero text slides in to center and the
+//     dark scrim fades in over the frozen final frame.
 (() => {
-  const FRAME_COUNT = 140;
-  const FRAME_PATH = (i) => `/assets/images/banner/frame-${String(i).padStart(4, '0')}.webp`;
+  const FRAME_COUNT = 130;
+  const FRAME_PATH = (i) => `/assets/images/banner/frame-${String(i).padStart(3, '0')}.webp`;
+  const SCRUB_END = 0.85; // fraction of track scroll spent playing frames; the rest is the reveal phase
 
   const track = document.getElementById('scrollBanner');
   const canvas = document.getElementById('scrollBannerCanvas');
@@ -12,13 +18,14 @@
   const loaderFill = document.getElementById('scrollBannerLoaderFill');
   const fadeEl = document.getElementById('scrollBannerFade');
   const cueEl = document.getElementById('scrollBannerCue');
+  const scrimEl = document.getElementById('scrollBannerScrim');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const images = new Array(FRAME_COUNT);
   let loadedCount = 0;
   let currentFrame = -1;
-  let naturalWidth = 1280;
-  let naturalHeight = 720;
+  let naturalWidth = 1920;
+  let naturalHeight = 1080;
 
   function preloadFrames() {
     return new Promise((resolve) => {
@@ -62,13 +69,25 @@
     drawFrame(Math.max(currentFrame, 0), true);
   }
 
+  function setRevealState(revealProgress) {
+    if (fadeEl) {
+      fadeEl.style.opacity = String(revealProgress);
+      fadeEl.style.transform = `translateY(${(1 - revealProgress) * 24}px)`;
+    }
+    if (scrimEl) scrimEl.style.opacity = String(revealProgress);
+  }
+
   function onScroll() {
     const trackHeight = track.offsetHeight - window.innerHeight;
     const progress = trackHeight > 0 ? Math.min(1, Math.max(0, -track.getBoundingClientRect().top / trackHeight)) : 0;
-    drawFrame(Math.round(progress * (FRAME_COUNT - 1)));
 
-    // Fade the overlaid hero text out early, well before the scrub finishes, so the video takes over.
-    if (fadeEl) fadeEl.style.opacity = String(1 - Math.min(1, progress / 0.15));
+    const videoProgress = Math.min(1, progress / SCRUB_END);
+    drawFrame(Math.round(videoProgress * (FRAME_COUNT - 1)));
+
+    const revealProgress = Math.max(0, Math.min(1, (progress - SCRUB_END) / (1 - SCRUB_END)));
+    setRevealState(revealProgress);
+
+    // The "scroll to continue" cue only makes sense before the user has started scrolling.
     if (cueEl) cueEl.style.opacity = String(1 - Math.min(1, progress / 0.05));
   }
 
@@ -84,7 +103,14 @@
 
   preloadFrames().then(() => {
     resizeCanvas();
-    drawFrame(reduceMotion ? FRAME_COUNT - 1 : 0, true);
+    if (reduceMotion) {
+      // Skip straight to the resting end-state: no forced scroll-jacked motion.
+      drawFrame(FRAME_COUNT - 1, true);
+      setRevealState(1);
+      if (cueEl) cueEl.style.opacity = '0';
+    } else {
+      drawFrame(0, true);
+    }
     if (loader) loader.classList.add('is-hidden');
 
     window.addEventListener('resize', resizeCanvas);

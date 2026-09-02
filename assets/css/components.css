@@ -659,6 +659,14 @@
   max-width: 800px;
 }
 
+/* Hidden until the scrub finishes, then slid/faded in by banner.js (setRevealState).
+   Visible-by-default without JS, same reasoning as the [data-reveal] pattern elsewhere:
+   never let content depend on JS having run to be readable. */
+html.js .scroll-banner .hero__content {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
 .hero__content h1 {
   font-size: clamp(1.8rem, 3.4vw, 3rem);
 }
@@ -716,11 +724,13 @@
   padding: 0 var(--gutter) 12vh;
 }
 
-.scroll-banner__sticky::after {
-  content: '';
+/* Dark scrim — invisible during the video scrub (keeps footage clear/vivid),
+   faded in by banner.js only during the reveal phase at the end, behind the text. */
+.scroll-banner__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
+  opacity: 0;
   background: linear-gradient(to bottom, rgba(11,10,9,0.35) 0%, rgba(11,10,9,0.55) 55%, rgba(11,10,9,0.96) 100%);
 }
 
