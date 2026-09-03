@@ -108,8 +108,9 @@
   preloadFrames().then(() => {
     resizeCanvas();
     if (reduceMotion) {
-      // Skip straight to the resting end-state: no forced scroll-jacked motion.
-      drawFrame(FRAME_COUNT - 1, true);
+      // No forced scroll-jacked motion: show the first frame as a plain static photo
+      // (text/scrim still revealed so the hero content stays fully readable).
+      drawFrame(0, true);
       setRevealState(1);
       if (cueEl) cueEl.style.opacity = '0';
     } else {

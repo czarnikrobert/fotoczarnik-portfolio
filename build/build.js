@@ -68,6 +68,7 @@ function build() {
         <span class="eyebrow">${site.tagline}</span>
         <h1>${home.title}</h1>
         <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${home.subtitle}</p>
+        <p class="hero__motion-notice">Animacja tła jest wyłączona, bo Twoja przeglądarka lub system ma włączoną opcję „Ogranicz ruch” (Reduce Motion). Wyłącz ją w ustawieniach systemowych, aby zobaczyć pełny efekt.</p>
       </div>
       <div class="hero__scroll" id="scrollBannerCue">Przewiń</div>
       <div class="scroll-banner__loader" id="scrollBannerLoader">

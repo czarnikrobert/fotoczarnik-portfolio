@@ -668,6 +668,24 @@
   max-width: 800px;
 }
 
+/* Shown only to visitors whose browser/OS requests reduced motion — explains why the
+   banner is a still photo instead of the scroll-scrubbing animation, and how to get it
+   back. Pure-CSS conditional (no JS needed): invisible by default, revealed only under
+   the media query, so it degrades safely even if banner.js fails to load entirely. */
+.hero__motion-notice {
+  display: none;
+  margin: 1rem auto 0;
+  max-width: 46ch;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__motion-notice {
+    display: block;
+  }
+}
+
 /* Hidden until the scrub finishes, then slid/faded in by banner.js (setRevealState).
    Visible-by-default without JS, same reasoning as the [data-reveal] pattern elsewhere:
    never let content depend on JS having run to be readable. */
