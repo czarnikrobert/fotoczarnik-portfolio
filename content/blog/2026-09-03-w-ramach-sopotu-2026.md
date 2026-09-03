@@ -1,9 +1,11 @@
 ---
-title: "„W Ramach Sopotu” 2026. Fotografia spotyka się z granicą"
+title: "„W Ramach Sopotu” 2026.|Fotografia spotyka się z granicą"
 date: "2026-09-03"
 excerpt: "Od 3 do 20 września Sopot zamieni się w ważny punkt na fotograficznej mapie Polski — 12. edycja festiwalu „W Ramach Sopotu” wokół hasła „Granica”: wystawy, rezydencje artystyczne i wydarzenia w przestrzeni miasta."
 cover: "/assets/images/blog/sopot-2026-bownik-disassembly.jpg"
 ---
+*„Disassembly” — Bownik. Fot. Bownik / materiały organizatora.*
+
 Od 3 do 20 września Sopot ponownie zamieni się w ważny punkt na fotograficznej mapie Polski. Dwunasta edycja festiwalu „W Ramach Sopotu” zaprasza na wystawy, spotkania i wydarzenia skupione wokół jednego, bardzo pojemnego hasła: **„Granica”**.
 
 ## Granica jako temat i punkt wyjścia

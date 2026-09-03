@@ -320,7 +320,16 @@
 
 .post-body img {
   border-radius: var(--radius);
-  margin: 2.5rem 0;
+  margin: 2.5rem auto;
+}
+
+/* Image + italic caption markdown (`![]()` immediately followed by `*caption*`)
+   compiles to a single <p>image + <em>caption</em></p> — center the caption text
+   to match the now-centered image above it. Also covers a standalone caption
+   paragraph (just `*caption*` on its own, e.g. under the post cover). */
+.post-body p:has(> img),
+.post-body p:has(> em:only-child) {
+  text-align: center;
 }
 
 .post-body h2, .post-body h3 {
