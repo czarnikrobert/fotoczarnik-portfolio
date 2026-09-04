@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1125" width="900" height="1125">
+  <rect width="900" height="1125" fill="#171412"/>
+  <rect x="1" y="1" width="898" height="1123" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="2"/>
+  <g transform="translate(450,478)" fill="none" stroke="#8a8177" stroke-width="2.5">
+    <rect x="-70" y="-52" width="140" height="104" rx="10"/>
+    <circle cx="0" cy="4" r="34"/>
+    <circle cx="0" cy="4" r="18"/>
+    <rect x="-24" y="-70" width="48" height="20" rx="4"/>
+  </g>
+  <text x="450" y="620" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" letter-spacing="3" fill="#d99a4e" font-weight="600">GALERIA</text>
+  <text x="450" y="666" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="34" fill="#ece7e1" font-weight="500">W przygotowaniu</text>
+</svg>

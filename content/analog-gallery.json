@@ -1,8 +1,3 @@
 [
-  { "id": "a01", "category": "Analog", "src": "https://picsum.photos/seed/analog-01/900/1200", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false },
-  { "id": "a02", "category": "Analog", "src": "https://picsum.photos/seed/analog-02/1200/900", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false },
-  { "id": "a03", "category": "Analog", "src": "https://picsum.photos/seed/analog-03/900/1300", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false },
-  { "id": "a04", "category": "Analog", "src": "https://picsum.photos/seed/analog-04/1100/900", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false },
-  { "id": "a05", "category": "Analog", "src": "https://picsum.photos/seed/analog-05/900/1150", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false },
-  { "id": "a06", "category": "Analog", "src": "https://picsum.photos/seed/analog-06/1000/900", "alt": "Zdjęcie z filmu — miejsce na podmianę", "caption": "Miejsce na podpis, gdy dodasz realne zdjęcie", "featured": false }
+  { "id": "a01", "category": "Analog", "src": "/assets/images/analog-gallery-placeholder.svg", "alt": "Galeria zdjęć z filmu — w przygotowaniu", "caption": "Wróć tu wkrótce po pierwsze skany z filmu.", "featured": false }
 ]
