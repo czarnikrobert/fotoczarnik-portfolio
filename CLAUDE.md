@@ -11,7 +11,7 @@ content/
   blog/                ← wpisy blogowe (jeden plik .md = jeden wpis)
   gallery.json         ← zdjęcia do portfolio (kategorie, podpisy, adresy plików)
   gear-timeline.json   ← oś czasu sprzętu na stronie „O mnie” (rok, kategoria, opis, cytat, pełny opis)
-  analog-gear.json     ← karty sprzętu na stronie Analog (na razie PLACEHOLDERY — patrz „Do zrobienia”)
+  analog-gear.json     ← karty sprzętu na stronie Analog (realne zdjęcia — patrz sekcja „Strona Analog” o statusie praw autorskich)
   analog-gallery.json  ← galeria zdjęć z filmu na stronie Analog (na razie PLACEHOLDERY — patrz „Do zrobienia”)
 assets/
   css/                 ← main.css (tokeny/reset), components.css (komponenty), animations.css (animacje)
@@ -65,13 +65,13 @@ Wewnątrz `.scroll-banner__sticky`: `<canvas>` (tło, `z-index:0`), `.scroll-ban
 - Pole `heroImage` w `content/pages/home.md` i plik `assets/images/hero/home-hero.jpg` **zostały, ale są nieużywane** — celowy łatwy odwrót do statycznego zdjęcia, gdyby użytkownik kiedyś chciał.
 - Osobny, ogólny skill Claude Code (`~/.claude/skills/scroll-scrubbing-banner/`, nie część tego repo) opisuje całą technikę dla dowolnego projektu z pułapkami — czytaj go zamiast odtwarzać logikę od zera przy podobnym zadaniu gdzie indziej. Zawiera już wariant „hold for reveal" i uwagę o `sips` nie zapisującym WebP — obie rzeczy wykorzystane też przy stronie Analog.
 
-## Strona Analog (od 2026-09-04) — TREŚĆ TO NA RAZIE PLACEHOLDERY
+## Strona Analog (od 2026-09-04)
 
-Nowa podstrona `/analog.html` (w nav między Portfolio a Blog): baner scroll-scrubbing (instancja 2, patrz wyżej) + sekcja wprowadzenia + siatka kart sprzętu + galeria zdjęć z filmu. Użytkownik świadomie poprosił o placeholdery wszędzie, gdzie nie miał jeszcze materiałów — **to nie przeoczenie, tylko ustalone z użytkownikiem 2026-09-04**, żeby nie blokować budowy strony na brakujących zdjęciach/modelach aparatów.
+Nowa podstrona `/analog.html` (w nav między Portfolio a Blog): baner scroll-scrubbing (instancja 2, patrz wyżej) + sekcja wprowadzenia + siatka kart sprzętu + galeria zdjęć z filmu.
 
-- `content/analog-gear.json` — 3 karty sprzętu, wszystkie z generycznym tekstem „Aparat analogowy #N" + `picsum.photos` jako zdjęcie. Renderowane przez `gearCard()` w `templates.js` do `.gear-grid`/`.gear-card` (nowy komponent CSS, wzorowany na `.post-grid`/`.post-card`).
-- `content/analog-gallery.json` — 6 zdjęć-placeholderów (`picsum.photos`), ten sam format co `gallery.json`, renderowane przez istniejący `masonryGrid()` (dokładnie ten sam komponent co Portfolio — filtr kategorii pominięty, bo tu jest tylko jedna kategoria).
-- **Do zrobienia, gdy użytkownik dostarczy materiały** (patrz też „Do zrobienia przed publikacją” niżej): (1) konkretne modele aparatów analogowych — użytkownik świadomie NIE chciał na razie reużyć opisów Smiena 8M / Zenit E / Zenit TTL / Pentax ME z `gear-timeline.json`, bo to historyczny, niekoniecznie aktualny zestaw — zapytaj zamiast zakładać, że to te same aparaty; (2) zdjęcia samych aparatów; (3) realne zdjęcia zrobione na filmie do galerii. Ten sam wzorzec podmiany co przy „Dron" (patrz „Wzorzec: dodawanie realnych zdjęć do galerii”), plus dla kart sprzętu — analogicznie, ale bez lokalizacji/GPS (to nie zdjęcia z podróży, tylko produktowe/portretowe ujęcia sprzętu).
+- `content/analog-gear.json` — **3 karty sprzętu z realnymi zdjęciami od 2026-09-04** (Pentax ME Super, Pentacon Six TL, Yashica Electro 35 — konkretne modele podane przez użytkownika, nie z `gear-timeline.json`, który jest osobnym, historycznym zestawem). Renderowane przez `gearCard()` w `templates.js` do `.gear-grid`/`.gear-card`. Zdjęcia w `assets/images/analog-gear/`.
+  - **Status praw autorskich zdjęć — ważne, nie kopiuj tego wzorca bez zastanowienia gdzie indziej**: użytkownik przysłał 3 zdjęcia opisane jako „moje aparaty”, ale EXIF ujawnił, że to zdjęcia poglądowe modeli, nie fotografie jego fizycznych egzemplarzy. Sprawdzono źródła: **Pentacon Six TL** — potwierdzone jako Ansgar Koreng, Wikimedia Commons, CC BY-SA 3.0 DE (plik `1803101902,_ako.jpg`) → ma pole `"credit"` w JSON, renderowane jako `.gear-card__credit` pod zdjęciem (wymóg licencji). **Pentax ME Super** i **Yashica Electro 35** — źródła nieustalone mimo próby (EXIF miał tylko generyczny „Copyright 2012” bez nazwiska / brak danych), wygląda na fotografię z serwisu ogłoszeniowego/aukcyjnego, nie na wolną licencję. Użytkownik świadomie zaakceptował ryzyko i poprosił o publikację mimo to, bez przypisania — **to jego decyzja, nie moje założenie o legalności**. Jeśli w przyszłości będzie pytanie o status prawny tych dwóch zdjęć, to jest odpowiedź.
+- `content/analog-gallery.json` — 6 zdjęć-placeholderów (`picsum.photos`), ten sam format co `gallery.json`, renderowane przez istniejący `masonryGrid()` (dokładnie ten sam komponent co Portfolio — filtr kategorii pominięty, bo tu jest tylko jedna kategoria). **To wciąż placeholdery** — do podmiany, gdy użytkownik dostarczy realne zdjęcia zrobione na filmie (ten sam wzorzec co „Dron”, patrz „Wzorzec: dodawanie realnych zdjęć do galerii”, ale bez lokalizacji/GPS przy kartach sprzętu — to nie zdjęcia z podróży).
 
 ## Codzienna praca (przez Claude Code)
 
@@ -125,7 +125,7 @@ Jeśli użytkownik zgłosi „zmiana wyglądu nie jest widoczna mimo odświeżen
 ## Do zrobienia przed publikacją
 
 - **`content/site.json`** — pole `email` to nadal placeholder (`kontakt@twoja-domena.pl`) — podmienić na realny adres.
-- **Strona Analog** (`content/analog-gear.json`, `content/analog-gallery.json`) — cała treść to placeholdery (picsum.photos + generyczne opisy). Patrz sekcja „Strona Analog” wyżej po szczegóły co i jak podmienić.
+- **Strona Analog** — `content/analog-gallery.json` to wciąż placeholdery (picsum.photos), do podmiany na realne zdjęcia z filmu. `content/analog-gear.json` ma już realne zdjęcia sprzętu (patrz sekcja „Strona Analog” wyżej, w tym ważna notatka o statusie praw autorskich dwóch z trzech zdjęć).
 - Reszta (autor, social media, logo, favicon, hero, portret, wpisy blogowe, oś czasu sprzętu, 18 zdjęć „Krajobraz", 8 zdjęć „Dron") jest już uzupełniona realną treścią.
 
 ## Wzorzec: dodawanie realnych zdjęć do galerii z podpisami lokalizacji

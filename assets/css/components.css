@@ -297,6 +297,13 @@
   color: var(--color-accent);
 }
 
+.gear-card__credit {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  margin-bottom: 0.5rem;
+}
+
 .gear-card h3 {
   font-size: 1.4rem;
   margin: 0.4rem 0 0.5rem;

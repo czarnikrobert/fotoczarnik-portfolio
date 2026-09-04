@@ -181,6 +181,7 @@ export function gearCard(item) {
         <div class="gear-card__media">
           <img src="${item.image}" alt="${item.name}" loading="lazy">
         </div>
+        ${item.credit ? `<span class="gear-card__credit">${item.credit}</span>` : ''}
         <span class="gear-card__category">${item.category}</span>
         <h3>${item.name}</h3>
         <p>${item.description}</p>

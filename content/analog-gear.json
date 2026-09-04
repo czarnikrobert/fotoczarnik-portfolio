@@ -1,23 +1,24 @@
 [
   {
-    "id": "gear-01",
-    "name": "Aparat analogowy #1",
-    "category": "Aparat filmowy",
-    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
-    "image": "https://picsum.photos/seed/analog-gear-1/900/700"
+    "id": "pentax-me-super",
+    "name": "Pentax ME Super",
+    "category": "Aparat filmowy 35mm",
+    "description": "Japoński aparat lustrzankowy z 1979 roku, następca modelu ME — z automatyką przysłony i możliwością ręcznego ustawiania czasu naświetlania za pomocą dwóch przycisków zamiast pokrętła. Kompaktowy, lekki i bardzo poręczny jak na lustrzankę tamtej epoki, kompatybilny z obiektywami w mocowaniu Pentax K.",
+    "image": "/assets/images/analog-gear/pentax-me-super.jpg"
   },
   {
-    "id": "gear-02",
-    "name": "Aparat analogowy #2",
-    "category": "Aparat filmowy",
-    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
-    "image": "https://picsum.photos/seed/analog-gear-2/900/700"
+    "id": "pentacon-six-tl",
+    "name": "Pentacon Six TL",
+    "category": "Aparat średnioformatowy 6×6",
+    "description": "Wschodnioniemiecka lustrzanka średnioformatowa produkowana przez VEB Pentacon w Dreźnie, wykonująca kwadratowe zdjęcia 6×6 cm na filmie 120. Wersja TL ma wbudowany światłomierz TTL; do korpusu pasują obiektywy w mocowaniu Pentacon Six, w tym klasyczne szkła Carl Zeiss Jena.",
+    "image": "/assets/images/analog-gear/pentacon-six-tl.jpg",
+    "credit": "Zdjęcie poglądowe: Ansgar Koreng, CC BY-SA 3.0 DE, Wikimedia Commons."
   },
   {
-    "id": "gear-03",
-    "name": "Aparat analogowy #3",
-    "category": "Aparat filmowy",
-    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
-    "image": "https://picsum.photos/seed/analog-gear-3/900/700"
+    "id": "yashica-electro-35",
+    "name": "Yashica Electro 35",
+    "category": "Dalmierz 35mm",
+    "description": "Japoński aparat dalmierzowy z 1966 roku, jeden z pierwszych z elektronicznie sterowaną migawką i automatyką przysłony (stąd nazwa „Electro”). Wyposażony w jasny obiektyw Color-Yashinon 45mm f/1.7 i charakterystyczny, bardzo dobrze doświetlony celownik.",
+    "image": "/assets/images/analog-gear/yashica-electro-35.jpg"
   }
 ]
