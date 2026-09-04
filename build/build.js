@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { marked } from 'marked';
-import { layout, postCard, plainTitle, lightboxMarkup, contactForm, timeline, carousel, masonryGrid } from './templates.js';
+import { layout, postCard, plainTitle, lightboxMarkup, contactForm, timeline, carousel, masonryGrid, scrollBanner, gearCard } from './templates.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -60,22 +60,16 @@ function build() {
   // ---------- Home ----------
   const home = loadPage('home').data;
   const homeBody = `
-  <section class="hero scroll-banner" id="scrollBanner">
-    <div class="hero__sticky scroll-banner__sticky">
-      <canvas class="scroll-banner__canvas" id="scrollBannerCanvas"></canvas>
-      <div class="scroll-banner__scrim" id="scrollBannerScrim"></div>
-      <div class="hero__content" id="scrollBannerFade">
-        <span class="eyebrow">${site.tagline}</span>
-        <h1>${home.title}</h1>
-        <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${home.subtitle}</p>
-        <p class="hero__motion-notice">Animacja tła jest wyłączona, bo Twoja przeglądarka lub system ma włączoną opcję „Ogranicz ruch” (Reduce Motion). Wyłącz ją w ustawieniach systemowych, aby zobaczyć pełny efekt.</p>
-      </div>
-      <div class="hero__scroll" id="scrollBannerCue">Przewiń</div>
-      <div class="scroll-banner__loader" id="scrollBannerLoader">
-        <div class="scroll-banner__loader-fill" id="scrollBannerLoaderFill"></div>
-      </div>
-    </div>
-  </section>
+  ${scrollBanner({
+    framePrefix: '/assets/images/banner/frame-',
+    frameCount: 130,
+    frameDigits: 3,
+    eyebrow: site.tagline,
+    title: home.title,
+    subtitle: home.subtitle,
+    motionNotice:
+      'Animacja tła jest wyłączona, bo Twoja przeglądarka lub system ma włączoną opcję „Ogranicz ruch” (Reduce Motion). Wyłącz ją w ustawieniach systemowych, aby zobaczyć pełny efekt.',
+  })}
 
   <section class="container">
     <div class="grid-2">
@@ -176,6 +170,57 @@ function build() {
   write(
     'portfolio.html',
     layout({ title: 'Portfolio', active: 'portfolio', site, bodyHtml: portfolioBody })
+  );
+
+  // ---------- Analog ----------
+  const analog = loadPage('analog').data;
+  const analogGear = fs.readJsonSync(path.join(CONTENT, 'analog-gear.json'));
+  const analogGallery = fs.readJsonSync(path.join(CONTENT, 'analog-gallery.json'));
+  const analogBody = `
+  ${scrollBanner({
+    framePrefix: '/assets/images/banner-analog/frame-',
+    frameCount: 85,
+    frameDigits: 3,
+    eyebrow: analog.eyebrow,
+    title: analog.title,
+    subtitle: analog.subtitle,
+    motionNotice:
+      'Animacja tła jest wyłączona, bo Twoja przeglądarka lub system ma włączoną opcję „Ogranicz ruch” (Reduce Motion). Wyłącz ją w ustawieniach systemowych, aby zobaczyć pełny efekt.',
+  })}
+
+  <section class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">${analog.introEyebrow}</span>
+      <h2>${analog.introTitle}</h2>
+      ${analog.introText
+        .split(/\n\s*\n/)
+        .map((p) => `<p>${p.trim()}</p>`)
+        .join('\n      ')}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Sprzęt</span>
+      <h2>Aparaty analogowe</h2>
+    </div>
+    <div class="gear-grid" data-reveal-group>
+      ${analogGear.map(gearCard).join('\n')}
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Galeria</span>
+      <h2>Zdjęcia z filmu</h2>
+    </div>
+    ${masonryGrid({ id: 'analogGalleryGrid', items: analogGallery, extraAttrs: 'data-reveal-group' })}
+  </section>
+  ${lightboxMarkup()}`;
+
+  write(
+    'analog.html',
+    layout({ title: 'Analog', description: 'Aparaty analogowe i zdjęcia z filmu.', active: 'analog', site, bodyHtml: analogBody })
   );
 
   // ---------- Blog listing ----------

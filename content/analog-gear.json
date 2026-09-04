@@ -1,0 +1,23 @@
+[
+  {
+    "id": "gear-01",
+    "name": "Aparat analogowy #1",
+    "category": "Aparat filmowy",
+    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
+    "image": "https://picsum.photos/seed/analog-gear-1/900/700"
+  },
+  {
+    "id": "gear-02",
+    "name": "Aparat analogowy #2",
+    "category": "Aparat filmowy",
+    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
+    "image": "https://picsum.photos/seed/analog-gear-2/900/700"
+  },
+  {
+    "id": "gear-03",
+    "name": "Aparat analogowy #3",
+    "category": "Aparat filmowy",
+    "description": "Miejsce na opis — podmień na model, którego faktycznie używasz, wraz z historią i wrażeniami z użytkowania.",
+    "image": "https://picsum.photos/seed/analog-gear-3/900/700"
+  }
+]

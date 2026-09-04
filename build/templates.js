@@ -3,6 +3,7 @@
 const NAV_ITEMS = [
   { href: '/index.html', label: 'Start', key: 'home' },
   { href: '/portfolio.html', label: 'Portfolio', key: 'portfolio' },
+  { href: '/analog.html', label: 'Analog', key: 'analog' },
   { href: '/blog.html', label: 'Blog', key: 'blog' },
   { href: '/about.html', label: 'O mnie', key: 'about' },
   { href: '/contact.html', label: 'Kontakt', key: 'contact' },
@@ -80,6 +81,43 @@ ${footer(site)}
 </html>`;
 }
 
+// Scroll-scrubbing video banner (canvas plays a WebP frame sequence driven by scroll
+// position — see assets/js/banner.js). Reusable across pages: each call produces a
+// self-contained instance configured entirely through data-* attributes, so multiple
+// banners with different frame sequences can coexist site-wide without touching the JS.
+export function scrollBanner({
+  framePrefix,
+  frameCount,
+  frameDigits = 4,
+  scrubEnd = 0.65,
+  revealEnd = 0.8,
+  eyebrow,
+  title,
+  subtitle,
+  motionNotice,
+  scrollCueText = 'Przewiń',
+}) {
+  return `
+  <section class="hero scroll-banner" data-scroll-banner
+    data-frame-prefix="${framePrefix}" data-frame-count="${frameCount}" data-frame-digits="${frameDigits}"
+    data-scrub-end="${scrubEnd}" data-reveal-end="${revealEnd}">
+    <div class="hero__sticky scroll-banner__sticky">
+      <canvas class="scroll-banner__canvas"></canvas>
+      <div class="scroll-banner__scrim"></div>
+      <div class="hero__content" data-scroll-banner-fade>
+        <span class="eyebrow">${eyebrow}</span>
+        <h1>${title}</h1>
+        <p style="margin: 0 auto; max-width: 46ch; font-size: 1.15rem;">${subtitle}</p>
+        ${motionNotice ? `<p class="hero__motion-notice">${motionNotice}</p>` : ''}
+      </div>
+      <div class="hero__scroll" data-scroll-banner-cue>${scrollCueText}</div>
+      <div class="scroll-banner__loader">
+        <div class="scroll-banner__loader-fill"></div>
+      </div>
+    </div>
+  </section>`;
+}
+
 export function timeline(items) {
   return `
       <div class="timeline">
@@ -135,6 +173,18 @@ export function postCard(post) {
         <h3 class="post-card__title">${title}</h3>
         <p class="post-card__excerpt">${post.excerpt}</p>
       </a>`;
+}
+
+export function gearCard(item) {
+  return `
+      <div class="gear-card" data-reveal>
+        <div class="gear-card__media">
+          <img src="${item.image}" alt="${item.name}" loading="lazy">
+        </div>
+        <span class="gear-card__category">${item.category}</span>
+        <h3>${item.name}</h3>
+        <p>${item.description}</p>
+      </div>`;
 }
 
 export function carousel({ id, items, extraClass = '', extraAttrs = '' }) {
