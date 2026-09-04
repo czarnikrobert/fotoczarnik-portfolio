@@ -212,7 +212,7 @@ function build() {
   <section class="container">
     <div class="section-head" data-reveal>
       <span class="eyebrow">Galeria</span>
-      <h2>Zdjęcia z filmu</h2>
+      <h2>Wybrane skany</h2>
     </div>
     ${masonryGrid({ id: 'analogGalleryGrid', items: analogGallery, extraAttrs: 'data-reveal-group' })}
   </section>
