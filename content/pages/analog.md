@@ -5,7 +5,7 @@ subtitle: "Aparaty, które nauczyły mnie czekać na zdjęcie zamiast oglądać 
 introEyebrow: "Zanim była cyfra"
 introTitle: "Dlaczego wracam do filmu"
 introText: |
-  Zanim na dobre przesiadłem się na cyfrę, przez lata fotografowałem na taśmie — bez podglądu, bez drugiej szansy na kadr i z limitem trzydziestu sześciu klatek na całą wyprawę. To właśnie te aparaty nauczyły mnie patrzeć, zanim nacisnę spust migawki.
+  Zanim na dobre przesiadłem się na cyfrę, przez lata fotografowałem na filmie (negatywie) — bez podglądu, bez drugiej szansy na kadr i z limitem 36 lub 24 klatek na całą wyprawę. To właśnie te aparaty nauczyły mnie patrzeć, zanim nacisnę spust migawki.
 
-  Poniżej znajdziesz sprzęt, z którego korzystałem i korzystam, oraz kilka zdjęć zrobionych na filmie.
+  Poniżej znajdziesz mój sprzęt, z którego korzystałem, oraz kilka zdjęć zrobionych na filmie tymi aparatami.
 ---
