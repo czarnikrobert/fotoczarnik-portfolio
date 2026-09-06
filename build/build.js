@@ -202,7 +202,7 @@ function build() {
   <section class="container">
     <div class="section-head" data-reveal>
       <span class="eyebrow">Sprzęt</span>
-      <h2>Aparaty analogowe</h2>
+      <h2>Mój sprzęt</h2>
     </div>
     <div class="gear-grid" data-reveal-group>
       ${analogGear.map(gearCard).join('\n')}
