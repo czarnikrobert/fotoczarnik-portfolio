@@ -158,3 +158,21 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 ## Blog — migracja treści
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
+
+## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
+
+Robert regularnie przesyła gotowy artykuł jako plik `.md` (czasem eksportowany z narzędzia do researchu/SEO) + osobne zdjęcia. Ustalony sposób pracy:
+
+- Sekcje na końcu pliku źródłowego („Proponowany tytuł SEO”, „Meta description”, „Frazy kluczowe”) **nie są publikowane** — służą tylko do zbudowania `title`/`excerpt` we frontmatterze. „Frazy kluczowe” nie jest nigdzie wykorzystywane.
+- **Nie duplikować obrazka okładki w treści posta** — okładka (`cover` z frontmattera) jest renderowana osobno przez layout (`.post-cover`), więc ciało posta zaczyna się od samej kursywnej podpisu (`*...*`), bez powtórnego `![]()`. Wzorzec widoczny we wszystkich istniejących wpisach.
+- Nagłówki `#` (h1) w treści źródłowej trzeba zamienić na `##` (h2) — h1 jest zarezerwowany dla tytułu posta w layoucie.
+- Zdjęcia dołączone do wpisu kopiować do `assets/images/blog/` pod opisową nazwą (np. `sputnik-photos-20-lat-plakat.jpg`), niezależnie czy user wkleił je bezpośrednio na czacie, czy podał ścieżkę do pliku — **zawsze najpierw sprawdzić, czy plik(i) nie istnieją już na dysku** pod ścieżką, którą podał (tak było przy wpisie Sputnik Photos: `plakat.jpeg` i `foto.jpg` już leżały w tym samym folderze co `.md`, nie trzeba było prosić o ponowny zapis wklejonego obrazka).
+- Uważać na linie zaczynające się od `NN. ` (np. „12. edycja...”) — `marked` renderuje je jako start listy numerowanej nawet w cudzysłowie/blockquocie; trzeba escapować kropkę (`12\. edycja`).
+- **Zawsze pokazać gotowy draft do akceptacji przed `git push`** — user explicite tego oczekuje przy każdym nowym wpisie. Kolejność: utworzyć plik + skopiować obrazki → `npm run build` → podgląd lokalny (patrz niżej) → poprawki wg feedbacku → dopiero po „ok”/potwierdzeniu `git add` + `commit` + `push`.
+
+### Lokalny podgląd wpisu przed publikacją
+
+- Istnieje `.claude/launch.json` z konfiguracją `photoczarnik-static` (`npx serve public -l 4173`), ale **`mcp__Claude_Browser__preview_start` po nazwie potrafi zamiast tego podłączyć się do przypadkowego, niepowiązanego serwera dev z innego projektu w folderze nadrzędnym** (widziane jako serwer o nazwie „promptmaster” na porcie 3000) — to nie jest błąd tej strony, tylko myląca sesja narzędzia przeglądarki.
+- **Niezawodny sposób podglądu:** odpalić statyczny serwer ręcznie przez Bash (`cd public && npx --yes serve . -l 5175 &`), sprawdzić `curl -sI http://localhost:5175/...` że działa, a potem `mcp__Claude_Browser__navigate` na ten konkretny URL zamiast polegać na `preview_start`.
+- Panel przeglądarki bywa u Roberta zwinięty/ukryty mimo że sesja jest aktywna (`tabs_context` → `"Browser pane is currently hidden"`) — w takiej sytuacji warto dodatkowo podać mu wprost lokalny URL (`http://localhost:5175/...`) do otwarcia we własnej przeglądarce, bo on go nie zobaczy w panelu Claude Code.
+- Po zatwierdzeniu wpisu i przed commitem: zamknąć lokalny serwer (`pkill -f "serve . -l 5175"`), bo nie jest częścią repo/deployu (`public/` jest w `.gitignore`, buduje je Netlify).
