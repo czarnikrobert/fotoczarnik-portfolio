@@ -148,6 +148,15 @@ Tak przeniesiono placeholdery „Krajobraz" (18 plików z `Pictures/poprawione z
 - Workflow po każdej zmianie treści/kodu: `npm run build` (lokalny podgląd) → `git add -A && git commit -m "..."` → `git push` → Netlify sam wdroży w ~1 minutę.
 - Do sprawdzania stanu wdrożenia z poziomu Claude Code dostępne jest MCP Netlify (`mcp__903416a6-...__netlify-project-services-reader`, operacja `get-project` z powyższym `siteId`) — `currentDeploy.state: "ready"` oznacza sukces.
 
+## Statystyki odwiedzin — Cloudflare Web Analytics (od 2026-09-15)
+
+W `<head>` w `layout()` (`build/templates.js`) jest wpięty skrypt Cloudflare Web Analytics (`beacon.min.js` z tokenem `data-cf-beacon`). To wariant **bez przepinania DNS** na Cloudflare — sama strona nadal jest hostowana na Netlify, skrypt tylko wysyła zdarzenia do Cloudflare. Nie używa ciasteczek, więc nie wymaga banera zgody RODO.
+
+- Dane widoczne w panelu Cloudflare: **Analytics & Logs → Web Analytics** (konto Cloudflare użytkownika, nie ma do tego dostępu z poziomu MCP Netlify).
+- Token jest zaszyty wprost w kodzie (nie jest sekretem — to publiczny identyfikator strony, bezpieczny do trzymania w repo, podobnie jak Google Analytics ID).
+- Skrypt trafia na **wszystkie** wygenerowane strony, bo jest w współdzielonym `layout()`, nie per-stronę.
+- W lokalnym podglądzie (`mcp__Claude_Browser__*`) request do `static.cloudflareinsights.com` może się nie pojawić w logu sieciowym — to ograniczenie sandboxa narzędzia podglądu (brak dostępu do zewnętrznych domen spoza testowego środowiska), nie błąd strony. Weryfikacja lokalna ogranicza się do sprawdzenia, że tag `<script>` faktycznie trafił do wygenerowanego HTML (`grep cloudflareinsights public/*.html`) i że strona nadal renderuje się poprawnie.
+
 ## Formularz kontaktowy — skonfigurowany i przetestowany
 
 Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) — nie wymaga własnego backendu. Zgłoszenia widoczne w panelu Netlify → Forms.
