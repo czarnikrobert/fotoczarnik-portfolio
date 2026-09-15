@@ -67,6 +67,9 @@ export function layout({ title, description, active, site, bodyHtml, bodyClass =
 <link rel="stylesheet" href="/assets/css/main.css">
 <link rel="stylesheet" href="/assets/css/components.css">
 <link rel="stylesheet" href="/assets/css/animations.css">
+<!-- Cloudflare Web Analytics -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75721d278b7e4c30a4142826cccc31b71"}'></script>
+<!-- Koniec Cloudflare Web Analytics -->
 </head>
 <body class="${bodyClass}">
 ${nav(active, site)}
