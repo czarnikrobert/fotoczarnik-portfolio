@@ -89,6 +89,8 @@ Treść wpisu w Markdown...
 
 **Wymuszenie konkretnego podziału linii w długim tytule wpisu** (np. gdy naturalne zawijanie tekstu w dużym `<h1>` na stronie wpisu wygląda źle): użyj `|` w polu `title` frontmattera, np. `title: "Pierwsza linia|Druga linia|Trzecia linia"`. `plainTitle()` w `templates.js` zamienia `|` na spację wszędzie indziej (`<title>`, `og:title`, karta na liście bloga, `alt` okładki) — tylko `<h1>` na stronie wpisu (w `build.js`) renderuje `|` jako `<br>`. Działa tylko na desktopie/tablecie w sposób w pełni przewidywalny — na wąskich telefonach najdłuższa z linii może się dodatkowo zawinąć, to akceptowalny kompromis (nie warto zmniejszać czcionki tak bardzo, żeby to wyeliminować).
 
+**Nie zgaduj podziału na więcej niż 2 linie „na oko” bez potwierdzenia** — przy pierwszym podejściu do tytułu wpisu BBSPF x Leica 2026 (2026-09-15) podzieliłem długi tytuł na 2 linie w logicznym miejscu, ale Robert chciał konkretnego, innego podziału na **4 linijki** (`"Polska fotografia uliczna.|ma się dobrze.|Oto finaliści konkursu.|BBSPF x Leica 2026"`), niezależnego od naturalnych granic zdań. Dla krótszych tytułów 1 sensowny podział przy publikacji zwykle wystarcza (patrz wcześniejsze wpisy), ale dla dłuższych/wieloczłonowych tytułów lepiej pokazać draft i być gotowym na korektę podziału po feedbacku, zamiast zakładać że pierwsza propozycja jest ostateczna.
+
 Nowe zdjęcia do portfolio dodaje się jako wpis w `content/gallery.json`. Nowy sprzęt na osi czasu — jako wpis w `content/gear-timeline.json` (pola `year`, `name`, `category`, `description` — zawsze widoczny teaser, `quote` i `fullDescription` — opcjonalne, pokazują się po kliknięciu).
 
 Po każdej zmianie treści:
@@ -159,6 +161,8 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
 
+Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-09-15: **10 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09) i „BBSPF x Leica 2026 — finaliści” (2026-09-15, patrz sekcja niżej o wzorcu z wieloma zdjęciami w jednym poście).
+
 ## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
 
 Robert regularnie przesyła gotowy artykuł jako plik `.md` (czasem eksportowany z narzędzia do researchu/SEO) + osobne zdjęcia. Ustalony sposób pracy:
@@ -169,6 +173,18 @@ Robert regularnie przesyła gotowy artykuł jako plik `.md` (czasem eksportowany
 - Zdjęcia dołączone do wpisu kopiować do `assets/images/blog/` pod opisową nazwą (np. `sputnik-photos-20-lat-plakat.jpg`), niezależnie czy user wkleił je bezpośrednio na czacie, czy podał ścieżkę do pliku — **zawsze najpierw sprawdzić, czy plik(i) nie istnieją już na dysku** pod ścieżką, którą podał (tak było przy wpisie Sputnik Photos: `plakat.jpeg` i `foto.jpg` już leżały w tym samym folderze co `.md`, nie trzeba było prosić o ponowny zapis wklejonego obrazka).
 - Uważać na linie zaczynające się od `NN. ` (np. „12. edycja...”) — `marked` renderuje je jako start listy numerowanej nawet w cudzysłowie/blockquocie; trzeba escapować kropkę (`12\. edycja`).
 - **Zawsze pokazać gotowy draft do akceptacji przed `git push`** — user explicite tego oczekuje przy każdym nowym wpisie. Kolejność: utworzyć plik + skopiować obrazki → `npm run build` → podgląd lokalny (patrz niżej) → poprawki wg feedbacku → dopiero po „ok”/potwierdzeniu `git add` + `commit` + `push`.
+
+### Wzorzec: wpis z wieloma zdjęciami tego samego formatu (galeria finalistów, od 2026-09-15)
+
+Przy wpisie „BBSPF x Leica 2026 — finaliści” źródłem był 21-stronicowy PDF (jedno zdjęcie + podpis na stronę, 20 zdjęć) zamiast zwykłego pliku `.md`. Ustalone przy tej okazji zasady, przydatne przy każdym kolejnym „zestawieniu” zdjęć (konkurs, wystawa, galeria prac wielu autorów):
+
+- **PDF wielostronicowy trzeba czytać stronami** (`Read` z parametrem `pages`, max 20 stron na raz) — nie próbuj wczytać całości naraz, narzędzie i tak to odrzuci przy dużym pliku.
+- Jeśli w tym samym folderze co PDF leży też plik `.md` o bardzo podobnej nazwie/treści — to zwykle wcześniejszy, roboczy draft tego samego materiału (np. z research/SEO), **nie automatycznie ten sam plik co PDF**. Sprawdzić oba: PDF bywa „polerowaną”, ostateczną wersją z realnymi wstawionymi zdjęciami, a `.md` bywa szkicem z placeholderami/inną kolejnością. Przy sprzeczności **PDF wygrywa**, bo to on został wskazany przez użytkownika jako źródło — ale tekst zamykający z `.md` (sekcje typu „Dlaczego warto”, „Na koniec”), którego w PDF nie było, można świadomie dołączyć, jeśli pasuje stylistycznie i nie zawiera sprzeczności z PDF.
+- **Kolejność/numeracja z roboczego `.md` może nie zgadzać się z PDF** — w tym wypadku `.md` numerował autorów 1–20 w innej kolejności niż strony PDF. Rozjazd rozstrzygnęła numeracja w **nazwach plików zdjęć już pobranych na dysk** (`261577-1_Nazwisko.jpg` … `261596-20_Nazwisko.jpg`), która pokrywała się z kolejnością stron PDF, nie z listą w `.md`. Traktuj numerację w nazwach realnych plików jako najbardziej wiarygodne źródło kolejności, gdy inne źródła są sprzeczne.
+- **Okładka posta nie musi (i przy zestawieniu „N równorzędnych prac” nie powinna) być jednym z tych N zdjęć** — bo zgodnie z ustaloną zasadą „nie duplikuj okładki w treści” (patrz wyżej), wybranie jednego z 20 zdjęć na okładkę oznaczałoby albo pominięcie go z listy w treści (niekompletne „20 zdjęć”), albo pokazanie go dwa razy na stronie. Zamiast tego okładka to zdjęcie **spoza zestawu** — tu ponownie użyto `bielsko-biala-stare-miasto.jpg`, zdjęcia już istniejącego w `assets/images/blog/` z wcześniejszego, powiązanego tematycznie wpisu o tym samym festiwalu (nie trzeba było kopiować nowego pliku).
+- Każde zdjęcie w treści = `![]()` + kursywa `*Fot. Imię Nazwisko / nazwa wydarzenia*` bezpośrednio pod spodem — bez nagłówków `###` per autor (mniej wizualnego szumu przy 20 pozycjach niż w np. wpisie Sputnik Photos, gdzie `###` miało sens przy tylko 4 warsztatach).
+- Link do wcześniejszego, powiązanego wpisu na tym samym blogu można wstawić zwykłym linkiem markdown do **absolutnej ścieżki `.html`** (np. `[pisaliśmy o niej szerzej tutaj](/blog/bielsko-biala-street-photography-festival-2026.html)`) — działa tak samo jak link zewnętrzny, `marked` nie wymaga niczego specjalnego. Dobra praktyka przy wpisach będących kontynuacją/rozwinięciem wcześniejszego tematu.
+- Zdjęcia osób trzecich (uczestnicy konkursu) potraktowano tak samo jak przy wpisie o festiwalu w Sopocie: podpis z imieniem i nazwiskiem autora pod każdym zdjęciem + zbiorcze zastrzeżenie na końcu posta („Fotografie należą do ich autorów i organizatorów konkursu”) + link do materiału źródłowego (Fotopolis.pl). Nie weryfikowano indywidualnie licencji każdego z 20 zdjęć (w odróżnieniu od zdjęć sprzętu na stronie Analog, gdzie to miało większe znaczenie, bo prezentowane jako treść własna strony) — to świadomie niższy próg staranności, uzasadniony tym, że zdjęcia pochodzą z oficjalnych materiałów konkursu/festiwalu z wyraźnym przypisaniem autorstwa, a nie z anonimowego źródła.
 
 ### Lokalny podgląd wpisu przed publikacją
 
