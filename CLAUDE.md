@@ -2,6 +2,16 @@
 
 Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
 
+## Ścieżka projektu na dysku — zmieniła się 2026-09-15/18
+
+Do ok. 2026-09-15 projekt leżał pod `/Users/robertczarnik/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio`. Od sesji 2026-09-18 ta ścieżka **już nie istnieje** (`/Users/robertczarnik/Documents` jest teraz pustym folderem) — najpewniej macOS włączył synchronizację „Pulpit i Dokumenty” z iCloud Drive. **Aktualna ścieżka:**
+
+```
+/Users/robertczarnik/Library/Mobile Documents/com~apple~CloudDocs/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio
+```
+
+Historia gita jest ciągła (te same commity, ten sam zdalny remote `github.com/czarnikrobert/fotoczarnik-portfolio`) — to nie jest inna kopia repo, tylko fizyczne przeniesienie tego samego folderu przez iCloud. Jeśli w przyszłej sesji working directory (albo ścieżka z poprzedniej sesji) wskazuje na `/Users/robertczarnik/Documents/...` i nie istnieje, **nie zakładaj utraty danych** — sprawdź najpierw `find /Users/robertczarnik -maxdepth 6 -iname "photo-travel-portfolio"`, ścieżka mogła się znowu przenieść (obie lokalizacje w Finderze wyglądają identycznie jako „Dokumenty”, więc kolejna zmiana w drugą stronę też jest możliwa).
+
 ## Struktura
 
 ```
@@ -170,7 +180,7 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
 
-Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-09-15: **10 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09) i „BBSPF x Leica 2026 — finaliści” (2026-09-15, patrz sekcja niżej o wzorcu z wieloma zdjęciami w jednym poście).
+Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-09-18: **11 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15) i „Astronomy Photographer of the Year 2026” (2026-09-18, patrz sekcja niżej o wzorcu z wieloma zdjęciami w jednym poście).
 
 ## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
 
@@ -193,6 +203,12 @@ Przy wpisie „BBSPF x Leica 2026 — finaliści” źródłem był 21-stronicow
 - **Okładka posta nie musi (i przy zestawieniu „N równorzędnych prac” nie powinna) być jednym z tych N zdjęć** — bo zgodnie z ustaloną zasadą „nie duplikuj okładki w treści” (patrz wyżej), wybranie jednego z 20 zdjęć na okładkę oznaczałoby albo pominięcie go z listy w treści (niekompletne „20 zdjęć”), albo pokazanie go dwa razy na stronie. Zamiast tego okładka to zdjęcie **spoza zestawu** — tu ponownie użyto `bielsko-biala-stare-miasto.jpg`, zdjęcia już istniejącego w `assets/images/blog/` z wcześniejszego, powiązanego tematycznie wpisu o tym samym festiwalu (nie trzeba było kopiować nowego pliku).
 - Każde zdjęcie w treści = `![]()` + kursywa `*Fot. Imię Nazwisko / nazwa wydarzenia*` bezpośrednio pod spodem — bez nagłówków `###` per autor (mniej wizualnego szumu przy 20 pozycjach niż w np. wpisie Sputnik Photos, gdzie `###` miało sens przy tylko 4 warsztatach).
 - Link do wcześniejszego, powiązanego wpisu na tym samym blogu można wstawić zwykłym linkiem markdown do **absolutnej ścieżki `.html`** (np. `[pisaliśmy o niej szerzej tutaj](/blog/bielsko-biala-street-photography-festival-2026.html)`) — działa tak samo jak link zewnętrzny, `marked` nie wymaga niczego specjalnego. Dobra praktyka przy wpisach będących kontynuacją/rozwinięciem wcześniejszego tematu.
+
+**Doprecyzowanie z wpisu „Astronomy Photographer of the Year 2026” (2026-09-18):**
+
+- Zasada „okładka spoza zestawu” (wyżej) **nie dotyczy sytuacji, gdy jedno zdjęcie jest wyraźnym bohaterem całego artykułu**, a nie tylko jedną z N równorzędnych pozycji — tu okładką było właśnie zdjęcie zwycięskie (Grand Prix), bo tekst źródłowy poświęcał mu osobną, rozbudowaną sekcję. Rozróżnienie: „N równorzędnych prac" (BBSPF, żadna nie jest bohaterem tytułu) → okładka spoza zestawu; „jedna praca jest tematem tytułu, reszta to kontekst/uzupełnienie" (APOY) → okładka = ta praca, zgodnie ze zwykłą zasadą „nie duplikuj okładki w treści" (samo `![]()` pomijamy dla tego jednego zdjęcia, tylko kursywa z podpisem pod spodem, tak jak przy każdym innym poście).
+- Zdjęcia pobrane z galerii Fotopolis mają charakterystyczne nazwy plików: losowy base64 (`d2FjPTxxx=` — to zakodowany parametr `wac=szerokośćxwspółczynnik`) + `_src_NNNNNN-Tytuł--Autor.jpg`. Numer `NNNNNN` to numer obrazka w CMS-ie Fotopolis (rosnąco, ale niekoniecznie w kolejności prezentacji w artykule — w odróżnieniu od wzorca BBSPF, tu numeracja **nie** pokrywała się z kolejnością w tekście, trzeba było dopasowywać po tytule/nazwisku z treści `.md`, nie po numerze). Sufiks `-top1` przy jednym z plików oznaczał zdjęcie wiodące/okładkowe galerii źródłowej — dobry sygnał przy wyborze okładki posta.
+- Gdy w folderze ze zdjęciami są pozycje **nienazwane wprost w tekście źródłowym** (tu: 2 dodatkowe zdjęcia z kategorii Stars and Nebulae, poza opisanym zwycięzcą), nie zgaduj ich dokładnej rangi (np. „runner-up” vs „highly commended”), jeśli źródło tego nie precyzuje — dodaj je z neutralnym, prawdziwym opisem („jury doceniło również...”) zamiast wymyślać szczegół, którego nie da się zweryfikować.
 - Zdjęcia osób trzecich (uczestnicy konkursu) potraktowano tak samo jak przy wpisie o festiwalu w Sopocie: podpis z imieniem i nazwiskiem autora pod każdym zdjęciem + zbiorcze zastrzeżenie na końcu posta („Fotografie należą do ich autorów i organizatorów konkursu”) + link do materiału źródłowego (Fotopolis.pl). Nie weryfikowano indywidualnie licencji każdego z 20 zdjęć (w odróżnieniu od zdjęć sprzętu na stronie Analog, gdzie to miało większe znaczenie, bo prezentowane jako treść własna strony) — to świadomie niższy próg staranności, uzasadniony tym, że zdjęcia pochodzą z oficjalnych materiałów konkursu/festiwalu z wyraźnym przypisaniem autorstwa, a nie z anonimowego źródła.
 
 ### Lokalny podgląd wpisu przed publikacją
