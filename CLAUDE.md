@@ -180,7 +180,7 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
 
-Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-09-30: **13 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) i „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej).
+Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-10-05: **14 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej) i „Nikon Comedy Wildlife Awards 2026” (2026-10-05, 47 zdjęć — patrz sekcja niżej).
 
 ## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
 
@@ -237,3 +237,15 @@ Użytkownik poprosił explicite o użycie skilla `humanizer` (`~/.claude/skills/
 - **Niezawodny sposób podglądu:** odpalić statyczny serwer ręcznie przez Bash (`cd public && npx --yes serve . -l 5175 &`), sprawdzić `curl -sI http://localhost:5175/...` że działa, a potem `mcp__Claude_Browser__navigate` na ten konkretny URL zamiast polegać na `preview_start`.
 - Panel przeglądarki bywa u Roberta zwinięty/ukryty mimo że sesja jest aktywna (`tabs_context` → `"Browser pane is currently hidden"`) — w takiej sytuacji warto dodatkowo podać mu wprost lokalny URL (`http://localhost:5175/...`) do otwarcia we własnej przeglądarce, bo on go nie zobaczy w panelu Claude Code.
 - Po zatwierdzeniu wpisu i przed commitem: zamknąć lokalny serwer (`pkill -f "serve . -l 5175"`), bo nie jest częścią repo/deployu (`public/` jest w `.gitignore`, buduje je Netlify).
+
+### Wzorzec: duży wpis konkursowy z researchem w sieci (od 2026-10-05, Nikon Comedy Wildlife Awards 2026)
+
+Użytkownik podał folder (`Do strony/05.10.2026/`) z dwoma plikami `.md` (szkic i wersja `-full` z hotlinkami do zdjęć na Sky TG24) oraz 48 zdjęciami, i pozwolił „przeszukać net”. Wnioski:
+
+- **Szkic `.md` zawierał błędy merytoryczne wykryte dopiero po zestawieniu ze zdjęciami i źródłami** (np. „Doris with her hat” opisany jako dzik, a to bawół wodny ze Sri Lanki; „Ballet Dancer” jako „ptak”, a to krogulec). Przy wpisach z tekstem wygenerowanym przez AI **obejrzyj zdjęcie i sprawdź opis w 2–3 niezależnych źródłach** (oficjalna strona konkursu bywa za 403 dla WebFetch, ale 121Clicks, Photography Talk, Upworthy i Colossal dają tytuły, kraje, gatunki i miejsca). Informacji, której nie potwierdza żadne źródło (tu: „część dochodów idzie na ochronę przyrody”), nie wpisuj.
+- **Tytuł jednego zdjęcia bywa różny w różnych źródłach** (Fotopolis vs oficjalne materiały: „When you spot your blind date…” / „I can't see you”). Użyj wersji z polskiego źródła zgodnej z nazwą pliku i wspomnij drugą w tekście.
+- **Nazwa pliku w folderze zawiera tytuł i autora** (`262769-CliffFawcett_...jpg`) — wystarczyło to do dopasowania prawie wszystkich zdjęć bez zgadywania. Zdublowany plik (`... (1).jpg`) sprawdź przez `md5`, zanim go pominiesz.
+- **Hurtowe zmniejszanie zdjęć**: oryginały miały 117 MB (do 7912 px). Pętla `sips -Z 1400 -s format jpeg -s formatOptions 72` zbiła 47 zdjęć do 13 MB — dla galerii >20 zdjęć rób to zawsze. Do podglądu w czacie (`Read`) osobno zrób miniatury 1000 px do `/private/tmp/...`, żeby nie wczytywać wielkich plików.
+- **Przy dużych galeriach struktura: kilka wyróżnionych kadrów z krótką prozą → sekcja „Polacy w finale” → reszta jako lista zdjęć z podpisem w jednej linii** (tytuł — autor (kraj), gatunek). Okładka = zdjęcie z wyróżnionych, bez powtarzania go w treści.
+- **Prawa do zdjęć**: oficjalna strona finalistów ma napis „images are for viewing only and must not be copied”. Użytkownik został o tym poinformowany przed publikacją i zaakceptował (podpisy autorów + zbiorcze zastrzeżenie na końcu, jak w poprzednich wpisach konkursowych). Za każdym razem, gdy źródło ma taki zakaz, powiedz o tym wprost przed publikacją.
+
