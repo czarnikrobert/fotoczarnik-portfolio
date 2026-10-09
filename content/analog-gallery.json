@@ -1,3 +1,11 @@
 [
-  { "id": "a01", "category": "Analog", "src": "/assets/images/analog-gallery-placeholder.svg", "alt": "Galeria zdjęć z filmu — w przygotowaniu", "caption": "Wróć tu wkrótce po pierwsze skany z filmu.", "featured": false }
+  {"id": "a01", "category": "Analog", "src": "/assets/images/analog-gallery/analog-01.jpg", "alt": "Zbliżenie na kłódkę z wygrawerowanymi imionami i sercem, zawieszoną na siatce", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a02", "category": "Analog", "src": "/assets/images/analog-gallery/analog-02.jpg", "alt": "Łukowy stalowy most nad rzeką pod ciężkimi, dramatycznymi chmurami", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a03", "category": "Analog", "src": "/assets/images/analog-gallery/analog-03.jpg", "alt": "Barokowa fasada kościoła z płaskorzeźbą słońca z monogramem, między kolumnami i kutą bramą", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a04", "category": "Analog", "src": "/assets/images/analog-gallery/analog-04.jpg", "alt": "Kamienna rzeźba apostoła z wyciągniętą ręką na tle fasady kościoła", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a05", "category": "Analog", "src": "/assets/images/analog-gallery/analog-05.jpg", "alt": "Mokra ulica po deszczu, po lewej romańska wieża kościoła, w oddali kamienice", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a06", "category": "Analog", "src": "/assets/images/analog-gallery/analog-06.jpg", "alt": "Pusta hala z rzędami kramów i świecącymi kulistymi lampami w perspektywie", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a07", "category": "Analog", "src": "/assets/images/analog-gallery/analog-07.jpg", "alt": "Wisząca latarnia w łukowym przejściu, a za nią ceglana wieża kościoła", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a08", "category": "Analog", "src": "/assets/images/analog-gallery/analog-08.jpg", "alt": "Pusty rynek wyłożony brukiem, pomnik po lewej i mały kościół z kopułą po prawej", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false},
+  {"id": "a09", "category": "Analog", "src": "/assets/images/analog-gallery/analog-09.jpg", "alt": "Mały kościół z kopułą i okrągłym oknem na tle kamienic, przed nim bezlistne drzewa", "caption": "Yashica Electro 35 · Ilford Delta 100", "featured": false}
 ]
