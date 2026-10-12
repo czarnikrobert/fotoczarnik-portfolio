@@ -167,6 +167,15 @@ W `<head>` w `layout()` (`build/templates.js`) jest wpięty skrypt Cloudflare We
 - Skrypt trafia na **wszystkie** wygenerowane strony, bo jest w współdzielonym `layout()`, nie per-stronę.
 - W lokalnym podglądzie (`mcp__Claude_Browser__*`) request do `static.cloudflareinsights.com` może się nie pojawić w logu sieciowym — to ograniczenie sandboxa narzędzia podglądu (brak dostępu do zewnętrznych domen spoza testowego środowiska), nie błąd strony. Weryfikacja lokalna ogranicza się do sprawdzenia, że tag `<script>` faktycznie trafił do wygenerowanego HTML (`grep cloudflareinsights public/*.html`) i że strona nadal renderuje się poprawnie.
 
+## SEO w szablonie (od 2026-10-12)
+
+`layout()` w `build/templates.js` dla każdej strony generuje: `<link rel="canonical">`, Open Graph (`og:type` = `article` tylko dla wpisów, reszta `website`), `og:locale`, `og:site_name`, Twitter Card (`summary_large_image`) i opcjonalny blok JSON-LD. Wpisy dostają `BlogPosting` plus `BreadcrumbList`, strona główna `WebSite` plus `Person` (funkcje `postJsonLd()` i `homeJsonLd()` w `build.js`). `thanks.html` i `404.html` mają `noindex` zamiast canonical. `build.js` generuje też `sitemap.xml` (strony i wszystkie wpisy, `lastmod` z daty wpisu) oraz `robots.txt` ze wskazaniem sitemapy.
+
+- **Canonical jest bez `.html`** (`/portfolio`, `/blog/slug`), bo Netlify serwuje oba warianty z kodem 200 i bez przekierowania. Nowa podstrona musi dostać `path: '/nazwa'` w wywołaniu `layout()` i wpis w `sitemapEntries` w `build.js`, inaczej canonical wskaże stronę główną.
+- Tytuł strony to `{tytuł} — PhotoCzarnik`, więc tytuł wpisu trzymaj w ok. 45 znakach (cały `<title>` do ok. 60). `excerpt` jest meta description: 150 do 160 znaków, bez prostych cudzysłowów `"`.
+- Adres wpisu to nazwa pliku bez daty (`2026-10-12-moj-wpis.md` → `/blog/moj-wpis`), więc nazwę pliku wybieraj pod frazę kluczową. Pola `slug`, `tags` i `description` we frontmatterze są ignorowane.
+- Zdjęcia we wpisach: opisowe nazwy plików, `alt` z treścią zdjęcia. Generator nie dodaje `width`/`height` do obrazków z markdownu.
+
 ## Formularz kontaktowy — skonfigurowany i przetestowany
 
 Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) — nie wymaga własnego backendu. Zgłoszenia widoczne w panelu Netlify → Forms.

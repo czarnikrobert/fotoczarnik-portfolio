@@ -48,6 +48,59 @@ function write(relPath, html) {
   fs.writeFileSync(outPath, html, 'utf-8');
 }
 
+function homeJsonLd(site) {
+  const sameAs = Object.values(site.social || {}).filter(Boolean);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${site.url}/#website`,
+        url: site.url,
+        name: site.name,
+        description: site.description,
+        inLanguage: 'pl-PL',
+        publisher: { '@id': `${site.url}/#person` },
+      },
+      { '@type': 'Person', '@id': `${site.url}/#person`, name: site.author, url: site.url, sameAs },
+    ],
+  };
+}
+
+function postJsonLd(site, post, title, postUrl) {
+  const image = `${site.url}${post.cover}`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BlogPosting',
+        '@id': `${postUrl}#article`,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+        headline: title,
+        description: post.excerpt,
+        image: [image],
+        datePublished: post.date,
+        dateModified: post.date,
+        inLanguage: 'pl-PL',
+        author: { '@type': 'Person', name: site.author, url: site.url },
+        publisher: {
+          '@type': 'Person',
+          name: site.author,
+          url: site.url,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: site.name, item: site.url },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${site.url}/blog` },
+          { '@type': 'ListItem', position: 3, name: title, item: postUrl },
+        ],
+      },
+    ],
+  };
+}
+
 function build() {
   fs.emptyDirSync(PUBLIC);
   fs.copySync(ASSETS, path.join(PUBLIC, 'assets'));
@@ -112,7 +165,15 @@ function build() {
 
   write(
     'index.html',
-    layout({ title: site.name, description: site.description, active: 'home', site, bodyHtml: homeBody })
+    layout({
+      title: site.name,
+      description: site.description,
+      active: 'home',
+      site,
+      bodyHtml: homeBody,
+      path: '/',
+      jsonLd: homeJsonLd(site),
+    })
   );
 
   // ---------- About ----------
@@ -144,7 +205,7 @@ function build() {
 
   write(
     'about.html',
-    layout({ title: about.data.title, active: 'about', site, bodyHtml: aboutBody })
+    layout({ title: about.data.title, active: 'about', site, bodyHtml: aboutBody, path: '/about' })
   );
 
   // ---------- Portfolio / gallery ----------
@@ -169,7 +230,7 @@ function build() {
 
   write(
     'portfolio.html',
-    layout({ title: 'Portfolio', active: 'portfolio', site, bodyHtml: portfolioBody })
+    layout({ title: 'Portfolio', active: 'portfolio', site, bodyHtml: portfolioBody, path: '/portfolio' })
   );
 
   // ---------- Analog ----------
@@ -220,7 +281,14 @@ function build() {
 
   write(
     'analog.html',
-    layout({ title: 'Analog', description: 'Aparaty analogowe i zdjęcia z filmu.', active: 'analog', site, bodyHtml: analogBody })
+    layout({
+      title: 'Analog',
+      description: 'Aparaty analogowe i zdjęcia z filmu.',
+      active: 'analog',
+      site,
+      bodyHtml: analogBody,
+      path: '/analog',
+    })
   );
 
   // ---------- Blog listing ----------
@@ -235,7 +303,7 @@ function build() {
     </div>
   </section>`;
 
-  write('blog.html', layout({ title: 'Blog', active: 'blog', site, bodyHtml: blogBody }));
+  write('blog.html', layout({ title: 'Blog', active: 'blog', site, bodyHtml: blogBody, path: '/blog' }));
 
   // ---------- Blog posts ----------
   posts.forEach((post) => {
@@ -281,7 +349,10 @@ function build() {
         site,
         bodyHtml: postBody,
         image: post.cover,
-        url: postUrl,
+        path: `/blog/${post.slug}`,
+        ogType: 'article',
+        publishedTime: post.date,
+        jsonLd: postJsonLd(site, post, title, postUrl),
       })
     );
   });
@@ -300,7 +371,7 @@ function build() {
 
   write(
     'contact.html',
-    layout({ title: contact.data.title, active: 'contact', site, bodyHtml: contactBody })
+    layout({ title: contact.data.title, active: 'contact', site, bodyHtml: contactBody, path: '/contact' })
   );
 
   // ---------- Thanks (Netlify form redirect target) ----------
@@ -312,7 +383,7 @@ function build() {
     <a href="/index.html" class="btn" style="margin: 2rem auto 0;">Wróć na stronę główną</a>
   </section>`;
 
-  write('thanks.html', layout({ title: 'Dziękuję', active: '', site, bodyHtml: thanksBody }));
+  write('thanks.html', layout({ title: 'Dziękuję', active: '', site, bodyHtml: thanksBody, path: '/thanks', noindex: true }));
 
   // ---------- 404 ----------
   const notFoundBody = `
@@ -322,7 +393,33 @@ function build() {
     <a href="/index.html" class="btn" style="margin: 2rem auto 0;">Wróć na stronę główną</a>
   </section>`;
 
-  write('404.html', layout({ title: 'Nie znaleziono', active: '', site, bodyHtml: notFoundBody }));
+  write('404.html', layout({ title: 'Nie znaleziono', active: '', site, bodyHtml: notFoundBody, path: '/404', noindex: true }));
+
+  // ---------- Sitemap i robots.txt ----------
+  const latestPostDate = posts.length ? posts[0].date : undefined;
+  const sitemapEntries = [
+    { path: '/', lastmod: latestPostDate },
+    { path: '/portfolio' },
+    { path: '/analog' },
+    { path: '/blog', lastmod: latestPostDate },
+    { path: '/about' },
+    { path: '/contact' },
+    ...posts.map((post) => ({ path: `/blog/${post.slug}`, lastmod: post.date })),
+  ];
+  write(
+    'sitemap.xml',
+    `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries
+  .map(
+    (e) =>
+      `  <url>\n    <loc>${site.url}${e.path}</loc>${e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : ''}\n  </url>`
+  )
+  .join('\n')}
+</urlset>
+`
+  );
+  write('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`);
 
   console.log(`✔ Zbudowano ${posts.length} wpisów, ${gallery.photos.length} zdjęć → public/`);
 }

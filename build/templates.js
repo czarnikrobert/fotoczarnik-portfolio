@@ -41,11 +41,36 @@ export function footer(site) {
   </footer>`;
 }
 
-export function layout({ title, description, active, site, bodyHtml, bodyClass = '', image, url }) {
-  const ogDescription = description || site.description;
+const attr = (value) => String(value).replace(/"/g, '&quot;');
+
+// JSON-LD trafia do <script>, więc "<" musi być zakodowane, żeby treść nie zamknęła tagu.
+const jsonLdScript = (data) =>
+  `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+
+export function layout({
+  title,
+  description,
+  active,
+  site,
+  bodyHtml,
+  bodyClass = '',
+  image,
+  path = '/',
+  ogType = 'website',
+  jsonLd,
+  noindex = false,
+  publishedTime,
+}) {
+  const ogDescription = attr(description || site.description);
   const ogImage = image ? `${site.url}${image}` : `${site.url}/assets/images/brand/logo.png`;
-  const ogUrl = url || site.url;
-  const pageTitle = title === site.name ? site.name : `${title} — ${site.name}`;
+  const canonicalUrl = `${site.url}${path}`;
+  const pageTitle = attr(title === site.name ? site.name : `${title} — ${site.name}`);
+  const indexing = noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${canonicalUrl}">`;
+  const articleMeta = publishedTime
+    ? `<meta property="article:published_time" content="${publishedTime}">
+<meta property="article:author" content="${attr(site.author)}">`
+    : '';
+  const structuredData = jsonLd ? jsonLdScript(jsonLd) : '';
   return `<!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -53,11 +78,19 @@ export function layout({ title, description, active, site, bodyHtml, bodyClass =
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${pageTitle}</title>
 <meta name="description" content="${ogDescription}">
-<meta property="og:type" content="article">
+${indexing}
+<meta property="og:type" content="${ogType}">
+<meta property="og:site_name" content="${attr(site.name)}">
+<meta property="og:locale" content="pl_PL">
 <meta property="og:title" content="${pageTitle}">
 <meta property="og:description" content="${ogDescription}">
 <meta property="og:image" content="${ogImage}">
-<meta property="og:url" content="${ogUrl}">
+<meta property="og:url" content="${canonicalUrl}">
+${articleMeta}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${pageTitle}">
+<meta name="twitter:description" content="${ogDescription}">
+<meta name="twitter:image" content="${ogImage}">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/brand/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/brand/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/brand/apple-touch-icon.png">
@@ -70,6 +103,7 @@ export function layout({ title, description, active, site, bodyHtml, bodyClass =
 <!-- Cloudflare Web Analytics -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "75721d278b7e4c30a4142826cccc31b71"}'></script>
 <!-- Koniec Cloudflare Web Analytics -->
+${structuredData}
 </head>
 <body class="${bodyClass}">
 ${nav(active, site)}
