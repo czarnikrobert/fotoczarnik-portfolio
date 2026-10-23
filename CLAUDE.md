@@ -2,15 +2,15 @@
 
 Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
 
-## Ścieżka projektu na dysku — zmieniła się 2026-09-15/18
-
-Do ok. 2026-09-15 projekt leżał pod `/Users/robertczarnik/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio`. Od sesji 2026-09-18 ta ścieżka **już nie istnieje** (`/Users/robertczarnik/Documents` jest teraz pustym folderem) — najpewniej macOS włączył synchronizację „Pulpit i Dokumenty” z iCloud Drive. **Aktualna ścieżka:**
+## Ścieżka projektu na dysku — od 2026-10-23 główna kopia robocza
 
 ```
-/Users/robertczarnik/Library/Mobile Documents/com~apple~CloudDocs/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio
+/Users/robertczarnik/Projekty-claude/fotoczarnik-portfolio
 ```
 
-Historia gita jest ciągła (te same commity, ten sam zdalny remote `github.com/czarnikrobert/fotoczarnik-portfolio`) — to nie jest inna kopia repo, tylko fizyczne przeniesienie tego samego folderu przez iCloud. Jeśli w przyszłej sesji working directory (albo ścieżka z poprzedniej sesji) wskazuje na `/Users/robertczarnik/Documents/...` i nie istnieje, **nie zakładaj utraty danych** — sprawdź najpierw `find /Users/robertczarnik -maxdepth 6 -iname "photo-travel-portfolio"`, ścieżka mogła się znowu przenieść (obie lokalizacje w Finderze wyglądają identycznie jako „Dokumenty”, więc kolejna zmiana w drugą stronę też jest możliwa).
+To klon `github.com/czarnikrobert/fotoczarnik-portfolio` (2026-10-23), w nim się pracuje. Autor commitów ustawiony lokalnie w repo: `czarnikrobert <czarnikrobert@wp.pl>` (jak w całej historii; globalnego `git config` na tym Macu nie ma).
+
+Starsza kopia z gitem nadal leży w iCloud: `/Users/robertczarnik/Library/Mobile Documents/com~apple~CloudDocs/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio` (wcześniej, do 2026-09-15, pod `/Users/robertczarnik/Documents/PROJEKTY_CLAUDE/photo-travel-portfolio`, zanim macOS przeniósł „Dokumenty” do iCloud Drive). Nie edytuj jej równolegle. Jeśli trzeba ją użyć, zrób najpierw `git pull`, bo zmiany wypchnięte z `Projekty-claude` jej nie dotyczą.
 
 ## Struktura
 
@@ -189,7 +189,7 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
 
-Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-10-14: **18 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej) i „Nikon Comedy Wildlife Awards 2026” (2026-10-05, 47 zdjęć — patrz sekcja niżej) i „Imaging World inspired by photokina” (2026-10-07, pierwszy wpis opublikowany przez bramkę moda). Później doszły „The Illume Awards 2026” (2026-10-08) i „Leica Oskar Barnack Award 2026” (2026-10-12) i „Wildlife Photographer of the Year 2026” (2026-10-14).
+Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-10-23: **19 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej) i „Nikon Comedy Wildlife Awards 2026” (2026-10-05, 47 zdjęć — patrz sekcja niżej) i „Imaging World inspired by photokina” (2026-10-07, pierwszy wpis opublikowany przez bramkę moda). Później doszły „The Illume Awards 2026” (2026-10-08) i „Leica Oskar Barnack Award 2026” (2026-10-12) i „Wildlife Photographer of the Year 2026” (2026-10-14) i „Pamięć „W” kadrze 2026: wyniki konkursu” (2026-10-23).
 
 ## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
 
@@ -201,7 +201,7 @@ Robert regularnie przesyła gotowy artykuł jako plik `.md` (czasem eksportowany
 - Zdjęcia dołączone do wpisu kopiować do `assets/images/blog/` pod opisową nazwą (np. `sputnik-photos-20-lat-plakat.jpg`), niezależnie czy user wkleił je bezpośrednio na czacie, czy podał ścieżkę do pliku — **zawsze najpierw sprawdzić, czy plik(i) nie istnieją już na dysku** pod ścieżką, którą podał (tak było przy wpisie Sputnik Photos: `plakat.jpeg` i `foto.jpg` już leżały w tym samym folderze co `.md`, nie trzeba było prosić o ponowny zapis wklejonego obrazka).
 - Uważać na linie zaczynające się od `NN. ` (np. „12. edycja...”) — `marked` renderuje je jako start listy numerowanej nawet w cudzysłowie/blockquocie; trzeba escapować kropkę (`12\. edycja`).
 - **Stały zestaw skilli przy nowym wpisie (od 2026-10-14):** na polecenie „użyj wszystkich zalecanych skilli” stosuj `miodkuj` (zawsze) oraz `anthropic-skills:seo-optimizer` (patrz „Wzorzec: wpis pod SEO”); `humanizer` tylko na wyraźną prośbę.
-- **Zawsze redagować treść skillem `miodkuj` (od 2026-10-07)** — Robert poprosił, żeby przy każdym wpisie na bloga używać skilla `miodkuj` (polski styl, bez sztuczności i biurokracji), bez czekania na osobną prośbę. Kolejność: treść ze źródłowego `.md` → `miodkuj` → build i podgląd → draft do akceptacji. Skill nie zmienia faktów, podpisów autorów ani zastrzeżeń o prawach do zdjęć.
+- **Zawsze redagować treść skillem `miodkuj` (od 2026-10-07)** — Robert poprosił, żeby przy każdym wpisie na bloga używać skilla `miodkuj` (polski styl, bez sztuczności i biurokracji), bez czekania na osobną prośbę. Kolejność: treść ze źródłowego `.md` → `miodkuj` → build i podgląd → draft do akceptacji. Skill nie zmienia faktów, podpisów autorów ani zastrzeżeń o prawach do zdjęć. Skill leży w `~/.claude/skills/miodkuj/` (`SKILL.md` + `references/`) i nie zawsze pojawia się na liście skilli sesji — jeśli go tam nie ma, przeczytaj `SKILL.md` i pliki z `references/` (polish-patterns, eval, registers, plain-polish, voice-calibration) i zastosuj ręcznie. Nie pisz od razu, że skilla nie ma.
 - **Zawsze pokazać gotowy draft do akceptacji przed `git push`** — user explicite tego oczekuje przy każdym nowym wpisie. Kolejność: utworzyć plik + skopiować obrazki → `npm run build` → podgląd lokalny (patrz niżej) → poprawki wg feedbacku → dopiero po „ok”/potwierdzeniu `git add` + `commit` + `push`.
 
 ### Wzorzec: wpis z wieloma zdjęciami tego samego formatu (galeria finalistów, od 2026-09-15)
@@ -244,6 +244,7 @@ Użytkownik poprosił explicite o użycie skilla `humanizer` (`~/.claude/skills/
 
 ### Lokalny podgląd wpisu przed publikacją
 
+- **Od 2026-10-23 (sesja otwarta w `/Users/robertczarnik/Projekty-claude`):** `preview_start` czyta `launch.json` z folderu sesji, nie z repo. W `/Users/robertczarnik/Projekty-claude/.claude/launch.json` jest wpis `photoczarnik-static` (`npx --yes serve fotoczarnik-portfolio/public -l 4173`) obok `katalog-dev` — `preview_start` z tą nazwą działa poprawnie. Serwer `serve` przekierowuje adresy `.html` na wersję bez rozszerzenia, więc przy `curl` dodawaj `-L`.
 - Istnieje `.claude/launch.json` z konfiguracją `photoczarnik-static` (`npx serve public -l 4173`), ale **`mcp__Claude_Browser__preview_start` po nazwie potrafi zamiast tego podłączyć się do przypadkowego, niepowiązanego serwera dev z innego projektu w folderze nadrzędnym** (widziane jako serwer o nazwie „promptmaster” na porcie 3000) — to nie jest błąd tej strony, tylko myląca sesja narzędzia przeglądarki.
 - **Niezawodny sposób podglądu:** odpalić statyczny serwer ręcznie przez Bash (`cd public && npx --yes serve . -l 5175 &`), sprawdzić `curl -sI http://localhost:5175/...` że działa, a potem `mcp__Claude_Browser__navigate` na ten konkretny URL zamiast polegać na `preview_start`.
 - Panel przeglądarki bywa u Roberta zwinięty/ukryty mimo że sesja jest aktywna (`tabs_context` → `"Browser pane is currently hidden"`) — w takiej sytuacji warto dodatkowo podać mu wprost lokalny URL (`http://localhost:5175/...`) do otwarcia we własnej przeglądarce, bo on go nie zobaczy w panelu Claude Code.
@@ -302,3 +303,13 @@ Folder zawierał szkic `.md` i 20 zdjęć, a autorzy i numery były w nazwach pl
 - **Dane praktyczne warte dopisania**, jeśli komunikat je zawiera: godziny i ceny biletów na wystawę, termin i zasady zgłoszeń do następnej edycji (tu 19 października do 3 grudnia 2026, kto startuje bezpłatnie).
 - **Tytuł `<title>`**: samo „Wildlife Photographer of the Year 2026” (37 znaków) wystarczyło, bo `description` niesie nazwiska. Wersję z podtytułem po `|` rozważaj tylko, gdy użytkownik woli ładniejszy nagłówek kosztem długości `<title>` (ok. 68 znaków).
 - **Strony, które blokują WebFetch** (The Guardian zwraca błąd), pomiń w źródłach, zamiast linkować coś, czego nie dało się sprawdzić. Linki do stron organizatora sprawdź `curl -s -o /dev/null -L -A 'Mozilla/5.0' -w '%{http_code}'`.
+
+### Wzorzec: szkic bez zdjęć w folderze (od 2026-10-23, Pamięć „W” kadrze 2026)
+
+Folder `Do strony/23.10.2026/` zawierał tylko szkic `.md` z placeholderami obrazków (`images/...jpg`) i komentarzem „wstaw tu pliki”. Ustalone przy tym wpisie:
+
+- **Gdy zdjęć nie ma na dysku, pobierz je samodzielnie** (Robert zaakceptował to przy tym wpisie): najpierw ze strony organizatora (tu Muzeum Powstania Warszawskiego, `1944.pl`), potem z galerii Fotopolis. Zdjęcia na `f.1944.pl` mają tylko 800 px i logo Muzeum (`...-fill-800--wm.jpg`) — tych nie powiększaj. Fotopolis ma dla głównych zdjęć wersję 1400 px: w HTML galerii szukaj adresów z prefiksem `dz0xNDAw` (base64 od `w=1400`) w `/i/images/...`; zdjęcie wiodące `...-lead-16x9` ma ok. 1428 px. Wyciągnij listę: `curl -s -A 'Mozilla/5.0' <url galerii> | grep -oE '/i/images/[^"]+\.jpg' | sort -u`. Kadry reportaży Fotopolis ma tylko w ~575 px, więc te wzięto z `1944.pl` (800 px).
+- **Oficjalny komunikat organizatora bywa pełniejszy niż szkic i Fotopolis** — tu dopiero `1944.pl` podał II i III miejsce w fotoreportażu (Korulczyk, Frymark), dokładne nagrody i wyniki głosowania internautów. Szkic miał też nieścisłości (rekord dotyczył liczby uczestników, nie zdjęć; wypowiedź Ołdakowskiego przypisana całemu jury). Sprawdzaj każdą liczbę w źródle organizatora.
+- **Okładka = zdjęcie wiodące Fotopolis**, jeśli to kadr z nagrodzonej serii (tu z reportażu Grzybowskiego) — ten kadr pomijasz w treści, jak przy WPY 2026.
+- **Podpisy bez zgadywania tożsamości** — nie pisz „Powstaniec”, jeśli źródło nie opisuje zdjęcia; opisuj to, co widać („mężczyzna w mundurze z biało-czerwoną opaską”). Miejsc (np. nazwy festiwalu przy reportażu z wielką flagą przed sceną) też nie dopisuj, gdy źródło ich nie podaje.
+- Tytuł w stylu SEO: „Pamięć „W” kadrze 2026:|wyniki konkursu” (39 znaków), hasło ze szkicu („fotografia, która ocala pamięć”) przeniesione do nagłówka ostatniej sekcji.
