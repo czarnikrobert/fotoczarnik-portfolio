@@ -429,6 +429,27 @@
   font-weight: 500;
 }
 
+/* Osadzone posty z mediów społecznościowych (Instagram: blockquote zamieniany przez embed.js na iframe) */
+.post-body .social-embed {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
+.post-body .social-embed .instagram-media {
+  width: 100%;
+  max-width: 540px;
+}
+
+.post-body .social-embed blockquote {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  font-family: inherit;
+  font-style: normal;
+  font-size: 0.9rem;
+}
+
 /* ---------- Gallery ---------- */
 .gallery-filters {
   display: flex;
