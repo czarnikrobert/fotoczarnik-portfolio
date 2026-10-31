@@ -189,7 +189,7 @@ Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) �
 
 5 wpisów w `content/blog/` zostało przeniesionych z fotoczarnik.pl/blog/ (pełna, dosłowna treść wyciągnięta bezpośrednio z HTML, nie streszczona). Okładki pobrane i zapisane lokalnie w `assets/images/blog/`. Oryginalne dwa przykładowe wpisy (Islandia, Hanoi) zostały usunięte.
 
-Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-10-23: **19 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej) i „Nikon Comedy Wildlife Awards 2026” (2026-10-05, 47 zdjęć — patrz sekcja niżej) i „Imaging World inspired by photokina” (2026-10-07, pierwszy wpis opublikowany przez bramkę moda). Później doszły „The Illume Awards 2026” (2026-10-08) i „Leica Oskar Barnack Award 2026” (2026-10-12) i „Wildlife Photographer of the Year 2026” (2026-10-14) i „Pamięć „W” kadrze 2026: wyniki konkursu” (2026-10-23).
+Od tego czasu doszły kolejne, samodzielnie napisane wpisy (nie migracja) — stan na 2026-10-31: **20 wpisów** w `content/blog/`, w tym m.in. „Sputnik Photos — 20 lat” (2026-09-09), „BBSPF x Leica 2026 — finaliści” (2026-09-15), „Astronomy Photographer of the Year 2026” (2026-09-18), „Bird Photographer of the Year 2026” (2026-09-23, patrz sekcje niżej o wzorcu z wieloma zdjęciami w jednym poście) „Polaroid Mod” (2026-09-30, pierwszy wpis przepuszczony przez skill `humanizer` — patrz sekcja niżej) i „Nikon Comedy Wildlife Awards 2026” (2026-10-05, 47 zdjęć — patrz sekcja niżej) i „Imaging World inspired by photokina” (2026-10-07, pierwszy wpis opublikowany przez bramkę moda). Później doszły „The Illume Awards 2026” (2026-10-08) i „Leica Oskar Barnack Award 2026” (2026-10-12) i „Wildlife Photographer of the Year 2026” (2026-10-14) i „Pamięć „W” kadrze 2026: wyniki konkursu” (2026-10-23) i „Magazyn „LIFE” wraca do druku” (2026-10-31, pierwszy wpis z osadzonymi postami z Instagrama — patrz sekcja niżej).
 
 ## Wzorzec: dodawanie wpisu na blog z pliku markdown (od 2026-09-09, wpis Sputnik Photos)
 
@@ -313,3 +313,19 @@ Folder `Do strony/23.10.2026/` zawierał tylko szkic `.md` z placeholderami obra
 - **Okładka = zdjęcie wiodące Fotopolis**, jeśli to kadr z nagrodzonej serii (tu z reportażu Grzybowskiego) — ten kadr pomijasz w treści, jak przy WPY 2026.
 - **Podpisy bez zgadywania tożsamości** — nie pisz „Powstaniec”, jeśli źródło nie opisuje zdjęcia; opisuj to, co widać („mężczyzna w mundurze z biało-czerwoną opaską”). Miejsc (np. nazwy festiwalu przy reportażu z wielką flagą przed sceną) też nie dopisuj, gdy źródło ich nie podaje.
 - Tytuł w stylu SEO: „Pamięć „W” kadrze 2026:|wyniki konkursu” (39 znaków), hasło ze szkicu („fotografia, która ocala pamięć”) przeniesione do nagłówka ostatniej sekcji.
+
+### Wzorzec: osadzone posty z Instagrama (od 2026-10-31, „Magazyn „LIFE” wraca do druku”)
+
+Robert poprosił o „takie odnośniki jak na Fotopolis do wpisów w mediach społecznościowych” i **świadomie wybrał pełne osadzenie** (zamiast ładowania po kliknięciu albo samych linków), mimo informacji, że skrypt Meta ładuje się każdemu odwiedzającemu i może ustawiać ciasteczka — a strona poza tym ich nie używa i nie ma banera zgody RODO. Przy kolejnych wpisach z osadzeniami nie pytaj od nowa o ten wybór, ale gdy pojawi się temat ciasteczek/RODO, pamiętaj, że to jedyne takie miejsce na stronie.
+
+- **Skąd brać posty:** z HTML artykułu Fotopolis: `curl -s -A 'Mozilla/5.0' <url> | grep -oE 'instagram\.com/p/[^/"]+/'`. Treść podpisu posta (fakty do wpisu, autor zdjęcia/wideo) da się przeczytać przez `https://www.instagram.com/p/<ID>/embed/captioned/` (element `class="Caption"`). Tu podpisy dały nowe fakty: sześć okładek, pierwsza z rybakiem Andrew Jarrellem, list redaktorów w „Glasgow Courier”.
+- **Markup w markdownie** (generator `marked` przepuszcza surowy HTML; bloki oddzielaj pustymi liniami):
+  ```html
+  <div class="social-embed">
+  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/<ID>/" data-instgrm-version="14"><a href="https://www.instagram.com/p/<ID>/">Zobacz post … (@konto) na Instagramie: krótki opis</a></blockquote>
+  </div>
+  ```
+  i **raz na końcu wpisu** `<script async src="https://www.instagram.com/embed.js"></script>`. Link w środku blockquote jest widoczny, gdy skrypt się nie załaduje.
+- **CSS** (`components.css`, po `.post-body strong`): `.social-embed` centruje post, `.social-embed .instagram-media` ustawia `width:100%; max-width:540px` (bez tego iframe ma tylko `min-width` 326 px, bo Instagram kopiuje inline style z blockquote, a nasz blockquote ich nie ma), a `.social-embed blockquote` zeruje styl cytatu z `.post-body blockquote` (lewa kreska, kursywa).
+- **Weryfikacja:** podgląd `mcp__Claude_Browser__*` ładuje `embed.js` (jest `window.instgrm`, blockquote zamienia się w iframe), ale **nie wczytuje treści z instagram.com** — iframe zostaje na 56 px wysokości. To ograniczenie sandboxa, nie błąd. Sprawdź szerokość iframe (540) i poproś Roberta o obejrzenie w jego przeglądarce.
+- Posty Instagrama **nie są źródłem zdjęć do skopiowania** — osadzaj je, nie pobieraj z nich obrazków.
