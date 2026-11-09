@@ -370,6 +370,18 @@
   margin: 2.5rem auto;
 }
 
+/* Galeria we wpisie (frontmatter `gallery`): szersza niż kolumna tekstu, do szerokości okładki */
+.post-gallery {
+  width: min(1100px, calc(100vw - 2 * var(--gutter)));
+  margin: 3rem 0 3rem 50%;
+  transform: translateX(-50%);
+}
+
+.post-gallery .gallery-item img {
+  margin: 0;
+  border-radius: 0;
+}
+
 /* Image + italic caption markdown (`![]()` immediately followed by `*caption*`)
    compiles to a single <p>image + <em>caption</em></p> — center the caption text
    to match the now-centered image above it. Also covers a standalone caption

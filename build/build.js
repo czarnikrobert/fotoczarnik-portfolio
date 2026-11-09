@@ -319,6 +319,14 @@ function build() {
       .split('|')
       .map((line) => line.trim())
       .join('<br>');
+    // Opcjonalna galeria z frontmattera (`gallery:` lista {src, caption, alt}): ta sama siatka masonry i lightbox co na Portfolio.
+    // Trafia w miejsce komentarza <!-- galeria --> w treści, a bez niego na koniec wpisu.
+    const galleryHtml = post.gallery?.length
+      ? `<div class="post-gallery">${masonryGrid({ id: 'postGallery', items: post.gallery.map((photo) => ({ category: 'post', ...photo })), extraAttrs: 'data-reveal-group' })}</div>`
+      : '';
+    const bodyHtml = post.bodyHtml.includes('<!-- galeria -->')
+      ? post.bodyHtml.replace('<!-- galeria -->', galleryHtml)
+      : post.bodyHtml + galleryHtml;
     const postBody = `
   <div class="reading-progress" id="readingProgress"></div>
   <article>
@@ -331,14 +339,15 @@ function build() {
         <img data-parallax src="${post.cover}" alt="${title}" loading="eager">
       </div>
       <div class="post-body" data-reveal>
-        ${post.bodyHtml}
+        ${bodyHtml}
         <div class="post-footer" style="margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
           <a href="/blog.html" class="btn">← Wróć do bloga</a>
           <a href="${fbShareUrl}" class="btn btn--share" target="_blank" rel="noopener" onclick="window.open(this.href,'fbshare','width=600,height=500');return false;">Udostępnij na Facebooku</a>
         </div>
       </div>
     </div>
-  </article>`;
+  </article>
+  ${galleryHtml ? lightboxMarkup() : ''}`;
 
     write(
       `blog/${post.slug}.html`,
