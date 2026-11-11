@@ -1,0 +1,24 @@
+# Konfiguracja serwera na Hostingerze (Apache/LiteSpeed). build.js kopiuje ten plik do public/.
+# Odtwarza to, co wcześniej robił Netlify: adresy bez .html, strona 404, krótki cache plików.
+
+ErrorDocument 404 /404.html
+Options -Indexes -MultiViews
+
+RewriteEngine On
+
+# www.photoczarnik.pl -> photoczarnik.pl (adres tymczasowy Hostingera zostaje bez zmian)
+RewriteCond %{HTTP_HOST} ^www\.photoczarnik\.pl$ [NC]
+RewriteRule ^ https://photoczarnik.pl%{REQUEST_URI} [L,R=301]
+
+# Adresy bez .html: /portfolio -> portfolio.html, /blog/wpis -> blog/wpis.html, /blog -> blog.html.
+# Tak jak na Netlify oba warianty (z .html i bez) działają bez przekierowania; canonical jest bez .html.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ /$1.html [L]
+
+# Krótki cache: nazwy plików CSS/JS nie mają hasha, więc długi cache ukryłby zmiany (patrz CLAUDE.md).
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|jpe?g|png|webp|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=600, must-revalidate"
+  </FilesMatch>
+</IfModule>

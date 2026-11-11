@@ -104,6 +104,9 @@ function postJsonLd(site, post, title, postUrl) {
 function build() {
   fs.emptyDirSync(PUBLIC);
   fs.copySync(ASSETS, path.join(PUBLIC, 'assets'));
+  // Konfiguracja serwera Hostingera (adresy bez .html, 404, cache); Netlify ignoruje ten plik.
+  fs.copySync(path.join(ROOT, 'hosting', '.htaccess'), path.join(PUBLIC, '.htaccess'));
+  fs.copySync(path.join(ROOT, 'hosting', 'kontakt.php'), path.join(PUBLIC, 'kontakt.php'));
 
   const site = fs.readJsonSync(path.join(CONTENT, 'site.json'));
   const posts = loadPosts();

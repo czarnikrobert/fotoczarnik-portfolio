@@ -1,0 +1,48 @@
+# Publikacja na Hostingerze: po każdym pushu na main buduje stronę i wysyła public/ przez SSH (rsync).
+# Sekrety repozytorium: HOSTINGER_SSH_KEY (klucz prywatny), HOSTINGER_HOST (IP serwera), HOSTINGER_USER (login SSH).
+name: Publikacja na Hostingerze
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['CLAUDE.md', 'README.md']
+  workflow_dispatch:
+
+concurrency:
+  group: hostinger-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+        env:
+          HOSTING: hostinger
+
+      - name: Klucz SSH i zaufany klucz serwera
+        env:
+          SSH_KEY: ${{ secrets.HOSTINGER_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # Klucz ED25519 serwera (nazwa hosta zahaszowana); odcisk SHA256:d0uCRHmuNM9NxpRglU36bHm4gE0miuior09+C2DuG74 z hPanel -> Dostęp SSH
+          echo '|1|8uYe2Y4k8Qx0pOT+NH2MA9IHrUI=|2SWKOWYsN+UiQWjxv3l7Vpuq0LM= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB1IAYJA8smsdM5E3chHqR6D23ttAqmTNBKZS7Gzrunq' > ~/.ssh/known_hosts
+
+      - name: Wysyłka plików (rsync)
+        env:
+          HOST: ${{ secrets.HOSTINGER_HOST }}
+          USER: ${{ secrets.HOSTINGER_USER }}
+        run: |
+          rsync -az --delete --chmod=D755,F644 --exclude '.well-known' \
+            -e "ssh -p 65002 -o StrictHostKeyChecking=yes" \
+            public/ "$USER@$HOST:domains/photoczarnik.pl/public_html/"

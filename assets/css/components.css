@@ -710,6 +710,13 @@
   gap: 0.5rem;
 }
 
+.form__error {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  color: var(--color-text);
+}
+
 .form__field label {
   font-size: 0.85rem;
   letter-spacing: 0.04em;
