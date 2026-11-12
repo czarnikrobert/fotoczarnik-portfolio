@@ -189,6 +189,7 @@ Formularz na stronie Kontakt (`contactForm()` w `templates.js`) wysyła dane do 
 - **Adresy są w `~/kontakt-config.php` na serwerze** (poza `public_html` i poza repo, bo repo jest publiczne; `chmod 600`): odbiorca `fotoczarnik@gmail.com`, nadawca `formularz@photoczarnik.pl`. Zmiana adresu = edycja tego pliku przez SSH, bez builda.
 - Lokalny podgląd (`serve`) nie uruchamia PHP — formularz testuje się tylko na serwerze. Ścieżki bez wysyłki można sprawdzić `curl -X POST` (oczekiwane 303 na `/contact?blad=1` albo `/thanks.html`).
 - Wiadomości mogą trafiać do spamu w Gmailu (SPF jest ustawiony, DKIM nie). Jeśli Robert zgłosi brak wiadomości, najpierw spam, potem logi poczty w hPanel.
+- Test end-to-end 2026-11-12: Robert wysłał wiadomość z żywej strony i dotarła na fotoczarnik@gmail.com.
 - Pole `email` w `content/site.json` nie jest z tym powiązane (martwe pole).
 
 ## Blog — migracja treści
