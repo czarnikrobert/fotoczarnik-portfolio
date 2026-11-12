@@ -1,6 +1,6 @@
 # PhotoCzarnik — portfolio fotografii i podróży
 
-Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
+Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a GitHub Actions buduje stronę i wysyła ją na serwer Hostingera.
 
 ## Struktura
 
@@ -40,7 +40,7 @@ npm run build   # generuje public/ z aktualnej treści
 npm run dev     # buduje i uruchamia podgląd lokalnie na http://localhost:4173
 ```
 
-Gdy zmiana wygląda dobrze — commit i push na GitHub. Netlify sam wykryje push, uruchomi `npm run build` i opublikuje nową wersję (patrz `netlify.toml`).
+Gdy zmiana wygląda dobrze — commit i push na GitHub. Workflow `.github/workflows/deploy-hostinger.yml` uruchomi `npm run build` i wyśle `public/` na serwer przez rsync (ok. 1 minuty).
 
 ## Placeholder — do zrobienia przed publikacją
 
@@ -48,18 +48,13 @@ Gdy zmiana wygląda dobrze — commit i push na GitHub. Netlify sam wykryje push
 - Wszystkie zdjęcia obecnie pochodzą z `picsum.photos` (losowe zdjęcia zastępcze) — podmień na własne w `content/gallery.json` i w plikach `content/blog/*.md` (pole `cover`)
 - Teksty w `content/pages/about.md` i wpisach blogowych są przykładowe — do podmiany na własne
 
-## Połączenie z GitHub i Netlify (jednorazowo, ręcznie)
+## Hosting: Hostinger + GitHub Actions
 
-1. Załóż puste repozytorium na GitHub (bez README/licencji, żeby uniknąć konfliktów).
-2. Podepnij lokalne repo i wypchnij:
-   ```bash
-   git remote add origin <adres-twojego-repo-na-githubie>
-   git push -u origin main
-   ```
-3. Wejdź na [netlify.com](https://netlify.com), zaloguj się, wybierz „Add new site → Import an existing project” i wskaż to repozytorium GitHub.
-4. Netlify sam wykryje ustawienia z `netlify.toml` (`npm run build`, katalog `public`) — potwierdź i wdróż.
-5. Od tego momentu każdy `git push` na branch główny automatycznie aktualizuje żywą stronę.
+- Strona leży na Hostingerze w `domains/photoczarnik.pl/public_html` (LiteSpeed, `.htaccess`, PHP).
+- Każdy push na `main` uruchamia `.github/workflows/deploy-hostinger.yml`: build i `rsync --delete` przez SSH. Sekrety repozytorium: `HOSTINGER_SSH_KEY`, `HOSTINGER_HOST`, `HOSTINGER_USER`.
+- Konfiguracja serwera (adresy bez `.html`, strona 404, krótki cache, przekierowanie z `www`) jest w `hosting/.htaccess`; `build.js` kopiuje ją do `public/`.
+- Domena jest w home.pl i tam zostają serwery nazw. Rekordy: A `@` → IP serwera Hostingera, CNAME `www` → `photoczarnik.pl`, TXT z SPF Hostingera. Certyfikat SSL (Let's Encrypt) wystawia i odnawia Hostinger.
 
 ## Formularz kontaktowy
 
-Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) — nie wymaga własnego backendu. Zgłoszenia znajdziesz w panelu Netlify → Forms. Można tam też włączyć powiadomienia e-mail o nowych wiadomościach.
+Formularz na stronie Kontakt wysyła dane do `hosting/kontakt.php` (kopiowany do `public/`). Skrypt sprawdza pola i pułapkę na boty (`company`), wysyła e-mail funkcją `mail()` i przekierowuje na `/thanks.html` albo z błędem na `/contact?blad=1`. Adresy odbiorcy i nadawcy są w `~/kontakt-config.php` na serwerze, poza repozytorium.

@@ -265,16 +265,12 @@ export function lightboxMarkup() {
 }
 
 export function contactForm(site) {
-  // Na Hostingerze formularz obsługuje kontakt.php (workflow ustawia HOSTING=hostinger przy budowaniu).
-  // Gałąź Netlify Forms zostaje do czasu przełączenia domeny na Hostingera; potem do usunięcia.
-  const opening = process.env.HOSTING === 'hostinger'
-    ? `<form class="form" name="contact" method="POST" action="/kontakt.php">
-        <p class="form__error" id="formError" hidden>Nie udało się wysłać wiadomości. Sprawdź pola i spróbuj jeszcze raz.</p>
-        <script>if (new URLSearchParams(location.search).has('blad')) document.getElementById('formError').hidden = false;</script>`
-    : `<form class="form" name="contact" method="POST" data-netlify="true" netlify-honeypot="company" action="/thanks.html">
-        <input type="hidden" name="form-name" value="contact">`;
+  // Wiadomość wysyła hosting/kontakt.php na serwerze Hostingera (lokalny podgląd `serve` nie uruchamia PHP).
+  // Po błędzie skrypt wraca na /contact?blad=1 i wtedy pokazujemy komunikat.
   return `
-      ${opening}
+      <form class="form" name="contact" method="POST" action="/kontakt.php">
+        <p class="form__error" id="formError" hidden>Nie udało się wysłać wiadomości. Sprawdź pola i spróbuj jeszcze raz.</p>
+        <script>if (new URLSearchParams(location.search).has('blad')) document.getElementById('formError').hidden = false;</script>
         <p class="form__honeypot">
           <label>Nie wypełniaj tego pola: <input name="company" tabindex="-1" autocomplete="off"></label>
         </p>

@@ -1,6 +1,6 @@
 # PhotoCzarnik — portfolio fotografii i podróży
 
-Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a Netlify sam publikuje nową wersję.
+Statyczna strona portfolio zbudowana własnym, lekkim generatorem stron (bez frameworków frontendowych, bez bazy danych). Treść trzymana jest jako pliki w repozytorium — edytujesz plik, budujesz stronę, wypychasz na GitHub, a GitHub Actions buduje stronę i wysyła ją na serwer Hostingera (od 2026-11-12; wcześniej Netlify).
 
 ## Ścieżka projektu na dysku — od 2026-10-23 główna kopia robocza
 
@@ -110,7 +110,7 @@ npm run build   # generuje public/ z aktualnej treści
 npm run dev     # buduje i uruchamia podgląd lokalnie na http://localhost:4173
 ```
 
-Gdy zmiana wygląda dobrze — commit i push na GitHub. Netlify sam wykryje push, uruchomi `npm run build` i opublikuje nową wersję (patrz `netlify.toml`).
+Gdy zmiana wygląda dobrze — commit i push na GitHub. Workflow `.github/workflows/deploy-hostinger.yml` zbuduje stronę i wyśle ją na Hostingera (patrz sekcja „Hosting”).
 
 Zdjęcia do umieszczenia na stronie użytkownik wrzuca do `/Users/robertczarnik/Do strony/` — warto tam zaglądać, gdy wspomni o nowym pliku, zamiast prosić o pełną ścieżkę.
 
@@ -128,11 +128,11 @@ Zdjęcia w `.parallax-media` (portret, intro, okładka posta) używają `loading
 
 ## Ważne: cache `/assets/*` musi zostać krótki
 
-`netlify.toml` ustawia `Cache-Control` dla `/assets/*` (CSS/JS/obrazy). Pliki CSS/JS **nie mają hashowanych nazw** (zawsze `main.css`, `components.css` itd. — nie `main.a3f8e1.css`), więc długi cache typu `max-age=31536000, immutable` (był tak ustawiony na starcie projektu) **ukrywa każdą przyszłą zmianę CSS/JS przed przeglądarką odwiedzającego na cały rok** — łącznie z naszym własnym testowaniem, bo nawet twarde odświeżenie (Cmd+Shift+R) nie zawsze to obchodzi. To spowodowało realny, mylący bug: zmiana w kodzie (np. wyśrodkowanie stopki) była poprawnie wdrożona na Netlify, ale niewidoczna u użytkownika mimo odświeżenia.
+`hosting/.htaccess` ustawia `Cache-Control` dla plików CSS/JS/obrazów i fontów (do 2026-11-12 robił to `netlify.toml`). Pliki CSS/JS **nie mają hashowanych nazw** (zawsze `main.css`, `components.css` itd. — nie `main.a3f8e1.css`), więc długi cache typu `max-age=31536000, immutable` (był tak ustawiony na starcie projektu) **ukrywa każdą przyszłą zmianę CSS/JS przed przeglądarką odwiedzającego na cały rok** — łącznie z naszym własnym testowaniem, bo nawet twarde odświeżenie (Cmd+Shift+R) nie zawsze to obchodzi. To spowodowało realny, mylący bug: zmiana w kodzie (np. wyśrodkowanie stopki) była poprawnie wdrożona, ale niewidoczna u użytkownika mimo odświeżenia.
 
 Obecnie ustawione jest `public, max-age=600, must-revalidate` — krótki cache, częsta rewalidacja. **Nie zmieniaj tego z powrotem na długi/immutable**, chyba że build zacznie dodawać hash do nazw plików CSS/JS (wtedy długi cache byłby bezpieczny i pożądany dla wydajności).
 
-Jeśli użytkownik zgłosi „zmiana wyglądu nie jest widoczna mimo odświeżenia” — zanim zaczniesz szukać bugów w kodzie, sprawdź najpierw nagłówki cache przez `curl -sI https://fotoczarnik-portfolio.netlify.app/assets/css/components.css` i porównaj z treścią pliku w repo.
+Jeśli użytkownik zgłosi „zmiana wyglądu nie jest widoczna mimo odświeżenia” — zanim zaczniesz szukać bugów w kodzie, sprawdź najpierw nagłówki cache przez `curl -sI https://photoczarnik.pl/assets/css/components.css` i porównaj z treścią pliku w repo.
 
 ## Do zrobienia przed publikacją
 
@@ -150,19 +150,24 @@ Tak przeniesiono placeholdery „Krajobraz" (18 plików z `Pictures/poprawione z
 4. Poproś o brakujące informacje w czacie, zaktualizuj `alt`/`caption` w `gallery.json`.
 5. Jeśli powstał plik podglądowy w `public/`, usuń go (i tak zniknie przy kolejnym `npm run build`, bo `build()` czyści cały katalog).
 
-## GitHub i Netlify — połączone i działające
+## Hosting: Hostinger + GitHub Actions (od 2026-11-12, wcześniej Netlify)
 
-- **Repo:** https://github.com/czarnikrobert/fotoczarnik-portfolio (konto `czarnikrobert`, `gh` CLI zainstalowane i zalogowane lokalnie via keyring)
-- **Live URL:** https://photoczarnik.pl (własna domena, zarejestrowana w home.pl, DNS wskazuje na Netlify — A `@` → `75.2.60.5`, CNAME `www` → `fotoczarnik-portfolio.netlify.app.`). Adres `https://fotoczarnik-portfolio.netlify.app` nadal działa jako subdomena Netlify (Netlify project `fotoczarnik-portfolio`, site_id `84f0fdfe-72d6-475a-8521-2b86c37745e4`, team `6964dd999fde5a84d68b0e8a`).
-- Netlify jest podłączony do repo GitHub (ciągłe wdrażanie) — **każdy `git push` na branch `main` automatycznie buduje (`npm run build`) i publikuje nową wersję**.
-- Workflow po każdej zmianie treści/kodu: `npm run build` (lokalny podgląd) → `git add -A && git commit -m "..."` → `git push` → Netlify sam wdroży w ~1 minutę.
-- Do sprawdzania stanu wdrożenia z poziomu Claude Code dostępne jest MCP Netlify (`mcp__903416a6-...__netlify-project-services-reader`, operacja `get-project` z powyższym `siteId`) — `currentDeploy.state: "ready"` oznacza sukces.
+- **Repo:** https://github.com/czarnikrobert/fotoczarnik-portfolio (konto `czarnikrobert`). Globalnego `gh` na tym Macu nie ma — API GitHuba przez `curl` z tokenem z pęku kluczy: `printf "protocol=https\nhost=github.com\n\n" | git credential-osxkeychain get`.
+- **Live URL:** https://photoczarnik.pl. Plan Hostinger „Unlimited Web Hosting” (opłacony do 2028-11-11), pliki w `domains/photoczarnik.pl/public_html`, serwer LiteSpeed z `.htaccess` i PHP 8.3. Adres tymczasowy Hostingera: https://steelblue-swan-326837.hostingersite.com.
+- **Publikacja:** każdy push na `main` (poza zmianami samego `CLAUDE.md`/`README.md`) uruchamia `.github/workflows/deploy-hostinger.yml`: `npm ci` → `npm run build` → `rsync -az --delete --chmod=D755,F644 --exclude '.well-known'` przez SSH (port 65002). Sekrety repo: `HOSTINGER_SSH_KEY`, `HOSTINGER_HOST`, `HOSTINGER_USER`. Trwa ok. 1 minuty. Można też uruchomić ręcznie (`workflow_dispatch`).
+- **Uprawnienia plików:** pliki z Maca bywają z prawami 700 i serwer zwraca wtedy 403 (zdarzyło się z okładką wpisu). Workflow wymusza `--chmod=D755,F644`. Lokalny `rsync` macOS (openrsync) nie zna `--chmod` — przy ręcznym wysyłaniu popraw prawa przez `chmod` na serwerze.
+- **SSH z Maca:** klucz `~/.ssh/hostinger_photoczarnik_deploy`, użytkownik i host jak w sekretach, port 65002. Odciski klucza hosta sprawdzone przy konfiguracji; łącz się z `StrictHostKeyChecking=yes`.
+- **`hosting/.htaccess`** (kopiowany przez `build.js`): strona 404, adresy bez `.html`, przekierowanie `www` → bez `www`, krótki cache. Przekierowanie http → https robi sam Hostinger (w hPanel nie ma przełącznika „Wymuś HTTPS”, a przekierowanie i tak działa).
+- **Domena i DNS:** domena w home.pl, serwery nazw home.pl zostają (`dns.home.pl` itd., nie zmieniać). Rekordy: A `@` → `45.84.207.210`, CNAME `www` → `photoczarnik.pl.`, TXT SPF `v=spf1 include:_spf.mail.hostinger.com ~all` obok `google-site-verification`. Domena nie ma MX.
+- **SSL:** Lifetime SSL w hPanel (Let's Encrypt, `photoczarnik.pl` + `www`), aktywny od 2026-11-12, odnawiany automatycznie.
+- **Sprawdzanie publikacji:** status przebiegu przez API (`/repos/czarnikrobert/fotoczarnik-portfolio/actions/runs?per_page=1`; JSON parsuj z `strict=False`, bo zawiera znaki sterujące), a stronę przez `curl -s -o /dev/null -w '%{http_code}' https://photoczarnik.pl/...`. Pełna kontrola: wszystkie adresy z `sitemap.xml` powinny zwracać 200.
+- **Netlify (stary hosting):** projekt `fotoczarnik-portfolio` (site_id `84f0fdfe-72d6-475a-8521-2b86c37745e4`) nie obsługuje już domeny. Plan Personal liczył kredyty (publikacja 15, 1 GB transferu 20), a baner z 130 klatkami to ok. 12 MB na wizytę — 2026-11-11 kredyty się skończyły i strona zwracała `503 usage_exceeded`. To był powód przenosin. `netlify.toml` usunięty z repo.
 
 ## Statystyki odwiedzin — Cloudflare Web Analytics (od 2026-09-15)
 
-W `<head>` w `layout()` (`build/templates.js`) jest wpięty skrypt Cloudflare Web Analytics (`beacon.min.js` z tokenem `data-cf-beacon`). To wariant **bez przepinania DNS** na Cloudflare — sama strona nadal jest hostowana na Netlify, skrypt tylko wysyła zdarzenia do Cloudflare. Nie używa ciasteczek, więc nie wymaga banera zgody RODO.
+W `<head>` w `layout()` (`build/templates.js`) jest wpięty skrypt Cloudflare Web Analytics (`beacon.min.js` z tokenem `data-cf-beacon`). To wariant **bez przepinania DNS** na Cloudflare — sama strona jest hostowana na Hostingerze, skrypt tylko wysyła zdarzenia do Cloudflare. Nie używa ciasteczek, więc nie wymaga banera zgody RODO.
 
-- Dane widoczne w panelu Cloudflare: **Analytics & Logs → Web Analytics** (konto Cloudflare użytkownika, nie ma do tego dostępu z poziomu MCP Netlify).
+- Dane widoczne w panelu Cloudflare: **Analytics & Logs → Web Analytics** (konto Cloudflare użytkownika, nie ma do tego dostępu z poziomu Claude Code).
 - Token jest zaszyty wprost w kodzie (nie jest sekretem — to publiczny identyfikator strony, bezpieczny do trzymania w repo, podobnie jak Google Analytics ID).
 - Skrypt trafia na **wszystkie** wygenerowane strony, bo jest w współdzielonym `layout()`, nie per-stronę.
 - W lokalnym podglądzie (`mcp__Claude_Browser__*`) request do `static.cloudflareinsights.com` może się nie pojawić w logu sieciowym — to ograniczenie sandboxa narzędzia podglądu (brak dostępu do zewnętrznych domen spoza testowego środowiska), nie błąd strony. Weryfikacja lokalna ogranicza się do sprawdzenia, że tag `<script>` faktycznie trafił do wygenerowanego HTML (`grep cloudflareinsights public/*.html`) i że strona nadal renderuje się poprawnie.
@@ -171,19 +176,20 @@ W `<head>` w `layout()` (`build/templates.js`) jest wpięty skrypt Cloudflare We
 
 `layout()` w `build/templates.js` dla każdej strony generuje: `<link rel="canonical">`, Open Graph (`og:type` = `article` tylko dla wpisów, reszta `website`), `og:locale`, `og:site_name`, Twitter Card (`summary_large_image`) i opcjonalny blok JSON-LD. Wpisy dostają `BlogPosting` plus `BreadcrumbList`, strona główna `WebSite` plus `Person` (funkcje `postJsonLd()` i `homeJsonLd()` w `build.js`). `thanks.html` i `404.html` mają `noindex` zamiast canonical. `build.js` generuje też `sitemap.xml` (strony i wszystkie wpisy, `lastmod` z daty wpisu) oraz `robots.txt` ze wskazaniem sitemapy.
 
-- **Canonical jest bez `.html`** (`/portfolio`, `/blog/slug`), bo Netlify serwuje oba warianty z kodem 200 i bez przekierowania. Nowa podstrona musi dostać `path: '/nazwa'` w wywołaniu `layout()` i wpis w `sitemapEntries` w `build.js`, inaczej canonical wskaże stronę główną.
+- **Canonical jest bez `.html`** (`/portfolio`, `/blog/slug`), bo serwer odpowiada na oba warianty kodem 200 (reguła w `hosting/.htaccess` dokleja `.html`). Nowa podstrona musi dostać `path: '/nazwa'` w wywołaniu `layout()` i wpis w `sitemapEntries` w `build.js`, inaczej canonical wskaże stronę główną.
 - Tytuł strony to `{tytuł} — PhotoCzarnik`, więc tytuł wpisu trzymaj w ok. 45 znakach (cały `<title>` do ok. 60). `excerpt` jest meta description: 150 do 160 znaków, bez prostych cudzysłowów `"`.
 - Adres wpisu to nazwa pliku bez daty (`2026-10-12-moj-wpis.md` → `/blog/moj-wpis`), więc nazwę pliku wybieraj pod frazę kluczową. Pola `slug`, `tags` i `description` we frontmatterze są ignorowane.
 - Zdjęcia we wpisach: opisowe nazwy plików, `alt` z treścią zdjęcia. Generator nie dodaje `width`/`height` do obrazków z markdownu.
 
-## Formularz kontaktowy — skonfigurowany i przetestowany
+## Formularz kontaktowy — skrypt PHP na Hostingerze (od 2026-11-12)
 
-Formularz na stronie Kontakt korzysta z Netlify Forms (`data-netlify="true"`) — nie wymaga własnego backendu. Zgłoszenia widoczne w panelu Netlify → Forms.
+Formularz na stronie Kontakt (`contactForm()` w `templates.js`) wysyła dane do `/kontakt.php` (źródło: `hosting/kontakt.php`, kopiowane przez `build.js`).
 
-- **Powiadomienia e-mail idą na `fotoczarnik@gmail.com`** — skonfigurowane w panelu Netlify (Project configuration → Forms → Form submission notifications), nie w kodzie. To ustawienie nie jest częścią repo/gita.
-- Pole `email` w `content/site.json` **nie jest** z tym powiązane — nigdzie w szablonach nieużywane (martwe pole, zarezerwowane na przyszłość, np. mailto na stronie).
-- **Ważne dla Netlify Forms:** samo `data-netlify="true"` w HTML nie wystarcza — funkcja „Forms” musi być włączona per-projekt na Netlify (`update-forms` w MCP albo w panelu), a formularz zostaje zarejestrowany dopiero przy **kolejnym buildzie po włączeniu**. Jeśli formularz kiedyś „zniknie” z panelu Forms (0 formularzy), sprawdź czy funkcja jest enabled i zrób pusty commit (`git commit --allow-empty`), żeby wymusić nowy build.
-- Test end-to-end wykonany 2026-08-21 przez realne wysłanie formularza na żywej stronie — działa poprawnie (przekierowanie na `/thanks.html`, zgłoszenie zarejestrowane w Netlify).
+- Skrypt: GET → przekierowanie na `/contact`; wypełnione ukryte pole `company` (pułapka na boty) → udawany sukces bez wysyłki; walidacja (imię do 100 znaków, poprawny e-mail, wiadomość do 5000) → przy błędzie `/contact?blad=1`, gdzie formularz pokazuje komunikat `.form__error`; wysyłka przez `mail()` z `-f` adresu nadawcy, `Reply-To` = adres osoby piszącej, temat zakodowany w UTF-8; sukces → `/thanks.html`.
+- **Adresy są w `~/kontakt-config.php` na serwerze** (poza `public_html` i poza repo, bo repo jest publiczne; `chmod 600`): odbiorca `fotoczarnik@gmail.com`, nadawca `formularz@photoczarnik.pl`. Zmiana adresu = edycja tego pliku przez SSH, bez builda.
+- Lokalny podgląd (`serve`) nie uruchamia PHP — formularz testuje się tylko na serwerze. Ścieżki bez wysyłki można sprawdzić `curl -X POST` (oczekiwane 303 na `/contact?blad=1` albo `/thanks.html`).
+- Wiadomości mogą trafiać do spamu w Gmailu (SPF jest ustawiony, DKIM nie). Jeśli Robert zgłosi brak wiadomości, najpierw spam, potem logi poczty w hPanel.
+- Pole `email` w `content/site.json` nie jest z tym powiązane (martwe pole).
 
 ## Blog — migracja treści
 
@@ -248,7 +254,7 @@ Użytkownik poprosił explicite o użycie skilla `humanizer` (`~/.claude/skills/
 - Istnieje `.claude/launch.json` z konfiguracją `photoczarnik-static` (`npx serve public -l 4173`), ale **`mcp__Claude_Browser__preview_start` po nazwie potrafi zamiast tego podłączyć się do przypadkowego, niepowiązanego serwera dev z innego projektu w folderze nadrzędnym** (widziane jako serwer o nazwie „promptmaster” na porcie 3000) — to nie jest błąd tej strony, tylko myląca sesja narzędzia przeglądarki.
 - **Niezawodny sposób podglądu:** odpalić statyczny serwer ręcznie przez Bash (`cd public && npx --yes serve . -l 5175 &`), sprawdzić `curl -sI http://localhost:5175/...` że działa, a potem `mcp__Claude_Browser__navigate` na ten konkretny URL zamiast polegać na `preview_start`.
 - Panel przeglądarki bywa u Roberta zwinięty/ukryty mimo że sesja jest aktywna (`tabs_context` → `"Browser pane is currently hidden"`) — w takiej sytuacji warto dodatkowo podać mu wprost lokalny URL (`http://localhost:5175/...`) do otwarcia we własnej przeglądarce, bo on go nie zobaczy w panelu Claude Code.
-- Po zatwierdzeniu wpisu i przed commitem: zamknąć lokalny serwer (`pkill -f "serve . -l 5175"`), bo nie jest częścią repo/deployu (`public/` jest w `.gitignore`, buduje je Netlify).
+- Po zatwierdzeniu wpisu i przed commitem: zamknąć lokalny serwer (`pkill -f "serve . -l 5175"`), bo nie jest częścią repo/deployu (`public/` jest w `.gitignore`, buduje je GitHub Actions).
 
 ### Wzorzec: duży wpis konkursowy z researchem w sieci (od 2026-10-05, Nikon Comedy Wildlife Awards 2026)
 
@@ -269,10 +275,10 @@ Mod (plugin z function hooks) pilnujący publikacji wpisów. Powstał na podstaw
 - **Pliki:** `hooks/register.tsx` (hooki i panel), `hooks/lib.ts` (czysta logika kontroli, testowana), `types/index.d.ts` (kontrakt stanu), `tests/lib.test.ts` (6 testów), `.claude-plugin/plugin.json` (z `userConfig`: `projectDir`, `previewPort` = 5175, `siteUrl`).
 - **Bramka publikacji (ważne dla mnie jako Claude):** hook `tool.call` na `Bash` łapie `git push` w tym repo, gdy są zmiany w `content/blog` lub `assets/images/blog` (niezacommitowane albo jeszcze niewypchnięte). Zamiast puścić push, **odrzuca go, otwiera panel i dostaję `deny`: wtedy NIE ponawiam pusha**, tylko piszę użytkownikowi, że czekam na przycisk „Publikuj”. Po jego naciśnięciu mod sam wysyła mi wiadomość „użytkownik zatwierdził wpis … wykonaj git add, commit i push” i dopiero wtedy robię commit i push. Zatwierdzenie dotyczy dokładnie tego stanu plików; po jakiejkolwiek zmianie bramka zadziała od nowa. Błędy (✖) blokują przycisk i są w tekście `deny` — naprawiam je, buduję ponownie i próbuję jeszcze raz. Pushe samego CLAUDE.md lub innych repo bramki nie uruchamiają.
 - **Kontrole przy bramce:** błędy: brak pola frontmattera (title/date/excerpt/cover), brak pliku zdjęcia, hotlink do zdjęcia z zewnątrz, `citehttps://`, placeholdery. Ostrzeżenia: nieużywane pliki w `assets/images/blog`, zdjęcie >1,5 MB, okładka powtórzona w treści, linia „12. …” zamieniająca się w listę numerowaną, build starszy niż wpis. Panel pokazuje też podział tytułu na linie (`|`) do zatwierdzenia.
-- **Po pushu:** mod co 15 s sprawdza adres produkcyjny nowego wpisu i pokazuje toast „✔ Na żywo” (po 12 min bez odpowiedzi ostrzega). Dla edycji istniejącego wpisu tylko informuje o wypchnięciu — nie ma jak odróżnić nowego deploya, więc status Netlify nadal sprawdzam przez MCP (`get-project`).
+- **Po pushu:** mod co 15 s sprawdza adres produkcyjny nowego wpisu i pokazuje toast „✔ Na żywo” (po 12 min bez odpowiedzi ostrzega). Dla edycji istniejącego wpisu tylko informuje o wypchnięciu — nie ma jak odróżnić nowego deploya, więc wynik sprawdzam przez `curl` na adresie strony albo przez API GitHub Actions (patrz sekcja „Hosting”).
 - **Komendy:** `/preview` (uruchamia serwer w `public/`, czeka aż odpowie, podaje link do najnowszego wpisu; `/preview nazwa-wpisu`, `/preview stop`), `/release` (panel bramki na żądanie). Status line pokazuje stale „Blog Desk ○ podgląd wył.” albo „● podgląd :5175”. Serwer uruchomiony przez mod jest zatrzymywany na końcu sesji. **To zastępuje ręczne `nohup npx serve` / `pkill` opisane w sekcji o podglądzie wpisu** (te instrukcje zostają jako plan B, gdy mod nie jest załadowany).
 - **Pułapki przy edycji moda** (poznane przy budowie): (1) walidator pozwala przekazać `$` tylko do funkcji zadeklarowanych na górnym poziomie pliku modułu, nie do domknięć w `register` — dlatego helpery są top-level z parametrem `cfg`; (2) `claude` z PATH to 2.1.259 i **odrzuca `session.end` oraz nie obsługuje modów** — walidację/testy odpalaj binarką silnika sesji: `~/Library/Application Support/Claude/claude-code/<wersja>/*/claude.app/Contents/MacOS/claude plugin validate|test <folder>` (wersja = ta z `$.session.version()`/ścieżki skilla `plugin-authoring`); (3) typy sprawdzisz `tsc -p` z tsconfigiem spoza folderu moda (`strict`, `noUncheckedIndexedAccess`, `jsx: react`, `jsxFactory: h`, `paths` na plik `claude-code.d.ts` skilla); (4) zdarzenie `ui.render` panelu ma `requestId` = id panelu (`blog-release-desk`); (5) mod bez stałego elementu na ekranie wygląda jak niezaładowany — dlatego jest stały wpis w status line.
-- **Sprawdzone w praktyce (2026-10-07, wpis Imaging World):** `git push` został odrzucony z komunikatem bramki, panel się otworzył, po przycisku „Publikuj” dostałem wiadomość od moda („wykonaj git add, commit i push”) i push przeszedł. (Uwaga z 2026-10-08 i 2026-10-12: w tych sesjach mod nie był załadowany, więc pushe przeszły bez bramki. Zatwierdzenie dawał użytkownik w czacie po obejrzeniu podglądu.) **Gdy użytkownik napisze w czacie „publikuj”, i tak najpierw próbuję zwykłego pusha** — to bramka prosi o przycisk; nie omijam jej (np. przez `git -C` albo push bez frazy `git push`). Do potwierdzenia: toast „✔ Na żywo” po deployu (strona zaczęła zwracać 200 po ok. 20–40 s od pusha; Netlify `get-project` pokazuje `ready` także dla poprzedniego deploya, więc **status wpisu sprawdzaj `curl -sL -w %{http_code}` na adresie wpisu**, a nie samym `get-project`).
+- **Sprawdzone w praktyce (2026-10-07, wpis Imaging World):** `git push` został odrzucony z komunikatem bramki, panel się otworzył, po przycisku „Publikuj” dostałem wiadomość od moda („wykonaj git add, commit i push”) i push przeszedł. (Uwaga z 2026-10-08 i 2026-10-12: w tych sesjach mod nie był załadowany, więc pushe przeszły bez bramki. Zatwierdzenie dawał użytkownik w czacie po obejrzeniu podglądu.) **Gdy użytkownik napisze w czacie „publikuj”, i tak najpierw próbuję zwykłego pusha** — to bramka prosi o przycisk; nie omijam jej (np. przez `git -C` albo push bez frazy `git push`). Do potwierdzenia: toast „✔ Na żywo” po deployu (strona zaczęła zwracać 200 po ok. 20–40 s od pusha; **status wpisu sprawdzaj `curl -sL -w %{http_code}` na adresie wpisu**, a nie samym `get-project`).
 
 ### Wzorzec: wpis informacyjny z dodatkowym sprawdzeniem źródeł (od 2026-10-07, Imaging World)
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Statyczne portfolio fotografii i podróży — treść jako pliki, budowane statycznym generatorem, deployowane na Netlify.",
+  "description": "Statyczne portfolio fotografii i podróży — treść jako pliki, budowane statycznym generatorem, publikowane na Hostingerze przez GitHub Actions.",
   "scripts": {
     "build": "node build/build.js",
     "dev": "npm run build && npx --yes serve public -l 4173"

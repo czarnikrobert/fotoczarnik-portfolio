@@ -104,7 +104,7 @@ function postJsonLd(site, post, title, postUrl) {
 function build() {
   fs.emptyDirSync(PUBLIC);
   fs.copySync(ASSETS, path.join(PUBLIC, 'assets'));
-  // Konfiguracja serwera Hostingera (adresy bez .html, 404, cache); Netlify ignoruje ten plik.
+  // Konfiguracja serwera Hostingera (adresy bez .html, 404, cache, www → bez www) i skrypt formularza.
   fs.copySync(path.join(ROOT, 'hosting', '.htaccess'), path.join(PUBLIC, '.htaccess'));
   fs.copySync(path.join(ROOT, 'hosting', 'kontakt.php'), path.join(PUBLIC, 'kontakt.php'));
 
@@ -386,7 +386,7 @@ function build() {
     layout({ title: contact.data.title, active: 'contact', site, bodyHtml: contactBody, path: '/contact' })
   );
 
-  // ---------- Thanks (Netlify form redirect target) ----------
+  // ---------- Thanks (tu kontakt.php przekierowuje po wysłaniu) ----------
   const thanksBody = `
   <section class="container" style="min-height: 60dvh; display: flex; flex-direction: column; justify-content: center; text-align: center;">
     <span class="eyebrow">Dziękuję</span>
