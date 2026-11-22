@@ -68,11 +68,11 @@ Niżej znajdziesz oba zdjęcia z opisem, kilka innych zwycięskich kadrów i tab
 ## Kto wygrał Nature Photographer of the Year 2026?
 
 ![Dwa liście lilii wodnej na ciemnym lodzie: jeden zielony, drugi jako biały, szronowy odcisk](/assets/images/blog/npoty-2026-the-one-that-left-hannu-ahonen.jpg)
-*„The one that left and the one that stayed”, fot. Hannu Ahonen. Zwycięzca Nature Photographer of the Year 2026 i 1. miejsce w kategorii Plants and fungi.*
+*„The one that left and the one that stayed”, fot. Hannu Ahonen. Zwycięskie zdjęcie Nature Photographer of the Year 2026 i 1. miejsce w kategorii Plants and fungi.*
 
 Zwyciężyło zdjęcie **Hannu Ahonen** „The one that left and the one that stayed” („Ten, który odszedł, i ten, który został”). Wygrało też kategorię Plants and fungi (rośliny i grzyby). Na ciemnym lodzie leżą obok siebie dwa liście lilii wodnej. Jeden jest prawdziwy, a z drugiego został tylko biały, szronowy kontur.
 
-Według opisu cytowanego przez Fotopolis pierwsze mrozy skuły staw lodem i część liści zaczęła się kruszyć. Wiatr porwał niektóre z nich, a pod spodem zostały wzory ze szronu w ich kształcie. Z opisu wynika też, że takiego zjawiska nie było wcześniej okazji zobaczyć.
+Według opisu cytowanego przez Fotopolis pierwsze mrozy skuły staw lodem i część liści zaczęła się kruszyć. Wiatr porwał niektóre z nich, a pod spodem zostały wzory ze szronu w ich kształcie. Opis kończy się uwagą, że było to zjawisko widziane po raz pierwszy.
 
 To nie pierwszy nagrodzony liść w lodzie w dorobku Hannu Ahonen. W fińskim konkursie na przyrodnicze zdjęcie roku 2021, który prowadzi Fińskie Stowarzyszenie Fotografów Przyrody, kadr z liściem zatopionym w lodzie, „My heart is light like a butterfly”, wygrał kategorię Free and Creative.
 
@@ -82,7 +82,7 @@ Zdjęcie „Hidden Away” (to, które widzisz na górze wpisu) zrobiła na mazu
 
 Prace Anny Terleckiej można oglądać na jej Instagramie [@wadera_wildlife](https://www.instagram.com/wadera_wildlife/).
 
-Kategorię Mammals wygrał Paul Goldstein mgłą, z której wystaje tylko szyja żyrafy:
+Kategorię Mammals wygrał Paul Goldstein zdjęciem żyrafy, z której we mgle widać tylko szyję i głowę:
 
 ![Pastelowa mgła, z której wystaje szyja i głowa żyrafy](/assets/images/blog/npoty-2026-play-misty-paul-goldstein.jpg)
 *„Play misty”, fot. Paul Goldstein. 1. miejsce w kategorii Mammals.*
@@ -151,7 +151,7 @@ Nature Photographer of the Year organizuje Nature Talks, festiwal fotografii prz
 
 Organizatorzy założyli też fundację Stichting Nature Talks, która wspiera organizacje chroniące przyrodę, m.in. Photographers Against Wildlife Crime.
 
-Zgłoszenia do edycji 2026 przyjmowano od 7 kwietnia do 8 czerwca. Terminu edycji 2027 organizator jeszcze nie ogłosił. Warto zaglądać na stronę konkursu, jeśli masz w archiwum dobre zdjęcia przyrody.
+Zgłoszenia do edycji 2026 przyjmowano od 7 kwietnia do 8 czerwca. Terminu edycji 2027 organizator jeszcze nie ogłosił. Jeśli masz w archiwum dobre zdjęcia przyrody, zaglądaj na stronę konkursu.
 
 Jeśli lubisz takie zestawienia, zajrzyj też do wpisów o [Wildlife Photographer of the Year 2026](/blog/wildlife-photographer-of-the-year-2026-federico-veronesi.html), [Bird Photographer of the Year 2026](/blog/bird-photographer-of-the-year-2026.html) i [Weather Photographer of the Year 2026](/blog/weather-photographer-of-the-year-2026-finalisci.html).
 

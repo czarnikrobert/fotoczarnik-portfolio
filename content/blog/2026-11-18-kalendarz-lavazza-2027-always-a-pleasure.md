@@ -65,9 +65,9 @@ gallery:
 
 ## „Always a Pleasure”: o czym jest kalendarz
 
-Lavazza prowadzi kampanię „Pleasure makes us human” („Przyjemność czyni nas ludźmi”). Kalendarz 2027 dotyczy jednej jej części: przyjemności zamkniętej w krótkiej chwili. Zdjęcia idą od porannego światła do wieczoru i pokazują kawę jako codzienny rytuał, który wygląda inaczej w każdym mieście. Kierunek kreatywny, jak w poprzednich latach, wyznaczyła agencja Armando Testa.
+Lavazza prowadzi kampanię „Pleasure makes us human” („Przyjemność czyni nas ludźmi”). Kalendarz 2027 skupia się na przyjemności zamkniętej w krótkiej chwili. Zdjęcia prowadzą od porannego światła do wieczoru i pokazują kawę jako codzienny rytuał, który wygląda inaczej w każdym mieście. Kierunek kreatywny, jak w poprzednich latach, wyznaczyła agencja Armando Testa.
 
-Francesca Lavazza z zarządu Grupy Lavazza mówi, że kalendarz od ponad 30 lat jest miejscem, gdzie tożsamość marki spotyka się z niezależnym spojrzeniem artystów. Według niej trzech fotografów łączy umiejętność łapania tego, „co dzieje się między ludźmi”. Kawa ma być w tych kadrach dyskretnym tłem, a nie bohaterem.
+Francesca Lavazza z zarządu Grupy Lavazza mówi, że kalendarz od ponad 30 lat jest miejscem, gdzie tożsamość marki spotyka się z niezależnym spojrzeniem artystów. Według niej trzech fotografów łączy umiejętność łapania tego, „co dzieje się między ludźmi”.
 
 To nie pierwsza współpraca Lavazzy z Magnum. Wcześniejsze kalendarze robili m.in. Elliott Erwitt, Steve McCurry i Ferdinando Scianna, a wersję na 2026 rok Alex Webb, który fotografował Włochy. Sama agencja Magnum, założona w 1947 roku przez Henriego Cartier-Bressona, Roberta Capę, George'a Rodgera i Davida Seymoura, w 2027 roku skończy 80 lat.
 
@@ -76,7 +76,7 @@ To nie pierwsza współpraca Lavazzy z Magnum. Wcześniejsze kalendarze robili m
 ![Para z filiżanką kawy na metalowych schodach przeciwpożarowych, zdjęcie w ręcznie malowanej ramce](/assets/images/blog/lavazza-2027-okladka-nowy-jork-jim-goldberg.jpg)
 *Okładka części z Nowego Jorku, fot. Jim Goldberg / Kalendarz Lavazza 2027.*
 
-Kalendarz otwiera Nowy Jork. Goldberg dopisał i domalował na odbitkach ramki i zdania pisane ręcznie, jak w swoich dawnych projektach, gdzie łączył zdjęcia z tekstem. Mówi o sobie, że jest w Nowym Jorku „turystą”. Okładkę i luty zrobił na schodach przeciwpożarowych kamienicy, które znamy z amerykańskich filmów.
+Kalendarz otwiera Nowy Jork. Goldberg domalował na odbitkach ramki i dopisał ręcznie zdania, jak w swoich dawnych projektach, w których łączył zdjęcia z tekstem. Mówi o sobie, że jest w Nowym Jorku „turystą”. Okładkę i luty zrobił na schodach przeciwpożarowych kamienicy, które znamy z amerykańskich filmów.
 
 Styczeń jest żartobliwy: dziewczyna pije kawę zanurzona po szyję w pianie. Marzec to opiekun psów na schodach kamienicy, otoczony podopiecznymi podpisanymi imionami. W kwietniu na zdjęciu są Martin Scorsese i jego córka Francesca, też reżyserka. Oboje występują w serialu reklamowym Lavazzy „Family Blend”.
 
@@ -93,7 +93,7 @@ Jim Goldberg urodził się w 1953 roku w Connecticut. Od lat fotografuje ludzi z
 ![Kobieta w sukni w kropki siedzi z kubkiem kawy na skale obok latarni morskiej w niebiesko-białe pasy](/assets/images/blog/lavazza-2027-okladka-lizbona-alex-majoli.jpg)
 *Okładka części z Lizbony, fot. Alex Majoli / Kalendarz Lavazza 2027.*
 
-Majoli od lat prowadzi projekt „Scene”: sztucznym światłem dramatyzuje zwykłe sytuacje, tak że ulica wygląda jak plan filmowy. Także w jego lizbońskich zdjęciach codzienne sceny nabierają teatralnego charakteru. W maju poranne światło pada na ocean, w czerwcu dwóch kolegów pije kawę przy żółtym tramwaju, w lipcu para tańczy przed ścianą z azulejos, a w sierpniu śpiewa śpiewaczka fado. Przyjemność opisuje jako „intensywność bycia tu i teraz”, kiedy na chwilę widać teatr codziennego życia.
+Majoli od lat prowadzi projekt „Scene”: sztucznym światłem dramatyzuje zwykłe sytuacje, tak że ulica wygląda jak plan filmowy. Także w jego lizbońskich zdjęciach codzienne sceny nabierają teatralnego charakteru. W maju poranne światło pada na ocean, w czerwcu dwóch kolegów pije kawę przy żółtym tramwaju, w lipcu para tańczy przed ścianą z azulejos, a sierpień to śpiewaczka fado z gitarzystami. Sam Majoli opisuje przyjemność jako „intensywność bycia tu i teraz”, kiedy na chwilę widać teatr codziennego życia.
 
 ![Ekipa fotograficzna ze statywami na tarasie przy latarni morskiej w niebiesko-białe pasy o świcie](/assets/images/blog/lavazza-2027-kulisy-lizbona-latarnia.jpg)
 *Za kulisami w Lizbonie: sesja okładki przy latarni morskiej.*

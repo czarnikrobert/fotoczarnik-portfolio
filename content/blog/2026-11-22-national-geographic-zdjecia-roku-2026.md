@@ -10,7 +10,7 @@ cover: "/assets/images/blog/natgeo-poty-2026-langury-prakash-matada.jpg"
 
 Są tu zdjęcia przyrody, ale też reportaże o klimacie, rolnictwie i tradycjach, sport i eksperymenty techniczne: fotopułapka, aparat otworkowy naświetlany przez pół roku, obiektyw rybie oko na teleskopowym wysięgniku.
 
-## Dlaczego to zestawienie ma dziś znaczenie
+## Prawdziwe zdjęcia w czasach AI
 
 Redaktor naczelny National Geographic Nathan Lump zwraca uwagę, że tegoroczna selekcja powstaje w czasie, gdy coraz więcej jest obrazów generowanych przez sztuczną inteligencję. Według niego im trudniej odróżnić prawdziwe zdjęcie od syntetycznego, tym ważniejsze staje się dokumentowanie rzeczywistości.
 
@@ -19,7 +19,7 @@ Redaktor naczelny National Geographic Nathan Lump zwraca uwagę, że tegoroczna 
 ![Wielobarwny łuk smug słonecznych nad grzbietem wzgórza z kamiennymi wieżami na pustyni](/assets/images/blog/natgeo-poty-2026-chankillo-diego-lopez-calvin.jpg)
 *„Catching Solar Rays”, fot. Diego López Calvín / National Geographic Pictures of the Year 2026.*
 
-Najbardziej nietypowe zdjęcie zestawienia zrobił hiszpański fotograf Diego López Calvín w Peru. Ustawił aparat otworkowy, czyli pudełko bez obiektywu z małym otworem, przy kompleksie Chankillo. To najstarsze znane obserwatorium słoneczne w obu Amerykach: 13 kamiennych wież zbudowanych na grzbiecie wzgórza ok. III wieku p.n.e. tworzy kalendarz, który wyznacza ruch Słońca w ciągu roku.
+Jedno z najbardziej nietypowych zdjęć zestawienia zrobił hiszpański fotograf Diego López Calvín w Peru. Ustawił aparat otworkowy, czyli pudełko bez obiektywu z małym otworem, przy kompleksie Chankillo. To najstarsze znane obserwatorium słoneczne w obu Amerykach: 13 kamiennych wież zbudowanych na grzbiecie wzgórza ok. III wieku p.n.e. tworzy kalendarz, który wyznacza ruch Słońca w ciągu roku.
 
 Aparat naświetlał papier światłoczuły przez sześć miesięcy, od czerwcowego do grudniowego przesilenia (według Fotopolis od 21 czerwca do 21 grudnia 2025 roku). Każda wąska smuga w łuku to droga Słońca w ciągu jednego dnia. López Calvín zeskanował papier i odwrócił obraz. Róże, błękity i fiolety to efekt reakcji soli srebra w papierze na promieniowanie ultrafioletowe. Takie zdjęcia autor nazywa solarigrafiami i robi je na całym świecie od 2000 roku.
 
@@ -37,7 +37,7 @@ Według Fotopolis za tę serię Burrard-Lucas zdobył w kwietniu pierwsze miejsc
 ![Sylwetka wspinacza wiszącego pod nawisem skalnym nad morzem, w tle zachodzący sierp słońca i dwie żaglówki](/assets/images/blog/natgeo-poty-2026-chris-sharma-chris-burkard.jpg)
 *„Total Cliff-Hanger”, fot. Chris Burkard / National Geographic Pictures of the Year 2026.*
 
-To ujęcie było starannie zaplanowane. Wspinacz Chris Sharma, pionier wspinaczki nad wodą bez lin (deepwater soloing), wisi pod poziomym wapiennym nawisem na Majorce, tuż po sierpniowym całkowitym zaćmieniu Słońca. Chris Burkard i jego asystent Joel Barger fotografowali z plaży oddalonej o ok. 180 metrów, kiedy Księżyc zsuwał się z tarczy Słońca, a Słońce chowało się za horyzont. Burkard mówi, że faza całkowita była fascynująca, ale wspinaczka Sharmy była chyba najbardziej niezwykłą rzeczą, jaką kiedykolwiek zobaczy.
+To ujęcie było starannie zaplanowane. Wspinacz Chris Sharma, pionier wspinaczki nad wodą bez lin (deepwater soloing), wisi pod poziomym wapiennym nawisem na Majorce, tuż po sierpniowym całkowitym zaćmieniu Słońca. Chris Burkard i jego asystent Joel Barger fotografowali z plaży oddalonej o ok. 180 metrów, kiedy Księżyc zsuwał się z tarczy Słońca, a Słońce chowało się za horyzont. Burkard mówi, że faza całkowita była fascynująca, ale wspinaczka Sharmy to chyba najbardziej niezwykła rzecz, jaką kiedykolwiek zobaczy.
 
 ## Langury w obiektywie rybie oko
 
@@ -48,7 +48,7 @@ Zdjęcie na górze wpisu zrobił Prakash Matada w stanie Asam w Indiach. Na tele
 ![Okładka grudniowego numeru National Geographic: dwie mureny na czarnym tle i napis Pictures of the Year](/assets/images/blog/natgeo-poty-2026-okladka-grudzien-2026.jpg)
 *Okładka grudniowego numeru National Geographic z zestawieniem Pictures of the Year 2026 (materiały Fotopolis.pl).*
 
-Grudniową okładkę zajmują mureny. Ich tarło pokazuje też pierwsze zdjęcie zestawienia, autorstwa Tony'ego Wu. Wu jako pierwszy człowiek sfotografował w naturze tarło węgorzy (mureny to ryby węgorzokształtne). Od 2023 roku spędził ze swoim zespołem setki godzin pod wodą w okolicach Kagoshimy w Japonii, dokumentując rozród czterech gatunków. Odkryli, że całe tarło trwa niecałe dwie sekundy: ryby wypadają z kryjówek w koralowcach, uwalniają gamety i wracają. Dzieje się to nocą, więc Wu pracował przy słabym czerwonym świetle, które nie płoszy ryb. Za ten projekt zdobył też pierwsze miejsce w kategorii Underwater w [Wildlife Photographer of the Year 2026](/blog/wildlife-photographer-of-the-year-2026-federico-veronesi.html).
+Grudniową okładkę zajmują mureny. Ich tarło pokazuje też pierwsze zdjęcie zestawienia, autorstwa Tony'ego Wu. Jest on pierwszym człowiekiem, który sfotografował w naturze tarło węgorzy (mureny to ryby węgorzokształtne). Od 2023 roku spędził ze swoim zespołem setki godzin pod wodą w okolicach Kagoshimy w Japonii, dokumentując rozród czterech gatunków. Odkryli, że całe tarło trwa niecałe dwie sekundy: ryby wypadają z kryjówek w koralowcach, uwalniają gamety i wracają. Dzieje się to nocą, więc Wu pracował przy słabym czerwonym świetle, które nie płoszy ryb. Za ten projekt zdobył też pierwsze miejsce w kategorii Underwater w [Wildlife Photographer of the Year 2026](/blog/wildlife-photographer-of-the-year-2026-federico-veronesi.html).
 
 W zupełnie innych warunkach pracował Kiliii Yüyan. Sfotografował rekina polarnego w fiordzie Ammassalik przy Kulusuk na wschodzie Grenlandii. Rekiny polarne żyją nawet 500 lat i są najdłużej żyjącymi kręgowcami na Ziemi. Yüyan uważa, że sfotografowany osobnik to młodzik, który urodził się mniej więcej w czasie wojny secesyjnej. Według Fotopolis zdjęcie powstało w marcu 2026 roku pod metrową warstwą lodu, w wodzie o temperaturze ok. -2°C. Chwilę po zrobieniu zdjęcia zespół na lodzie pociągnął za linę, wzywając nurków na górę: w pobliżu pojawił się niedźwiedź polarny, który poluje na foki przy przeręblach.
 
